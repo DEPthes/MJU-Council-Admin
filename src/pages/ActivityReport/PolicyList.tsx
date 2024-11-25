@@ -1,5 +1,5 @@
 import PolicyHeader from "@/components/ActivityReport/PolicyList/PolicyHeader";
-import * as S from "@styles/ActivityReport/PolicyList/PolicyListPage";
+import * as S from "@/styles/ActivityReport/PolicyList/PolicyListPageStyle";
 
 const PolicyList = () => {
   return (

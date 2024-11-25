@@ -4,4 +4,5 @@ export const Container = styled.div`
   display: flex;
   width: 100vw;
   padding: 0 16%;
+  box-sizing: border-box;
 `;
