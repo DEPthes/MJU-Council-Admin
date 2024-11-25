@@ -56,6 +56,14 @@
   --Button: 700 16px / 100% Noto Sans KR;
   --Footer: 400 12px / 160% Noto Sans KR;
   --Caption: 400 12px / 100% Noto Sans KR;
+  --PC_SubeaderText: 500 18px / 145% Noto Sans KR;
+  --PC_LoginText: 700 40px / 145% Noto Sans KR;
+  --PC_ButtonText: 700 20px / 145% Noto Sans KR;
+  --PC_InputText: 400 20px / 145% Noto Sans KR;
+  --PC_BodyText: 400 16px / 145% Noto Sans KR;
+  --PC_MenuText: 700 18px / 145% Noto Sans KR;
+  --PC_TitleText: 700 48px / 145% Noto Sans KR;
+  --PC_ButtonText2: 700 16px / 145% Noto Sans KR;
 
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
