@@ -1,4 +1,4 @@
-import * as S from "@styles/common/FixButtonStyle";
+import * as S from "@/styles/common/Button/FixButtonStyle";
 
 interface FixButtonProps {
   onClick: () => void;
