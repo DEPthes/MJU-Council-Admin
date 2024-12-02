@@ -1,17 +1,40 @@
+import DeleteButton from "@/components/common/DeleteButton";
 import FixButton from "@/components/common/FixButton";
+import SubmitButton from "@/components/common/SubmitButton";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
+import { useState } from "react";
+import PolicyDeleteModal from "../PolicyDeleteModal";
 
 interface PolicyHeaderProps {
   title: string;
 }
 
 const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title }) => {
+  const [isFix, setIsFix] = useState<boolean>(false);
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+
+  const handleSubmit = () => {
+    setIsFix(false);
+  };
+
   return (
     <S.Container>
+      {isShowModal && (
+        <PolicyDeleteModal onCancel={() => setIsShowModal(false)} />
+      )}
       <S.Bar />
       <S.TextContainer>
-        <S.Text>{title}</S.Text>
-        <FixButton onClick={() => console.log()} isM70={true} />
+        {isFix ? <S.TextInput placeholder={title} /> : <S.Text>{title}</S.Text>}
+        <S.ButtonContainer>
+          {isFix ? (
+            <>
+              <DeleteButton onClick={() => setIsShowModal(true)} />
+              <SubmitButton onClick={handleSubmit} isM70={true} />
+            </>
+          ) : (
+            <FixButton onClick={() => setIsFix(true)} isM70={true} />
+          )}
+        </S.ButtonContainer>
       </S.TextContainer>
     </S.Container>
   );

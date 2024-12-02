@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ $isM70?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,7 +8,8 @@ export const Container = styled.div`
   width: 100px;
   height: 40px;
   cursor: pointer;
-  background-color: var(--Primary);
+  background-color: ${(props) =>
+    props.$isM70 ? "var(--M70)" : "var(--Primary)"};
 `;
 
 export const Text = styled.p`

@@ -34,8 +34,6 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item, fix }) => {
     setPromise((prev) => ({ ...prev, [name]: value }));
   };
 
-  console.log(promise);
-
   return (
     <S.Container>
       <S.ButtonContainer>

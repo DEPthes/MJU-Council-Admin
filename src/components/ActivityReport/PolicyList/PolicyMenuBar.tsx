@@ -20,7 +20,7 @@ const PolicyMenuBar: React.FC<PolicyMenuBarProps> = ({
           {title}
         </S.Item>
       ))}
-      <S.Item $isSelected={false} onClick={() => console.log()}>
+      <S.Item $isSelected={policy === "new"} onClick={() => onClick("new")}>
         <Add />
       </S.Item>
     </S.Container>
