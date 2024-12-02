@@ -52,6 +52,32 @@ export const PromiseInput = styled.input`
   color: var(--Primary);
   border: none;
   background-color: var(--M5);
+
+  &::placeholder {
+    color: var(--M50);
+    font: var(--PC_InputText);
+  }
+`;
+
+export const PromiseTextArea = styled.textarea`
+  width: 100%;
+  padding: 15px 20px;
+  margin-top: 0;
+  margin-bottom: 40px;
+  box-sizing: border-box;
+  text-align: justify;
+  font: var(--PC_InputText);
+  color: var(--Primary);
+  border: none;
+  background-color: var(--M5);
+  background-color: var(--M5);
+  resize: none;
+  overflow: hidden;
+
+  &::placeholder {
+    color: var(--M50);
+    font: var(--PC_InputText);
+  }
 `;
 
 export const BarContainer = styled.div`

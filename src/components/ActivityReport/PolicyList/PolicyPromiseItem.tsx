@@ -9,21 +9,32 @@ import React, { useState } from "react";
 
 interface PolicyPromiseItemProps {
   item: Promise;
+  fix?: boolean;
 }
 
-const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
-  const [isFix, setIsFix] = useState<boolean>(false);
+const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item, fix }) => {
+  const [isFix, setIsFix] = useState<boolean>(fix ?? false);
   const [promise, setPromise] = useState<Promise>({
     id: item.id,
     title: item.title,
     content: item.content,
     progress: item.progress,
   });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  console.log(promise);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
+
+    if (e.target instanceof HTMLTextAreaElement) {
+      e.target.style.height = "auto";
+      e.target.style.height = `${e.target.scrollHeight}px`;
+    }
+
     setPromise((prev) => ({ ...prev, [name]: value }));
   };
+
+  console.log(promise);
 
   return (
     <S.Container>
@@ -45,6 +56,7 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
             value={promise.title}
             onChange={handleInputChange}
             name="title"
+            placeholder="공약을 작성해주세요."
           />
         ) : (
           <S.Promise>{item.title}</S.Promise>
@@ -54,12 +66,21 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
         <S.BarContainer>
           {isFix ? (
             <S.fulfillmentInputContainer>
-              {fulfillments.map((fulfillmentItem) => (
-                <S.fulfillmentTextContainer>
-                  <S.fulfillmentInput name="progress" />
-                  <S.fulfillmentText
-                    $selected={fulfillments[item.progress] === fulfillmentItem}
-                  >
+              {fulfillments.map((fulfillmentItem, index) => (
+                <S.fulfillmentTextContainer key={index}>
+                  <S.fulfillmentInput
+                    type="radio"
+                    name="progress"
+                    value={index}
+                    checked={promise.progress === index}
+                    onChange={(e) =>
+                      setPromise((prev) => ({
+                        ...prev,
+                        progress: parseInt(e.target.value),
+                      }))
+                    }
+                  />
+                  <S.fulfillmentText $selected={promise.progress === index}>
                     {fulfillmentItem}
                   </S.fulfillmentText>
                 </S.fulfillmentTextContainer>
@@ -93,7 +114,7 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
         </S.BarContainer>
 
         {isFix ? (
-          <S.PromiseInput
+          <S.PromiseTextArea
             value={promise.content}
             onChange={handleInputChange}
             name="content"

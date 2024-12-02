@@ -28,7 +28,6 @@ const PolicyListPage = () => {
       <S.Container>
         <PolicyHeader title={policy!} />
         <PolicyPromiseComponent />
-        <S.AddButton>추가</S.AddButton>
       </S.Container>
     </>
   );
