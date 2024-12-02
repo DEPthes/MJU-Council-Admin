@@ -20,7 +20,6 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item, fix }) => {
     content: item.content,
     progress: item.progress,
   });
-  console.log(promise);
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
