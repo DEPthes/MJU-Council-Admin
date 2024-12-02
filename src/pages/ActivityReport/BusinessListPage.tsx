@@ -1,12 +1,23 @@
 import BusinessListComponent from "@/components/ActivityReport/BusinessLlist/BusinessListComponent";
+import DeleteModal from "@/components/common/DeleteModal";
 import PageComponent from "@/components/common/PageComponent";
 import * as S from "@styles/ActivityReport/BusinessList/BusinessListPageStyle";
+import { useState } from "react";
 
 const BusinessListPage = () => {
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
   return (
     <S.Container>
+      {isShowModal && (
+        <DeleteModal
+          onCancel={() => setIsShowModal(false)}
+          onSubmit={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+      )}
       <S.ButtonContainer>
-        <S.AllDeleteButton>
+        <S.AllDeleteButton onClick={() => setIsShowModal(true)}>
           <S.Text>전체 삭제</S.Text>
         </S.AllDeleteButton>
         <S.NewPostButton>

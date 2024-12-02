@@ -3,7 +3,7 @@ import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { useState } from "react";
-import PolicyDeleteModal from "../PolicyDeleteModal";
+import DeleteModal from "../../common/DeleteModal";
 
 interface PolicyHeaderProps {
   title: string;
@@ -20,7 +20,12 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title }) => {
   return (
     <S.Container>
       {isShowModal && (
-        <PolicyDeleteModal onCancel={() => setIsShowModal(false)} />
+        <DeleteModal
+          onCancel={() => setIsShowModal(false)}
+          onSubmit={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
       )}
       <S.Bar />
       <S.TextContainer>

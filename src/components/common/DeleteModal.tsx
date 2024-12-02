@@ -1,9 +1,14 @@
 import * as S from "@styles/ActivityReport/PolicyList/PolicyDeleteModalStyle";
 import { useState } from "react";
-import CancelButton from "../common/Button/CancelButton";
-import OkButton from "../common/Button/OkButton";
+import CancelButton from "./Button/CancelButton";
+import OkButton from "./Button/OkButton";
 
-const PolicyDeleteModal = ({ onCancel }: { onCancel: () => void }) => {
+interface DeleteModalProps {
+  onCancel: () => void;
+  onSubmit: () => void;
+}
+
+const DeleteModal: React.FC<DeleteModalProps> = ({ onCancel, onSubmit }) => {
   const [check, setCheck] = useState("");
 
   const checkText = "확인했습니다";
@@ -14,7 +19,7 @@ const PolicyDeleteModal = ({ onCancel }: { onCancel: () => void }) => {
 
   const handleConfirm = () => {
     if (check === checkText) {
-      console.log();
+      onSubmit();
     } else {
       alert(`'${checkText}'를 정확히 입력해주세요.`);
     }
@@ -37,4 +42,4 @@ const PolicyDeleteModal = ({ onCancel }: { onCancel: () => void }) => {
   );
 };
 
-export default PolicyDeleteModal;
+export default DeleteModal;
