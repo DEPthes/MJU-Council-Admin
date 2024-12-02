@@ -1,6 +1,6 @@
-import DeleteButton from "@/components/common/DeleteButton";
-import FixButton from "@/components/common/FixButton";
-import SubmitButton from "@/components/common/SubmitButton";
+import DeleteButton from "@/components/common/Button/DeleteButton";
+import FixButton from "@/components/common/Button/FixButton";
+import SubmitButton from "@/components/common/Button/SubmitButton";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { useState } from "react";
 import PolicyDeleteModal from "../PolicyDeleteModal";

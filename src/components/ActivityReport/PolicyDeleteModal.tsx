@@ -1,7 +1,7 @@
 import * as S from "@styles/ActivityReport/PolicyList/PolicyDeleteModalStyle";
 import { useState } from "react";
-import CancelButton from "../common/CancelButton";
-import OkButton from "../common/OkButton";
+import CancelButton from "../common/Button/CancelButton";
+import OkButton from "../common/Button/OkButton";
 
 const PolicyDeleteModal = ({ onCancel }: { onCancel: () => void }) => {
   const [check, setCheck] = useState("");
