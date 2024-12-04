@@ -1,6 +1,6 @@
-import NavBar from "@components/Home/NavBar";
+import NavBar from "@/components/NavBar/NavBar";
 import * as S from "@styles/Home/Page/HomePageStyle";
-import Footer from "@/components/Home/Footer/Footer";
+import Footer from "@/components/Footer/Footer";
 import AddBanner from "@/components/Home/Banner/AddBanner";
 
 const Home = () => {

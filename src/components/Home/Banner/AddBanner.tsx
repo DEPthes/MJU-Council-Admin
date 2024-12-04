@@ -1,6 +1,6 @@
 import * as S from "@styles/Home/Banner/AddBannerComponentStyle";
 import AddBtn from "./AddBtn";
-import FixFooterBtn from "../Footer/FixFooterBtn";
+import FixFooterBtn from "@components/Footer/FixFooterBtn";
 
 const AddBanner = () => {
     return(

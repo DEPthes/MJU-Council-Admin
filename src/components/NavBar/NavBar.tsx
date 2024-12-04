@@ -2,7 +2,7 @@ import div_bar from "@assets/image/Div_bar.svg";
 import nav_logo from "@assets/image/Nav_logo.svg";
 import ManagerLogo from "@assets/image/Manager.svg";
 import NavDivRect from "@assets/image/NavDivRect.svg";
-import * as S from "@styles/Home/Component/NavBarComponentStyle";
+import * as S from "@styles/NavBar/NavBarComponentStyle";
 
 const NavBar = () => {
   return (
