@@ -1,4 +1,4 @@
-import * as S from "@/styles/Home/Footer/FooterComponentStyle";
+import * as S from "@styles/Footer/FooterComponentStyle";
 
 import Council_logo from "@assets/image/Council_logo.svg";
 import Instagram from "@assets/image/Instagram.svg";

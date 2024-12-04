@@ -1,4 +1,4 @@
-import * as S from "@/styles/Home/Footer/FixFooterBtnComponentStyle";
+import * as S from "@styles/Footer/FixFooterBtnComponentStyle";
 
 const FixFooterBtn = () => {
     return(
