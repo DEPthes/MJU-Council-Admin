@@ -1,15 +1,13 @@
-import NavBar from "@/components/NavBar/NavBar";
-import * as S from "@styles/Home/Page/HomePageStyle";
-import Footer from "@/components/Footer/Footer";
 import AddBanner from "@/components/Home/Banner/AddBanner";
+import * as S from "@styles/Home/Page/HomePageStyle";
 
 const Home = () => {
   return (
     <>
       <S.MainPage>
-        <NavBar/>
-        <AddBanner/>
-        <Footer/>
+        {/* <NavBar/> */}
+        <AddBanner />
+        {/* <Footer/> */}
       </S.MainPage>
     </>
   );

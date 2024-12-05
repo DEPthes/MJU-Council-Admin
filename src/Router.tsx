@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
+import Login from "./components/Login/Login";
 import BusinessDetailPage from "./pages/ActivityReport/BusinessDetailPage";
 import BusinessFixPage from "./pages/ActivityReport/BusinessFixPage";
 import BusinessListPage from "./pages/ActivityReport/BusinessListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
-import Home from "./pages/Home/HomePage";
-import Login from "./components/Login/Login";
 import FooterPage from "./pages/Footer/FooterPage";
+import Home from "./pages/Home/HomePage";
 
 const Router = () => {
   return (
@@ -15,14 +15,8 @@ const Router = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route 
-            path="/login" 
-            element={<Login />} 
-          />
-          <Route
-            path="/footer"
-            element={<FooterPage/>}
-          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/footer" element={<FooterPage />} />
           <Route
             path="/activityReport/policyList"
             element={<PolicyListPage />}
