@@ -4,6 +4,7 @@ import Login from "./components/Login/Login";
 import BusinessDetailPage from "./pages/ActivityReport/BusinessDetailPage";
 import BusinessFixPage from "./pages/ActivityReport/BusinessFixPage";
 import BusinessListPage from "./pages/ActivityReport/BusinessListPage";
+import CoalitionDetailPage from "./pages/ActivityReport/CoalitionDetailPage";
 import CoalitionListPage from "./pages/ActivityReport/CoalitionListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
 import NewCoalitionPage from "./pages/ActivityReport/NewCoalitionPage";
@@ -47,10 +48,10 @@ const Router = () => {
             path="/activityReport/newCoalition"
             element={<NewCoalitionPage />}
           />
-          {/* <Route
+          <Route
             path="/activityReport/coalitionDetail/:id"
             element={<CoalitionDetailPage />}
-          /> */}
+          />
           {/* </Route> */}
         </Routes>
       </Layout>
