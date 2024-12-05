@@ -16,7 +16,7 @@ const CoalitionComponent: React.FC<CoalitionComponentProps> = ({ item }) => {
       />
       <S.ItemContainer>
         <S.HeacerContainer>
-          제휴명
+          {item.title}
           <Arrow
             stroke="var(--Secondary)"
             style={{ transform: "rotate(-90deg)" }}

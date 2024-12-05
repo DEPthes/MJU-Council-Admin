@@ -19,7 +19,7 @@ const data = {
       },
       {
         allianceId: 9,
-        title: "제휴",
+        title: "제aefe휴",
         cover:
           "https://council-s3-bucket.s3.amazonaws.com/file/7b7752ed-2643-4ecf-9f25-6c672e5a5380.png",
         startDate: "2024-11-12",
