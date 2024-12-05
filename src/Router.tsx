@@ -5,7 +5,9 @@ import BusinessFixPage from "./pages/ActivityReport/BusinessFixPage";
 import BusinessListPage from "./pages/ActivityReport/BusinessListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
-import Home from "./pages/Home";
+import Home from "./pages/Home/HomePage";
+import Login from "./components/Login/Login";
+import FooterPage from "./pages/Footer/FooterPage";
 
 const Router = () => {
   return (
@@ -13,9 +15,13 @@ const Router = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route 
+            path="/login" 
+            element={<Login />} 
+          />
           <Route
-            path="/activityReport/policyList"
-            element={<PolicyListPage />}
+            path="/footer"
+            element={<FooterPage/>}
           />
           <Route
             path="/activityReport/policyList"
