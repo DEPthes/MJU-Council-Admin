@@ -7,7 +7,7 @@ import * as S from "@styles/ActivityReport/BusinessList/NewBusinessPageStyle";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const BusinessFixPage = () => {
+const CoalitionFixPage = () => {
   const data = {
     check: true,
     information: {
@@ -41,7 +41,7 @@ const BusinessFixPage = () => {
     },
     message: "사업 1번을 조회합니다.",
   };
-  const [businessPost, setBusinessPost] =
+  const [coalitionPost, setCoalitionPost] =
     useState<BusinessDetailResponse>(data);
 
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
@@ -50,8 +50,8 @@ const BusinessFixPage = () => {
 
   // 제목과 내용이 비어 있는지 확인
   const isSubmitDisabled =
-    !businessPost.information.title.trim() ||
-    !businessPost.information.content.trim();
+    !coalitionPost.information.title.trim() ||
+    !coalitionPost.information.content.trim();
 
   const navigator = useNavigate();
 
@@ -65,7 +65,7 @@ const BusinessFixPage = () => {
       e.target.style.height = `${e.target.scrollHeight}px`;
     }
 
-    setBusinessPost((prev) => ({
+    setCoalitionPost((prev) => ({
       ...prev,
       information: {
         ...prev.information,
@@ -90,7 +90,7 @@ const BusinessFixPage = () => {
         );
       }
 
-      setBusinessPost((prev) => ({
+      setCoalitionPost((prev) => ({
         ...prev,
         information: {
           ...prev.information,
@@ -101,7 +101,7 @@ const BusinessFixPage = () => {
   };
 
   const handleFileRemove = (index: number, key: "files" | "images") => {
-    setBusinessPost((prev) => {
+    setCoalitionPost((prev) => {
       return {
         ...prev,
         information: {
@@ -137,14 +137,14 @@ const BusinessFixPage = () => {
       </S.ButtonContainer>
       <S.Label>제목</S.Label>
       <S.TitleInput
-        value={businessPost.information.title}
+        value={coalitionPost.information.title}
         placeholder="제목을 입력하세요."
         name="title"
         onChange={handleInputChange}
       />
       <S.Label>이미지</S.Label>
       <S.ImageContainer>
-        {businessPost.information.images.map((item, index) => (
+        {coalitionPost.information.images.map((item, index) => (
           <S.Image key={index}>
             <img
               src={item.url}
@@ -174,13 +174,13 @@ const BusinessFixPage = () => {
       </S.ImageContainer>
       <S.Label>내용</S.Label>
       <S.TextArea
-        value={businessPost.information.content}
+        value={coalitionPost.information.content}
         placeholder="내용을 입력하세요."
         onChange={handleInputChange}
         name="content"
       />
       <S.Label>첨부 파일</S.Label>
-      {businessPost.information.files.map((item, index) => (
+      {coalitionPost.information.files.map((item, index) => (
         <NewBusinessFileComponent
           key={index}
           title={item.name}
@@ -205,4 +205,4 @@ const BusinessFixPage = () => {
   );
 };
 
-export default BusinessFixPage;
+export default CoalitionFixPage;

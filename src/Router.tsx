@@ -5,6 +5,7 @@ import BusinessDetailPage from "./pages/ActivityReport/BusinessDetailPage";
 import BusinessFixPage from "./pages/ActivityReport/BusinessFixPage";
 import BusinessListPage from "./pages/ActivityReport/BusinessListPage";
 import CoalitionDetailPage from "./pages/ActivityReport/CoalitionDetailPage";
+import CoalitionFixPage from "./pages/ActivityReport/CoalitionFixPage";
 import CoalitionListPage from "./pages/ActivityReport/CoalitionListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
 import NewCoalitionPage from "./pages/ActivityReport/NewCoalitionPage";
@@ -52,7 +53,10 @@ const Router = () => {
             path="/activityReport/coalitionDetail/:id"
             element={<CoalitionDetailPage />}
           />
-          {/* </Route> */}
+          <Route
+            path="/activityRepory/coalitionFix/:id"
+            element={<CoalitionFixPage />}
+          />
         </Routes>
       </Layout>
     </BrowserRouter>

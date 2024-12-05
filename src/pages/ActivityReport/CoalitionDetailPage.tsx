@@ -4,7 +4,7 @@ import FixButton from "@/components/common/Button/FixButton";
 import CheckModal from "@/components/common/CheckModal";
 import * as S from "@styles/ActivityReport/BusinessList/BusinessDetailStyle";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const data = {
   check: true,
@@ -43,6 +43,7 @@ const data = {
 
 const CoalitionDetailPage = () => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const { id } = useParams<{ id: string }>();
 
   const navigator = useNavigate();
 
@@ -55,7 +56,7 @@ const CoalitionDetailPage = () => {
           onCancel={() => setIsShowModal(false)}
         />
       )}
-      <S.BackButton onClick={() => navigator("/activityReport/businessList")}>
+      <S.BackButton onClick={() => navigator("/activityReport/coalitionList")}>
         목록으로
       </S.BackButton>
       <S.HeaderContainer>
@@ -63,7 +64,7 @@ const CoalitionDetailPage = () => {
         <S.ButtonContainer>
           <DeleteButton onClick={() => setIsShowModal(true)} />
           <FixButton
-            onClick={() => navigator("/activityRepory/businessFix/:id")}
+            onClick={() => navigator(`/activityRepory/coalitionFix/${id}`)}
           />
         </S.ButtonContainer>
       </S.HeaderContainer>

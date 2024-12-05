@@ -7,7 +7,7 @@ export const pathToKoreanMap: Record<string, string> = {
   newBusiness: "사업활동",
   businessListDetail: "사업 목록",
   businessSearchResult: "사업 목록",
-  coalition: "제휴 현황",
+  coalitionList: "제휴 현황",
   newCoalition: "제휴",
   coalitionDetail: "제휴 현황",
   news: "소식",

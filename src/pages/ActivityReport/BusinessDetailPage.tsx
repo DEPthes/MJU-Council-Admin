@@ -4,7 +4,7 @@ import FixButton from "@/components/common/Button/FixButton";
 import CheckModal from "@/components/common/CheckModal";
 import * as S from "@styles/ActivityReport/BusinessList/BusinessDetailStyle";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const data = {
   check: true,
@@ -42,6 +42,7 @@ const data = {
 
 const BusinessDetailPage = () => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const { id } = useParams<{ id: string }>();
 
   const navigator = useNavigate();
 
@@ -62,7 +63,7 @@ const BusinessDetailPage = () => {
         <S.ButtonContainer>
           <DeleteButton onClick={() => setIsShowModal(true)} />
           <FixButton
-            onClick={() => navigator("/activityRepory/businessFix/:id")}
+            onClick={() => navigator(`/activityRepory/businessFix/${id}`)}
           />
         </S.ButtonContainer>
       </S.HeaderContainer>
