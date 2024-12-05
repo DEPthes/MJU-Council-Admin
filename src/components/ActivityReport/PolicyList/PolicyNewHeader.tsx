@@ -1,4 +1,4 @@
-import SubmitButton from "@/components/common/SubmitButton";
+import SubmitButton from "@/components/common/Button/SubmitButton";
 import * as S from "@styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { useState } from "react";
 

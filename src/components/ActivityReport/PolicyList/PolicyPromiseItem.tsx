@@ -1,6 +1,6 @@
-import DeleteButton from "@/components/common/DeleteButton";
-import FixButton from "@/components/common/FixButton";
-import SubmitButton from "@/components/common/SubmitButton";
+import DeleteButton from "@/components/common/Button/DeleteButton";
+import FixButton from "@/components/common/Button/FixButton";
+import SubmitButton from "@/components/common/Button/SubmitButton";
 import { fulfillments } from "@/constants/ActivityReport";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyPromiseItemStyle";
 import { Promise } from "@/types/ActivityReport/Policy";
@@ -20,7 +20,6 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item, fix }) => {
     content: item.content,
     progress: item.progress,
   });
-  console.log(promise);
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {

@@ -10,6 +10,8 @@ export const Container = styled.div`
 export const AddButton = styled.button`
   display: flex;
   width: 100%;
+  height: 80px;
+  box-sizing: border-box;
   border-radius: 4px;
   border: 2px solid var(--Primary);
   background-color: white;
