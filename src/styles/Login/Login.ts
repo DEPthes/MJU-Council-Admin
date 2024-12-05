@@ -1,12 +1,18 @@
 import styled from "styled-components";
 
 export const LDiv = styled.div`
+position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
     height: 100%;
+    width: 100%;
+    margin: auto;
+    background-color: white;
 `;
 export const LText = styled.div`
     display: flex;

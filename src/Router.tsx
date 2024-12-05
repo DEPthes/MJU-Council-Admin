@@ -16,51 +16,56 @@ import CentralCommiteePage from "./pages/Introduction/CentralCommiteePage";
 const Router = () => {
   return (
     <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/footer" element={<FooterPage />} />
-          <Route
-            path="/activityReport/policyList"
-            element={<PolicyListPage />}
-          />
-          <Route
-            path="/activityReport/businessList"
-            element={<BusinessListPage />}
-          />
-          <Route
-            path="/activityReport/newBusiness"
-            element={<NewBusinessPage />}
-          />
-          <Route
-            path="/activityReport/BusinessDetail/:id"
-            element={<BusinessDetailPage />}
-          />
-          <Route
-            path="/activityRepory/BusinessFix/:id"
-            element={<BusinessFixPage />}
-          />
-          <Route
-            path="/introduction/introduce"
-            element={<IntroductionPage/>}
-          />
-          <Route
-            path="/introduction/organization"
-            element={<OrganizationPage/>}
-          />
-          <Route
-            path="/introduction/eachpart"
-            element={<EachPartPage/>}
-          />
-          <Route
-            path="/introduction/centralCommitee"
-            element={<CentralCommiteePage/>}
-          />
-
-        {/* </Route> */}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/footer" element={<FooterPage />} />
+                <Route
+                  path="/activityReport/policyList"
+                  element={<PolicyListPage />}
+                />
+                <Route
+                  path="/activityReport/businessList"
+                  element={<BusinessListPage />}
+                />
+                <Route
+                  path="/activityReport/newBusiness"
+                  element={<NewBusinessPage />}
+                />
+                <Route
+                  path="/activityReport/BusinessDetail/:id"
+                  element={<BusinessDetailPage />}
+                />
+                <Route
+                  path="/activityRepory/BusinessFix/:id"
+                  element={<BusinessFixPage />}
+                />
+                <Route
+                  path="/introduction/introduce"
+                  element={<IntroductionPage/>}
+                />
+                <Route
+                  path="/introduction/organization"
+                  element={<OrganizationPage/>}
+                />
+                <Route
+                  path="/introduction/eachpart"
+                  element={<EachPartPage/>}
+                />
+                <Route
+                  path="/introduction/centralCommitee"
+                  element={<CentralCommiteePage/>}
+                />
+              </Routes>
+            </Layout>
+          }
+        />
       </Routes>
-      </Layout>
     </BrowserRouter>
   );
 };
