@@ -40,7 +40,7 @@ const data = {
   message: "사업 1번을 조회합니다.",
 };
 
-const BusinessDetail = () => {
+const BusinessDetailPage = () => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const navigator = useNavigate();
@@ -89,4 +89,4 @@ const BusinessDetail = () => {
   );
 };
 
-export default BusinessDetail;
+export default BusinessDetailPage;

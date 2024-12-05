@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import BusinessDetail from "./pages/ActivityReport/BusinessDetail";
+import BusinessDetailPage from "./pages/ActivityReport/BusinessDetailPage";
+import BusinessFixPage from "./pages/ActivityReport/BusinessFixPage";
 import BusinessListPage from "./pages/ActivityReport/BusinessListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
@@ -11,7 +12,6 @@ const Router = () => {
     <BrowserRouter>
       <Layout>
         <Routes>
-          {/* <Route element={<Layout />}> */}
           <Route path="/" element={<Home />} />
           <Route
             path="/activityReport/policyList"
@@ -31,12 +31,12 @@ const Router = () => {
           />
           <Route
             path="/activityReport/BusinessDetail/:id"
-            element={<BusinessDetail />}
+            element={<BusinessDetailPage />}
           />
-          {/* <Route
-          path="/activityReport/businessListDetail/:id"
-          element={<BusinessListDetailPage />}
-        /> */}
+          <Route
+            path="/activityRepory/BusinessFix/:id"
+            element={<BusinessFixPage />}
+          />
           {/* </Route> */}
         </Routes>
       </Layout>

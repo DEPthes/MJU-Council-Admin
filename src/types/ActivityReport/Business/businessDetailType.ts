@@ -10,7 +10,7 @@ type BusinessImage = {
   url: string;
 };
 
-type Information = {
+export type BusinessDetailInformation = {
   title: string;
   content: string;
   createdAt: string;
@@ -18,8 +18,8 @@ type Information = {
   files: BusinessFile[];
 };
 
-export type ApiResponse = {
+export type BusinessDetailResponse = {
   check: boolean;
-  information: Information;
+  information: BusinessDetailInformation;
   message: string;
 };
