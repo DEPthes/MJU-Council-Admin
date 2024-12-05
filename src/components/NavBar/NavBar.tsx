@@ -19,10 +19,10 @@ const NavBar = () => {
         <S.MenuWrapper>
           <S.Menu>총학생회</S.Menu>
           <S.SubMenu>
-            <S.SubMenuItem to="/">소개</S.SubMenuItem>
-            <S.SubMenuItem to="/">조직도</S.SubMenuItem>
-            <S.SubMenuItem to="/">국별 업무 소개</S.SubMenuItem>
-            <S.SubMenuItem to="/">중앙운영위원회</S.SubMenuItem>
+            <S.SubMenuItem to="/introduction/introduce">소개</S.SubMenuItem>
+            <S.SubMenuItem to="/introduction/organization">조직도</S.SubMenuItem>
+            <S.SubMenuItem to="/introduction/eachpart">국별 업무 소개</S.SubMenuItem>
+            <S.SubMenuItem to="/introduction/centralCommitee">중앙운영위원회</S.SubMenuItem>
           </S.SubMenu>
         </S.MenuWrapper>
         <img src={NavDivRect}/>
