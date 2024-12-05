@@ -153,7 +153,6 @@ video {
   vertical-align: baseline;
 }
 
-
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -163,5 +162,4 @@ body {
   padding: 0;
   background-color: #ffffff;
   font-size: 100%;
-}
 }
