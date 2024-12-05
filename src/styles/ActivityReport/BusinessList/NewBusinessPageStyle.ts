@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   padding: 10%;
+  box-sizing: border-box;
 `;
 
 export const ButtonContainer = styled.div`
@@ -108,6 +109,10 @@ export const TextArea = styled.textarea`
   &::placeholder {
     color: var(--M50);
     font: var(--PC_InputText);
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
 

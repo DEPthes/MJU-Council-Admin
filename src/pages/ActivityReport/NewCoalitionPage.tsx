@@ -1,57 +1,28 @@
-import { Add, Clip } from "@/assets/common";
+import { Add, Clip, ImageDeleteButton } from "@/assets/common";
 import NewBusinessFileComponent from "@/components/ActivityReport/BusinessLlist/NewBusinessFileComponent";
 import PostCancelButton from "@/components/common/Button/PostCancelButton";
 import CheckModal from "@/components/common/CheckModal";
-import { BusinessDetailResponse } from "@/types/ActivityReport/Business/businessDetailType";
+import { RequestData } from "@/types/ActivityReport/Business";
 import * as S from "@styles/ActivityReport/BusinessList/NewBusinessPageStyle";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const BusinessFixPage = () => {
-  const data = {
-    check: true,
-    information: {
-      title: "사업001",
-      content: "사업001의 내용입니다.",
-      createdAt: "2024-11-17",
-      images: [
-        {
-          id: 1,
-          name: "사업 사진",
-          url: "https://councill-s3-bucket/aethkefjdif.png",
-        },
-        {
-          id: 2,
-          name: "사업 사진",
-          url: "https://councill-s3-bucket/aethkefjdif.png",
-        },
-      ],
-      files: [
-        {
-          id: 1,
-          name: "사업 파일",
-          url: "https://councill-s3-bucket/aethkefjdif.pdf",
-        },
-        {
-          id: 2,
-          name: "사업 파일",
-          url: "https://councill-s3-bucket/aethkefjdif.hwp",
-        },
-      ],
+const NewCoalitionPage = () => {
+  const [businessPost, setBusinessPost] = useState<RequestData>({
+    images: [],
+    files: [],
+    createBusinessReq: {
+      title: "",
+      content: "",
     },
-    message: "사업 1번을 조회합니다.",
-  };
-  const [businessPost, setBusinessPost] =
-    useState<BusinessDetailResponse>(data);
+  });
 
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
-  const { id } = useParams<{ id: string }>();
-
   // 제목과 내용이 비어 있는지 확인
   const isSubmitDisabled =
-    !businessPost.information.title.trim() ||
-    !businessPost.information.content.trim();
+    !businessPost.createBusinessReq.title.trim() ||
+    !businessPost.createBusinessReq.content.trim();
 
   const navigator = useNavigate();
 
@@ -67,8 +38,8 @@ const BusinessFixPage = () => {
 
     setBusinessPost((prev) => ({
       ...prev,
-      information: {
-        ...prev.information,
+      createBusinessReq: {
+        ...prev.createBusinessReq,
         [name]: value,
       },
     }));
@@ -92,28 +63,20 @@ const BusinessFixPage = () => {
 
       setBusinessPost((prev) => ({
         ...prev,
-        information: {
-          ...prev.information,
-          [key]: [...prev.information[key], ...fileArray],
-        },
+        [key]: [...prev[key], ...fileArray],
       }));
     }
   };
 
   const handleFileRemove = (index: number, key: "files" | "images") => {
     setBusinessPost((prev) => {
+      const updatedArray = prev[key].filter((_, i) => i !== index);
+
       return {
         ...prev,
-        information: {
-          ...prev.information,
-          [key]: prev.information[key].filter((_, i) => i !== index),
-        },
+        [key]: updatedArray,
       };
     });
-  };
-
-  const handleSubmit = () => {
-    navigator(`/activityReport/BusinessDetail/${id}`);
   };
 
   return (
@@ -130,31 +93,30 @@ const BusinessFixPage = () => {
         <S.SubmitButton
           $isSubmitDisabled={isSubmitDisabled}
           disabled={isSubmitDisabled}
-          onClick={handleSubmit}
         >
           등록
         </S.SubmitButton>
       </S.ButtonContainer>
       <S.Label>제목</S.Label>
       <S.TitleInput
-        value={businessPost.information.title}
+        value={businessPost.createBusinessReq.title}
         placeholder="제목을 입력하세요."
         name="title"
         onChange={handleInputChange}
       />
       <S.Label>이미지</S.Label>
       <S.ImageContainer>
-        {businessPost.information.images.map((item, index) => (
+        {businessPost.images.map((item, index) => (
           <S.Image key={index}>
             <img
-              src={item.url}
+              src={URL.createObjectURL(item)}
               alt={`uploaded-${index}`}
               style={{ width: "100%", height: "100%" }}
             />
             <S.ImageDeleteButton
               onClick={() => handleFileRemove(index, "images")}
             >
-              <S.ImageDeleteButton />
+              <ImageDeleteButton />
             </S.ImageDeleteButton>
           </S.Image>
         ))}
@@ -174,13 +136,13 @@ const BusinessFixPage = () => {
       </S.ImageContainer>
       <S.Label>내용</S.Label>
       <S.TextArea
-        value={businessPost.information.content}
+        value={businessPost.createBusinessReq.content}
         placeholder="내용을 입력하세요."
         onChange={handleInputChange}
         name="content"
       />
       <S.Label>첨부 파일</S.Label>
-      {businessPost.information.files.map((item, index) => (
+      {businessPost.files.map((item, index) => (
         <NewBusinessFileComponent
           key={index}
           title={item.name}
@@ -205,4 +167,4 @@ const BusinessFixPage = () => {
   );
 };
 
-export default BusinessFixPage;
+export default NewCoalitionPage;

@@ -46,7 +46,7 @@ const BusinessListComponent = () => {
               date={item.date}
               isEnd={index >= businessListData.length - 1}
               onClick={() =>
-                navigator(`/activityReport/businessListDetail/${item.id}`)
+                navigator(`/activityReport/businessDetail/${item.id}`)
               }
             />
           ))}

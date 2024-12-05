@@ -1,3 +1,4 @@
+import BusinessButtonContainer from "@/components/ActivityReport/BusinessLlist/BusinessButtonContainer";
 import BusinessListComponent from "@/components/ActivityReport/BusinessLlist/BusinessListComponent";
 import DeleteModal from "@/components/common/DeleteModal";
 import PageComponent from "@/components/common/PageComponent";
@@ -18,16 +19,10 @@ const BusinessListPage = () => {
           }}
         />
       )}
-      <S.ButtonContainer>
-        <S.AllDeleteButton onClick={() => setIsShowModal(true)}>
-          <S.Text>전체 삭제</S.Text>
-        </S.AllDeleteButton>
-        <S.NewPostButton
-          onClick={() => navigator("/activityReport/newBusiness")}
-        >
-          <S.Text>글 작성</S.Text>
-        </S.NewPostButton>
-      </S.ButtonContainer>
+      <BusinessButtonContainer
+        onDelete={() => setIsShowModal(true)}
+        onPost={() => navigator("/activityReport/newBusiness")}
+      />
       <BusinessListComponent />
       <PageComponent totalPage={15} />
     </S.Container>
