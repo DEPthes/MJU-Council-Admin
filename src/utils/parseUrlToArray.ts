@@ -13,7 +13,7 @@ import { pathToKoreanMap } from "@/constants/pathToKoreanMap";
  */
 export const parseUrlToArray = (url: string): string[] => {
   const segments = url.split("/").filter(Boolean);
-
+  if (segments.length === 0) return ["배너"];
   return segments
     .filter((segment) => pathToKoreanMap[segment])
     .map((segment) => pathToKoreanMap[segment]);
