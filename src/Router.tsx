@@ -4,8 +4,9 @@ import Login from "./components/Login/Login";
 import BusinessDetailPage from "./pages/ActivityReport/BusinessDetailPage";
 import BusinessFixPage from "./pages/ActivityReport/BusinessFixPage";
 import BusinessListPage from "./pages/ActivityReport/BusinessListPage";
-import CoalitionPage from "./pages/ActivityReport/CoalitionPage";
+import CoalitionListPage from "./pages/ActivityReport/CoalitionListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
+import NewCoalitionPage from "./pages/ActivityReport/NewCoalitionPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
 import FooterPage from "./pages/Footer/FooterPage";
 import Home from "./pages/Home/HomePage";
@@ -38,7 +39,14 @@ const Router = () => {
             path="/activityRepory/businessFix/:id"
             element={<BusinessFixPage />}
           />
-          <Route path="/activityReport/coalition" element={<CoalitionPage />} />
+          <Route
+            path="/activityReport/coalitionList"
+            element={<CoalitionListPage />}
+          />
+          <Route
+            path="/activityReport/newCoalition"
+            element={<NewCoalitionPage />}
+          />
           {/* <Route
             path="/activityReport/coalitionDetail/:id"
             element={<CoalitionDetailPage />}

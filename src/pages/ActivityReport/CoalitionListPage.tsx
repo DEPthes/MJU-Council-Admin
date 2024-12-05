@@ -1,6 +1,7 @@
 import BusinessButtonContainer from "@/components/ActivityReport/BusinessLlist/BusinessButtonContainer";
 import CoalitionComponent from "@/components/ActivityReport/Coalition/CoalitionComponent";
 import * as S from "@styles/ActivityReport/Coalition/CoalitionPageStyle";
+import { useNavigate } from "react-router-dom";
 
 const data = {
   check: true,
@@ -86,16 +87,16 @@ const data = {
   message: "제휴 목록을 조회합니다.",
 };
 
-const CoalitionPage = () => {
+const CoalitionListPage = () => {
+  const navigator = useNavigate();
+
   return (
     <S.Container>
       <BusinessButtonContainer
         onDelete={function (): void {
           throw new Error("Function not implemented.");
         }}
-        onPost={function (): void {
-          throw new Error("Function not implemented.");
-        }}
+        onPost={() => navigator("/activityReport/newCoalition")}
       />
       <S.CoalitionContainer>
         {data.information.contents.map((item, index) => (
@@ -106,4 +107,4 @@ const CoalitionPage = () => {
   );
 };
 
-export default CoalitionPage;
+export default CoalitionListPage;
