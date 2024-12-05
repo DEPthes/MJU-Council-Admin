@@ -9,38 +9,39 @@ import { useNavigate, useParams } from "react-router-dom";
 const data = {
   check: true,
   information: {
-    title: "사업001",
-    content: "사업001의 내용입니다.",
-    createdAt: "2024-11-17",
+    title: "제휴001",
+    content: "제휴001의 내용입니다.",
+    startDate: "2024-11-17",
+    endDate: "2024-11-18",
     images: [
       {
         id: 1,
-        name: "사업 사진",
+        name: "제휴 사진",
         url: "https://councill-s3-bucket/aethkefjdif.png",
       },
       {
         id: 2,
-        name: "사업 사진",
+        name: "제휴 사진",
         url: "https://councill-s3-bucket/aethkefjdif.png",
       },
     ],
     files: [
       {
         id: 1,
-        name: "사업 파일",
+        name: "제휴 파일",
         url: "https://councill-s3-bucket/aethkefjdif.pdf",
       },
       {
         id: 2,
-        name: "사업 파일",
+        name: "제휴 파일",
         url: "https://councill-s3-bucket/aethkefjdif.hwp",
       },
     ],
   },
-  message: "사업 1번을 조회합니다.",
+  message: "제휴 10번을 조회합니다.",
 };
 
-const BusinessDetailPage = () => {
+const CoalitionDetailPage = () => {
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const { id } = useParams<{ id: string }>();
 
@@ -55,7 +56,7 @@ const BusinessDetailPage = () => {
           onCancel={() => setIsShowModal(false)}
         />
       )}
-      <S.BackButton onClick={() => navigator("/activityReport/businessList")}>
+      <S.BackButton onClick={() => navigator("/activityReport/coalitionList")}>
         목록으로
       </S.BackButton>
       <S.HeaderContainer>
@@ -63,12 +64,12 @@ const BusinessDetailPage = () => {
         <S.ButtonContainer>
           <DeleteButton onClick={() => setIsShowModal(true)} />
           <FixButton
-            onClick={() => navigator(`/activityRepory/businessFix/${id}`)}
+            onClick={() => navigator(`/activityRepory/coalitionFix/${id}`)}
           />
         </S.ButtonContainer>
       </S.HeaderContainer>
       <S.Date>
-        <p>총학생회</p> {data.information.createdAt}
+        {data.information.startDate} <p>~</p> {data.information.endDate}
       </S.Date>
       <S.Label>이미지</S.Label>
       <S.ImageContainer>
@@ -76,8 +77,8 @@ const BusinessDetailPage = () => {
           <S.Image key={index}>
             <img
               src={item.url}
-              alt={`uploaded-${index}`}
-              style={{ width: "100%", height: "100%" }}
+              alt="Council"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </S.Image>
         ))}
@@ -92,4 +93,4 @@ const BusinessDetailPage = () => {
   );
 };
 
-export default BusinessDetailPage;
+export default CoalitionDetailPage;

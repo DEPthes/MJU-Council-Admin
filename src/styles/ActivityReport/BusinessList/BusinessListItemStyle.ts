@@ -9,6 +9,7 @@ export const Container = styled.div<{ $isEnd: boolean }>`
   height: 48px;
   border-bottom: ${(props) => !props.$isEnd && "1px solid var(--M30)"};
   padding: 0 20px;
+  cursor: pointer;
 `;
 
 export const Title = styled.p`

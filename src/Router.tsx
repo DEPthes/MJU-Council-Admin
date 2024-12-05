@@ -4,7 +4,11 @@ import Login from "./components/Login/Login";
 import BusinessDetailPage from "./pages/ActivityReport/BusinessDetailPage";
 import BusinessFixPage from "./pages/ActivityReport/BusinessFixPage";
 import BusinessListPage from "./pages/ActivityReport/BusinessListPage";
+import CoalitionDetailPage from "./pages/ActivityReport/CoalitionDetailPage";
+import CoalitionFixPage from "./pages/ActivityReport/CoalitionFixPage";
+import CoalitionListPage from "./pages/ActivityReport/CoalitionListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
+import NewCoalitionPage from "./pages/ActivityReport/NewCoalitionPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
 import FooterPage from "./pages/Footer/FooterPage";
 import Home from "./pages/Home/HomePage";
@@ -30,14 +34,29 @@ const Router = () => {
             element={<NewBusinessPage />}
           />
           <Route
-            path="/activityReport/BusinessDetail/:id"
+            path="/activityReport/businessDetail/:id"
             element={<BusinessDetailPage />}
           />
           <Route
-            path="/activityRepory/BusinessFix/:id"
+            path="/activityRepory/businessFix/:id"
             element={<BusinessFixPage />}
           />
-          {/* </Route> */}
+          <Route
+            path="/activityReport/coalitionList"
+            element={<CoalitionListPage />}
+          />
+          <Route
+            path="/activityReport/newCoalition"
+            element={<NewCoalitionPage />}
+          />
+          <Route
+            path="/activityReport/coalitionDetail/:id"
+            element={<CoalitionDetailPage />}
+          />
+          <Route
+            path="/activityRepory/coalitionFix/:id"
+            element={<CoalitionFixPage />}
+          />
         </Routes>
       </Layout>
     </BrowserRouter>

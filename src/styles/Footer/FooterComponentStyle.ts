@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Foot = styled.div`
   background: var(--Primary);
   display: flex;
-  width: 100vw;
+  width: 100%;
   padding: 60px 0px;
   flex-direction: column;
   justify-content: center;
