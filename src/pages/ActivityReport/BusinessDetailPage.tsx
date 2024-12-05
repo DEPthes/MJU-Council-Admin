@@ -54,13 +54,15 @@ const BusinessDetailPage = () => {
           onCancel={() => setIsShowModal(false)}
         />
       )}
-      <S.BackButton onClick={() => navigator(-1)}>목록으로</S.BackButton>
+      <S.BackButton onClick={() => navigator("/activityReport/businessList")}>
+        목록으로
+      </S.BackButton>
       <S.HeaderContainer>
         <S.HeaderText>{data.information.title}</S.HeaderText>
         <S.ButtonContainer>
           <DeleteButton onClick={() => setIsShowModal(true)} />
           <FixButton
-            onClick={() => navigator("/activityRepory/BusinessFix/:id")}
+            onClick={() => navigator("/activityRepory/businessFix/:id")}
           />
         </S.ButtonContainer>
       </S.HeaderContainer>

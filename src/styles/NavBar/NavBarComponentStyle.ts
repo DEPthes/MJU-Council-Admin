@@ -3,15 +3,16 @@ import styled from "styled-components";
 
 export const Div = styled.div`
   display: flex;
-  height:80px;
+  height: 80px;
 `;
 export const Nav = styled.div`
-  min-width: 100px;
   width: 100%;
   height: 80px;
   display: flex;
   align-items: center;
-  position:fixed;
+  position: fixed;
+  min-width: 950px;
+  left: 0;
   top: 0;
   z-index: 100;
   background-color: white;
@@ -38,7 +39,6 @@ export const CouncilText = styled.p`
   font: var(--PC_SubeaderText);
   margin-right: auto;
 `;
-
 
 export const Menu = styled.p`
   display: flex;
@@ -77,7 +77,7 @@ export const NLogoutText = styled(Link)`
   margin: auto 0 auto 20px;
   cursor: pointer;
   text-decoration-line: underline;
-  text-decoration-style: solid; 
+  text-decoration-style: solid;
   text-underline-position: from-font;
 `;
 
@@ -85,7 +85,7 @@ export const MenuWrapper = styled.div`
   position: relative;
   display: flex;
   width: 13%;
-  // flex-grow: 1; 
+  // flex-grow: 1;
 `;
 
 // 하위 메뉴 Wrapper
