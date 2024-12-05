@@ -8,6 +8,10 @@ import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
 import FooterPage from "./pages/Footer/FooterPage";
 import Home from "./pages/Home/HomePage";
+import IntroductionPage from "./pages/Introduction/IntroductionPage";
+import OrganizationPage from "./pages/Introduction/OrganizationPage";
+import EachPartPage from "./pages/Introduction/EachPartPage";
+import CentralCommiteePage from "./pages/Introduction/CentralCommiteePage";
 
 const Router = () => {
   return (
@@ -37,8 +41,25 @@ const Router = () => {
             path="/activityRepory/BusinessFix/:id"
             element={<BusinessFixPage />}
           />
-          {/* </Route> */}
-        </Routes>
+          <Route
+            path="/introduction/introduce"
+            element={<IntroductionPage/>}
+          />
+          <Route
+            path="/introduction/organization"
+            element={<OrganizationPage/>}
+          />
+          <Route
+            path="/introduction/eachpart"
+            element={<EachPartPage/>}
+          />
+          <Route
+            path="/introduction/centralCommitee"
+            element={<CentralCommiteePage/>}
+          />
+
+        {/* </Route> */}
+      </Routes>
       </Layout>
     </BrowserRouter>
   );
