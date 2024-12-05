@@ -11,9 +11,9 @@ const NewBusinessFileComponent: React.FC<NewBusinessFileComponentProps> = ({
 }) => {
   return (
     <S.Container>
-      <S.tilteContainer>
+      <S.TitleContainer>
         <Clip stroke="var(--Primary)" /> {title}
-      </S.tilteContainer>
+      </S.TitleContainer>
       <Close onClick={onClick} style={{ cursor: "pointer" }} />
     </S.Container>
   );

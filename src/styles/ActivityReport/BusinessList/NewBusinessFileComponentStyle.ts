@@ -13,7 +13,7 @@ export const Container = styled.div`
   color: var(--Primary);
 `;
 
-export const tilteContainer = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
   gap: 1px;
 `;

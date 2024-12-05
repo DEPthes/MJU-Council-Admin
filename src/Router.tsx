@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
+import BusinessDetail from "./pages/ActivityReport/BusinessDetail";
 import BusinessListPage from "./pages/ActivityReport/BusinessListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
@@ -27,6 +28,10 @@ const Router = () => {
           <Route
             path="/activityReport/newBusiness"
             element={<NewBusinessPage />}
+          />
+          <Route
+            path="/activityReport/BusinessDetail/:id"
+            element={<BusinessDetail />}
           />
           {/* <Route
           path="/activityReport/businessListDetail/:id"
