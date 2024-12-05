@@ -55,6 +55,7 @@ export const Menu = styled.p`
 
 export const Manager = styled.div`
   display: flex;
+  align-items: center;
   margin: 0 40px 0 auto;
 `;
 
