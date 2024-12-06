@@ -67,13 +67,14 @@ const InfoInput = () => {
         </S.InfoDiv>
         <S.InfoDiv>
           <S.IText>전화번호</S.IText>
-          <S.Input placeholder="02-300-0901" value="02-300-0901" />
+          <S.Input placeholder="02-300-0901" value="02-300-0901" readOnly/>
         </S.InfoDiv>
         <S.InfoDiv>
           <S.IText>총학생회실 주소</S.IText>
           <S.Input
             placeholder="서울특별시 서대문구 거북골로34 학생회관 5층 S2505 총학생회실"
             value="서울특별시 서대문구 거북골로34 학생회관 5층 S2505 총학생회실"
+            readOnly
           />
         </S.InfoDiv>
       </S.WholeDiv>

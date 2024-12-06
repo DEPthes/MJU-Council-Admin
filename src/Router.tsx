@@ -12,6 +12,10 @@ import NewCoalitionPage from "./pages/ActivityReport/NewCoalitionPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
 import FooterPage from "./pages/Footer/FooterPage";
 import Home from "./pages/Home/HomePage";
+import IntroductionPage from "./pages/Introduction/IntroductionPage";
+import OrganizationPage from "./pages/Introduction/OrganizationPage";
+import EachPartPage from "./pages/Introduction/EachPartPage";
+import CentralCommiteePage from "./pages/Introduction/CentralCommiteePage";
 
 const Router = () => {
   return (

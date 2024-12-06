@@ -1,12 +1,18 @@
 import styled from "styled-components";
 
 export const LDiv = styled.div`
+position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
     height: 100%;
+    width: 100%;
+    margin: auto;
+    background-color: white;
 `;
 export const LText = styled.div`
     display: flex;
@@ -23,16 +29,14 @@ export const InputDiv = styled.div`
     margin: 60px 0 60px 0;
 `;
 
-export const LID= styled.input.attrs({
-    placeholder: "아이디를 입력하세요"
-})<{isIn:boolean}>`
+export const LID= styled.input<{isid:string}>`
     display: flex;
     height: 60px;
     padding: 0px 20px;
     border-radius: 4px;
-    background: ${({isIn})=>(isIn)?`White`:`var(--M5)`};
+    background: ${({isid})=>(isid=="true")?`White`:`var(--M5)`};
     border-style: none;
-    border: ${({isIn})=>(isIn)?`1px solid var(--M30)`:``};
+    border: ${({isid})=>(isid=="true")?`1px solid var(--M30)`:``};
     outline: none;
     text-justify: center;
     line-height: 80px;
@@ -51,9 +55,24 @@ export const PWDiv = styled.div`
     margin-top: 20px;
 `;
 
-export const LPW = styled(LID).attrs({
-    placeholder: "비밀번호를 입력하세요"
-})`
+export const LPW = styled.input<{ispw:string}>`
+    display: flex;
+    height: 60px;
+    padding: 0px 20px;
+    border-radius: 4px;
+    background: ${({ispw})=>(ispw=="true")?`White`:`var(--M5)`};
+    border-style: none;
+    border: ${({ispw})=>(ispw=="true")?`1px solid var(--M30)`:``};
+    outline: none;
+    text-justify: center;
+    line-height: 80px;
+    font: var(--PC_InputText);
+    align-items:center;
+    justify-content: center;
+    &::placeholder {
+        color: var(--M30);
+        font: var(--PC_InputText);
+    }
     width: 100%;
     background-img: url('@assets/image/View_light.svg');
 `;
@@ -67,7 +86,7 @@ export const PWBtn = styled.img`
     height: 32px;
 `;
 
-export const LBtn = styled.button<{isClick: boolean}>`
+export const LBtn = styled.button<{isclick: string}>`
     display: flex;
     text-align: center;
     justify-content: center;
@@ -75,7 +94,7 @@ export const LBtn = styled.button<{isClick: boolean}>`
     width: 400px;
     height: 60px;
     border-radius: 4px;
-    background: ${({ isClick }) => (isClick ? `var(--Primary)` : `var(--M50)`)};
+    background: ${({ isclick }) => (isclick=="true" ? `var(--Primary)` : `var(--M50)`)};
     color: var(--White);
     font: var(--PC_ButtonText);
     cursor: pointer;
