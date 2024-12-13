@@ -20,7 +20,8 @@
       "@contexts/*": ["src/contexts/*"],
       "@store/*": ["src/store/*"],
       "@modules/*": ["src/modules/*"],
-      "@types/*": ["src/types/*"]
+      "@types/*": ["src/types/*"],
+      "@apis/*": ["src/apis/*"]
     },
     "types": ["vite-plugin-svgr/client"],
 
