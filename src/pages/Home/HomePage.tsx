@@ -5,9 +5,7 @@ const Home = () => {
   return (
     <>
       <S.MainPage>
-        {/* <NavBar/> */}
         <AddBanner />
-        {/* <Footer/> */}
       </S.MainPage>
     </>
   );

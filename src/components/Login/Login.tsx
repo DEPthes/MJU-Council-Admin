@@ -49,16 +49,21 @@ const Login = () => {
             <S.LDiv>
                 <S.LText>관리자 로그인</S.LText>
                 <S.InputDiv>
-                    <S.LID onChange={(e)=>setInputID(e.target.value)} isIn={inputID!=""}/>
+                    <S.LID onChange={(e)=>setInputID(e.target.value)} isid={inputID !== "" ? "true" : "false"} placeholder="아이디를 입력하세요"/>
                     <S.PWDiv>
-                        <S.LPW onChange={(e)=>setInputPW(e.target.value)} isIn={inputPW!=""} type={showPW?'text':'password'}/>
+                        <S.LPW onChange={(e)=>setInputPW(e.target.value)} ispw={inputPW!="" ? "true": "false"} type={showPW?'text':'password'} placeholder="비밀번호를 입력하세요"/>
                         {inputPW && (
                             showPW?<S.PWBtn src={View} onClick={()=>setShowPW(!showPW)}/>:<S.PWBtn src={ViewHide} onClick={()=>setShowPW(!showPW)}/>
                         )}
                     </S.PWDiv>
                 </S.InputDiv>
                 {isCompare? <></> : <S.ErrDiv><S.LError>*아이디 또는 비밀번호가 일치하지 않습니다. 다시 시도해주세요.*</S.LError></S.ErrDiv>}
-                <S.LBtn isClick={inputID!=""&&inputPW!=""} onClick={handleLogin}>로그인</S.LBtn>
+                <S.LBtn 
+                    isclick={inputID!=""&&inputPW!="" ? "true" : "false"} 
+                    onClick={inputID!=""&&inputPW!="" ? handleLogin : undefined}
+                >
+                    로그인
+                </S.LBtn>
             </S.LDiv>
         </>
     );

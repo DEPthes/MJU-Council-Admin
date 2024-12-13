@@ -5,7 +5,7 @@ export const Div = styled.div`
   display: flex;
   height: 80px;
 `;
-export const Nav = styled.div`
+export const Nav = styled.div<{isloginpage:string}>`
   width: 100%;
   height: 80px;
   display: flex;
@@ -16,7 +16,7 @@ export const Nav = styled.div`
   top: 0;
   z-index: 100;
   background-color: white;
-  border-bottom: 1px solid var(--M30);
+  border-bottom: ${({isloginpage})=>(isloginpage=="true")?`nond`: `1px solid var(--M30)`};
 `;
 
 export const Logo = styled(Link)`
@@ -55,6 +55,7 @@ export const Menu = styled.p`
 
 export const Manager = styled.div`
   display: flex;
+  align-items: center;
   margin: 0 40px 0 auto;
 `;
 
