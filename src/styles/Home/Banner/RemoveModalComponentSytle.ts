@@ -16,6 +16,7 @@ export const MDiv = styled.div`
   top: 50%;
   left: 50%;
   width: 50%;
+  min-width: 500px;
   transform: translate(-50%, -50%);
   background-color: white;
   z-index: 1000;

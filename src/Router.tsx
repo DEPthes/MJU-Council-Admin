@@ -26,6 +26,22 @@ const Router = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/footer" element={<FooterPage />} />
           <Route
+            path="/introduction/introduce"
+            element={<IntroductionPage />}
+          />
+          <Route
+            path="/introduction/organization"
+            element={<OrganizationPage />}
+          />
+          <Route
+            path="/introduction/eachpart"
+            element={<EachPartPage />}
+          />
+          <Route
+            path="/introduction/centralcommitee"
+            element={<CentralCommiteePage />}
+          />
+          <Route
             path="/activityReport/policyList"
             element={<PolicyListPage />}
           />
