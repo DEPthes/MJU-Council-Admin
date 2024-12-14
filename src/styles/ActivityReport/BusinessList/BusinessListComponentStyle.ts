@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
-  border-bottom: 1px solid var(--M70);
-  border-top: 1px solid var(--M70);
+  padding-top: 20px;
+  border-bottom: 1px solid var(--M30);
 `;
 
 export const Text = styled.p`
   font: var(--PC_LoginText);
-  padding: 20% 0;
+  color: var(--Black);
+  text-align: center;
+  padding: 20% 0 30%;
 `;

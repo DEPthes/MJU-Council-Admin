@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10%;
+  padding: 80px 0;
+  margin: 0 10%;
 `;
 
 export const CoalitionContainer = styled.div`

@@ -1,4 +1,4 @@
-import * as S from "@styles/common/CheckModalStyle";
+import * as S from "@/styles/common/ModalStyle";
 import React from "react";
 import BigWhiteButton from "./Button/BigWhiteButton";
 import BigBlueButton from "./Button/BigBlueButton";

@@ -1,4 +1,4 @@
-import * as S from "@styles/ActivityReport/PolicyList/PolicyDeleteModalStyle";
+import * as S from "@/styles/common/ModalStyle";
 import { useState } from "react";
 import BigWhiteButton from "./Button/BigWhiteButton";
 import BigBlueButton from "./Button/BigBlueButton";

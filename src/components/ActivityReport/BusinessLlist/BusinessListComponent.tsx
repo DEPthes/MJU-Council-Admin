@@ -1,6 +1,6 @@
 import * as S from "@styles/ActivityReport/BusinessList/BusinessListComponentStyle";
 import { useNavigate } from "react-router-dom";
-import BusinessListItem from "./BusinessListItem";
+import ListItem from "@/components/common/List/ListItem";
 
 const BusinessListComponent = () => {
   const businessListData = [
@@ -39,12 +39,10 @@ const BusinessListComponent = () => {
       ) : (
         <S.Container>
           {businessListData.map((item, index) => (
-            <BusinessListItem
-              key={item.id}
+            <ListItem
+              key={index}
               title={item.title}
-              Author={item.Author}
               date={item.date}
-              isEnd={index >= businessListData.length - 1}
               onClick={() =>
                 navigator(`/activityReport/businessDetail/${item.id}`)
               }

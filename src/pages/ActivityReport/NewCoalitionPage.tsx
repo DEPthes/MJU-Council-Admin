@@ -1,11 +1,13 @@
-import { Add, Clip, ImageDeleteButton } from "@/assets/common";
-import NewBusinessFileComponent from "@/components/ActivityReport/BusinessLlist/NewBusinessFileComponent";
-import PostCancelButton from "@/components/common/Button/PostCancelButton";
 import CheckModal from "@/components/common/CheckModal";
 import { RequestData } from "@/types/ActivityReport/Business";
-import * as S from "@styles/ActivityReport/BusinessList/NewBusinessPageStyle";
+import * as S from "@/styles/common/WritePageStyle";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
+import TitleInput from "@/components/common/Write/TitleInput";
+import ContentInput from "@/components/common/Write/ContentInput";
+import AddFileButton from "@/components/common/Write/AddFileButton";
+import AddImageContainer from "@/components/common/Write/AddImageContainer";
 
 const NewCoalitionPage = () => {
   const [businessPost, setBusinessPost] = useState<RequestData>({
@@ -88,81 +90,31 @@ const NewCoalitionPage = () => {
           onCancel={() => setIsShowModal(false)}
         />
       )}
-      <S.ButtonContainer>
-        <PostCancelButton onClick={() => setIsShowModal(true)} />
-        <S.SubmitButton
-          $isSubmitDisabled={isSubmitDisabled}
-          disabled={isSubmitDisabled}
-        >
-          등록
-        </S.SubmitButton>
-      </S.ButtonContainer>
-      <S.Label>제목</S.Label>
-      <S.TitleInput
-        value={businessPost.createBusinessReq.title}
-        placeholder="제목을 입력하세요."
-        name="title"
-        onChange={handleInputChange}
+      <WriteBtnContainer
+        onCancel={() => setIsShowModal(true)}
+        onSubmit={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+        isDisabled={isSubmitDisabled}
       />
-      <S.Label>이미지</S.Label>
-      <S.ImageContainer>
-        {businessPost.images.map((item, index) => (
-          <S.Image key={index}>
-            <img
-              src={URL.createObjectURL(item)}
-              alt={`uploaded-${index}`}
-              style={{ width: "100%", height: "100%" }}
-            />
-            <S.ImageDeleteButton
-              onClick={() => handleFileRemove(index, "images")}
-            >
-              <ImageDeleteButton />
-            </S.ImageDeleteButton>
-          </S.Image>
-        ))}
-        <S.AddImageButton
-          onClick={() => document.getElementById("image-input")?.click()}
-        >
-          <Add />
-        </S.AddImageButton>
-        <input
-          id="image-input"
-          type="file"
-          style={{ display: "none" }}
-          accept="image/*"
-          multiple
-          onChange={(e) => handleFileChange(e, "images", "image/")}
-        />
-      </S.ImageContainer>
-      <S.Label>내용</S.Label>
-      <S.TextArea
-        value={businessPost.createBusinessReq.content}
-        placeholder="내용을 입력하세요."
-        onChange={handleInputChange}
-        name="content"
+      <TitleInput
+        title={businessPost.createBusinessReq.title}
+        handleInputChange={handleInputChange}
       />
-      <S.Label>첨부 파일</S.Label>
-      {businessPost.files.map((item, index) => (
-        <NewBusinessFileComponent
-          key={index}
-          title={item.name}
-          onClick={() => handleFileRemove(index, "files")}
-        />
-      ))}
-
-      <S.FileButton
-        onClick={() => document.getElementById("file-input")?.click()}
-      >
-        <Clip stroke="white" />
-        파일 업로드
-        <input
-          id="file-input"
-          type="file"
-          style={{ display: "none" }}
-          onChange={(e) => handleFileChange(e, "files")}
-          multiple
-        />
-      </S.FileButton>
+      <AddImageContainer
+        images={businessPost.images}
+        handleFileRemove={handleFileRemove}
+        handleFileChange={handleFileChange}
+      />
+      <ContentInput
+        content={businessPost.createBusinessReq.content}
+        handleInputChange={handleInputChange}
+      />
+      <AddFileButton
+        handleFileChange={handleFileChange}
+        handleFileRemove={handleFileRemove}
+        files={businessPost.files}
+      />
     </S.Container>
   );
 };

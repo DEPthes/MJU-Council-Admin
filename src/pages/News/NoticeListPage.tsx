@@ -1,13 +1,12 @@
 import { useNotices } from "@/hooks/notice/useNotices";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import * as S from "@/styles/News/NoticePageStyle";
+import * as S from "@/styles/common/ListPageStyle";
 import ListItem from "@/components/common/List/ListItem";
 import PageComponent from "@/components/common/PageComponent";
-import WhiteButton from "@/components/common/Button/WhiteButton";
-import BlueButton from "@/components/common/Button/BlueButton";
 import DeleteModal from "@/components/common/DeleteModal";
 import { deleteNotices } from "@/apis/notice";
+import ButtonContainer from "@/components/common/List/ListBtnContainer";
 
 const NoticeListPage = () => {
   const navigate = useNavigate();
@@ -39,18 +38,10 @@ const NoticeListPage = () => {
           onSubmit={onAllNoticeDelete}
         />
       )}
-      <S.ButtonContainer>
-        <WhiteButton
-          text="전체 삭제"
-          color="var(--M70)"
-          onClick={() => setIsShowModal(true)}
-        />
-        <BlueButton
-          text="글 작성"
-          color="var(--Primary)"
-          onClick={() => navigate("/news/notice/new")}
-        />
-      </S.ButtonContainer>
+      <ButtonContainer
+        onDelete={() => setIsShowModal(true)}
+        onPost={() => navigate("/news/notice/new")}
+      />
       {data.information.contents.length > 0 ? (
         <>
           <S.ListContainer>

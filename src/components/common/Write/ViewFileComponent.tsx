@@ -1,14 +1,12 @@
 import { Clip } from "@/assets/common";
 import { BusinessFile } from "@/types/ActivityReport/Business/businessDetailType";
-import * as S from "@styles/ActivityReport/BusinessList/NewBusinessFileComponentStyle";
-import React from "react";
+import * as S from "@/styles/common/WriteStyle";
 
-interface BusinessFileComponentProps {
+interface Props {
   file: BusinessFile;
 }
-const BusinessFileComponent: React.FC<BusinessFileComponentProps> = ({
-  file,
-}) => {
+
+const ViewFileComponent = ({ file }: Props) => {
   const handleDownload = async () => {
     try {
       const response = await fetch(file.url);
@@ -32,12 +30,12 @@ const BusinessFileComponent: React.FC<BusinessFileComponentProps> = ({
     }
   };
   return (
-    <S.Container>
+    <S.FileContainer>
       <S.TitleContainer onClick={handleDownload} style={{ cursor: "pointer" }}>
         <Clip stroke="var(--Primary)" /> <p>{file.name}</p>
       </S.TitleContainer>
-    </S.Container>
+    </S.FileContainer>
   );
 };
 
-export default BusinessFileComponent;
+export default ViewFileComponent;

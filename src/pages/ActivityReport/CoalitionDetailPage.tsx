@@ -1,4 +1,4 @@
-import BusinessFileComponent from "@/components/ActivityReport/BusinessLlist/BusinessFileComponent";
+import ViewFileComponent from "@/components/common/Write/ViewFileComponent";
 import DeleteButton from "@/components/common/Button/DeleteButton";
 import FixButton from "@/components/common/Button/FixButton";
 import CheckModal from "@/components/common/CheckModal";
@@ -87,7 +87,7 @@ const CoalitionDetailPage = () => {
       <S.Content>{data.information.content}</S.Content>
       <S.Label>첨부 파일</S.Label>
       {data.information.files.map((item, index) => (
-        <BusinessFileComponent key={index} file={item} />
+        <ViewFileComponent key={index} file={item} />
       ))}
     </S.Container>
   );

@@ -1,5 +1,5 @@
-import BusinessButtonContainer from "@/components/ActivityReport/BusinessLlist/BusinessButtonContainer";
 import CoalitionComponent from "@/components/ActivityReport/Coalition/CoalitionComponent";
+import ListBtnContainer from "@/components/common/List/ListBtnContainer";
 import * as S from "@styles/ActivityReport/Coalition/CoalitionPageStyle";
 import { useNavigate } from "react-router-dom";
 
@@ -92,7 +92,7 @@ const CoalitionListPage = () => {
 
   return (
     <S.Container>
-      <BusinessButtonContainer
+      <ListBtnContainer
         onDelete={function (): void {
           throw new Error("Function not implemented.");
         }}
