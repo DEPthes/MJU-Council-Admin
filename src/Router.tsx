@@ -12,10 +12,8 @@ import NewCoalitionPage from "./pages/ActivityReport/NewCoalitionPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
 import FooterPage from "./pages/Footer/FooterPage";
 import Home from "./pages/Home/HomePage";
-import IntroductionPage from "./pages/Introduction/IntroductionPage";
-import OrganizationPage from "./pages/Introduction/OrganizationPage";
-import EachPartPage from "./pages/Introduction/EachPartPage";
-import CentralCommiteePage from "./pages/Introduction/CentralCommiteePage";
+import NoticeListPage from "./pages/News/NoticeListPage";
+import NewNoticePage from "./pages/News/NewNoticePage";
 
 const Router = () => {
   return (
@@ -61,6 +59,8 @@ const Router = () => {
             path="/activityRepory/coalitionFix/:id"
             element={<CoalitionFixPage />}
           />
+          <Route path="/news/notice" element={<NoticeListPage />} />
+          <Route path="/news/notice/new" element={<NewNoticePage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

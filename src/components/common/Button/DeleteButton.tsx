@@ -1,13 +1,17 @@
 import * as S from "@/styles/common/Button/CancelButtonStyle";
 
 interface DeleteButtonProps {
+  text?: string;
   onClick: () => void;
 }
 
-const DeleteButton: React.FC<DeleteButtonProps> = ({ onClick }) => {
+const DeleteButton: React.FC<DeleteButtonProps> = ({
+  text = "삭제",
+  onClick,
+}) => {
   return (
     <S.Container onClick={onClick}>
-      <S.Text>삭제</S.Text>
+      <S.Text>{text}</S.Text>
     </S.Container>
   );
 };

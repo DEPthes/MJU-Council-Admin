@@ -1,7 +1,7 @@
 import * as S from "@styles/common/CheckModalStyle";
 import React from "react";
-import CancelButton from "./Button/CancelButton";
-import OkButton from "./Button/OkButton";
+import BigWhiteButton from "./Button/BigWhiteButton";
+import BigBlueButton from "./Button/BigBlueButton";
 
 interface CheckModalProps {
   // 줄바꿈을 원하는 위치에 <br />
@@ -21,8 +21,8 @@ const CheckModal: React.FC<CheckModalProps> = ({
       <S.Container>
         <S.Text dangerouslySetInnerHTML={{ __html: text }} />
         <S.ButtonContainer>
-          <CancelButton onClick={onCancel} />
-          <OkButton onClick={onSubmit} />
+          <BigWhiteButton onClick={onCancel} text="취소" />
+          <BigBlueButton onClick={onSubmit} text="확인" />
         </S.ButtonContainer>
       </S.Container>
     </S.Overlay>
