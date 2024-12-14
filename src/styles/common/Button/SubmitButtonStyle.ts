@@ -5,15 +5,15 @@ export const Container = styled.div<{ $isM70?: boolean }>`
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  width: 100px;
-  height: 40px;
+  width: 180px;
+  height: 60px;
   cursor: pointer;
   background-color: ${(props) =>
     props.$isM70 ? "var(--M70)" : "var(--Primary)"};
 `;
 
 export const Text = styled.p`
-  font: var(--PC_ButtonText2);
+  font: var(--PC_ButtonText);
   color: white;
   text-align: center;
 `;

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: auto 15%;
+  margin: auto 25%;
   display: flex;
-  padding: 10%;
+  padding: 5%;
   width: 100%;
   flex-direction: column;
   justify-content: center;
@@ -12,6 +12,7 @@ export const Container = styled.div`
   background-color: white;
   display: flex;
   min-width: 700px;
+  min-height: 500px;
   box-sizing: border-box;
 `;
 
@@ -30,7 +31,7 @@ export const Overlay = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
   width: 100%;
   margin-top: 40px;
