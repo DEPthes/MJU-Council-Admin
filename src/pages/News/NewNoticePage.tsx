@@ -1,28 +1,57 @@
-import BlueButton from "@/components/common/Button/BlueButton";
-import WhiteButton from "@/components/common/Button/WhiteButton";
-import * as S from "@/styles/News/NoticePageStyle";
+import CheckModal from "@/components/common/CheckModal";
+import SubHeader from "@/components/common/Detail/SubHeader";
+import DateInput from "@/components/common/Write/DateInput";
+import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
+import * as S from "@/styles/common/WritePageStyle";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NewNoticePage = () => {
+  const [isShowModal, setIsShowModal] = useState(false);
+  const navigate = useNavigate();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    if (name === "startDate") {
+      setStartDate(value);
+    } else if (name === "endDate") {
+      setEndDate(value);
+    }
+  };
+
   return (
     <S.Container>
-      <S.ButtonContainer>
-        <WhiteButton
-          text="작성 취소"
-          color="var(--M50)"
-          onClick={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+      {isShowModal && (
+        <CheckModal
+          text="현재 작성 중인 글이 사라집니다. <br /> 창을 닫으시겠습니까?"
+          onSubmit={() => navigate(-1)}
+          onCancel={() => setIsShowModal(false)}
         />
-        <BlueButton
-          text="등록"
-          color="var(--Primary)"
-          onClick={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-          disabled={true}
-        />
-      </S.ButtonContainer>
+      )}
+      <WriteBtnContainer
+        onCancel={() => setIsShowModal(true)}
+        onSubmit={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+        isDisabled={false}
+      />
       <hr />
+      <DateInput
+        startDate={startDate}
+        endDate={endDate}
+        handleInputChange={handleInputChange}
+      />
+      <SubHeader
+        title={"행사 안내"}
+        onPost={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+      />
     </S.Container>
   );
 };

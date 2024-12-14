@@ -83,3 +83,19 @@ export const BigWhiteBtn = styled.button`
     text-align: center;
   }
 `;
+
+export const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  width: 100px;
+  height: 40px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  background-color: var(--M5);
+  font: var(--PC_ButtonText2);
+  color: var(--Primary);
+  border: none;
+  text-align: center;
+`;

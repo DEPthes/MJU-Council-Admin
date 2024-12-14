@@ -19,7 +19,7 @@ export async function getNotice(noticeId: number): Promise<NoticeDetail> {
 export async function deleteNotices() {
   const response = await axios.delete(`/api/v1/notices`, {
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRvb2dpIiwiaWF0IjoxNzM0MTMyOTc4LCJleHAiOjE3MzQxMzQ3NzgsInN1YiI6ImRvb2dpIn0.xy53-7tdnZt-n8yqOXki3HFCFKFiVOpUmNGKk8ePlcs`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRvb2dpIiwiaWF0IjoxNzM0MTgwMjc2LCJleHAiOjE3MzQxODIwNzYsInN1YiI6ImRvb2dpIn0.XDrEAtrIZjvf68h3xpA6VYTOfAvDBFs0xqFG3HdYhf0`,
     },
   });
 

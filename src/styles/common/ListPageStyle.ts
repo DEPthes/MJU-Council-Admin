@@ -9,13 +9,6 @@ export const Container = styled.div`
   }
 `;
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-  margin-bottom: 40px;
-`;
-
 export const ListContainer = styled.div`
   padding-top: 20px;
   border-bottom: 1px solid var(--M30);

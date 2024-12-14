@@ -1,6 +1,6 @@
-import BusinessButtonContainer from "@/components/ActivityReport/BusinessLlist/BusinessButtonContainer";
 import BusinessListComponent from "@/components/ActivityReport/BusinessLlist/BusinessListComponent";
 import DeleteModal from "@/components/common/DeleteModal";
+import ListBtnContainer from "@/components/common/List/ListBtnContainer";
 import PageComponent from "@/components/common/PageComponent";
 import * as S from "@styles/ActivityReport/BusinessList/BusinessListPageStyle";
 import { useState } from "react";
@@ -19,7 +19,7 @@ const BusinessListPage = () => {
           }}
         />
       )}
-      <BusinessButtonContainer
+      <ListBtnContainer
         onDelete={() => setIsShowModal(true)}
         onPost={() => navigator("/activityReport/newBusiness")}
       />
