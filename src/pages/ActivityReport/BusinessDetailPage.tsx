@@ -1,10 +1,12 @@
-import ViewFileComponent from "@/components/common/Write/ViewFileComponent";
-import DeleteButton from "@/components/common/Button/DeleteButton";
-import FixButton from "@/components/common/Button/FixButton";
 import CheckModal from "@/components/common/CheckModal";
-import * as S from "@styles/ActivityReport/BusinessList/BusinessDetailStyle";
+import * as S from "@styles/common/WritePageStyle";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import BackButton from "@/components/common/Button/BackButton";
+import DetailHeader from "@/components/common/Detail/DetailHeader";
+import ImageView from "@/components/common/Detail/ImageView";
+import ContentView from "@/components/common/Detail/ContentView";
+import FileView from "@/components/common/Detail/FileView";
 
 const data = {
   check: true,
@@ -55,39 +57,16 @@ const BusinessDetailPage = () => {
           onCancel={() => setIsShowModal(false)}
         />
       )}
-      <S.BackButton onClick={() => navigator("/activityReport/businessList")}>
-        목록으로
-      </S.BackButton>
-      <S.HeaderContainer>
-        <S.HeaderText>{data.information.title}</S.HeaderText>
-        <S.ButtonContainer>
-          <DeleteButton onClick={() => setIsShowModal(true)} />
-          <FixButton
-            onClick={() => navigator(`/activityRepory/businessFix/${id}`)}
-          />
-        </S.ButtonContainer>
-      </S.HeaderContainer>
-      <S.Date>
-        <p>총학생회</p> {data.information.createdAt}
-      </S.Date>
-      <S.Label>이미지</S.Label>
-      <S.ImageContainer>
-        {data.information.images.map((item, index) => (
-          <S.Image key={index}>
-            <img
-              src={item.url}
-              alt={`uploaded-${index}`}
-              style={{ width: "100%", height: "100%" }}
-            />
-          </S.Image>
-        ))}
-      </S.ImageContainer>
-      <S.Label>내용</S.Label>
-      <S.Content>{data.information.content}</S.Content>
-      <S.Label>첨부 파일</S.Label>
-      {data.information.files.map((item, index) => (
-        <ViewFileComponent key={index} file={item} />
-      ))}
+      <BackButton onClick={() => navigator("/activityReport/businessList")} />
+      <DetailHeader
+        title={data.information.title}
+        date={`총학생회 | ${data.information.createdAt}`}
+        onDelete={() => setIsShowModal(true)}
+        onEdit={() => navigator(`/activityRepory/businessFix/${id}`)}
+      />
+      <ImageView images={data.information.images} />
+      <ContentView content={data.information.content} />
+      <FileView files={data.information.files} />
     </S.Container>
   );
 };

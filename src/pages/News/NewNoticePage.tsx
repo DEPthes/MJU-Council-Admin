@@ -1,4 +1,5 @@
 import CheckModal from "@/components/common/CheckModal";
+import SubHeader from "@/components/common/Detail/SubHeader";
 import DateInput from "@/components/common/Write/DateInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
 import * as S from "@/styles/common/WritePageStyle";
@@ -44,6 +45,12 @@ const NewNoticePage = () => {
         startDate={startDate}
         endDate={endDate}
         handleInputChange={handleInputChange}
+      />
+      <SubHeader
+        title={"행사 안내"}
+        onPost={function (): void {
+          throw new Error("Function not implemented.");
+        }}
       />
     </S.Container>
   );
