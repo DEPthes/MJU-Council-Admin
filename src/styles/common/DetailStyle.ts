@@ -53,4 +53,5 @@ export const Content = styled.p`
   background-color: var(--M5);
   overflow: hidden;
   min-height: 300px;
+  white-space: pre-line;
 `;

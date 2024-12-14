@@ -20,6 +20,10 @@ import MinutesListPage from "./pages/Document/MinutesListPage";
 import MinutesDetailPage from "./pages/Document/MinutesDetailPage";
 import NewMinutesPage from "./pages/Document/NewMinutesPage";
 import MinutesEditPage from "./pages/Document/MinutesEditPage";
+import RegulationsDetailPage from "./pages/Document/RegulationsDetailPage";
+import RegulationsListPage from "./pages/Document/RegulationsListPage";
+import NewRegulationsPage from "./pages/Document/NewRegulationsPage";
+import RegulationsEditPage from "./pages/Document/RegulationsEditPage";
 
 const Router = () => {
   return (
@@ -76,6 +80,22 @@ const Router = () => {
             element={<MinutesEditPage />}
           />
           <Route path="/document/minutes/new" element={<NewMinutesPage />} />
+          <Route
+            path="/document/regulations"
+            element={<RegulationsListPage />}
+          />
+          <Route
+            path="/document/regulations/:id"
+            element={<RegulationsDetailPage />}
+          />
+          <Route
+            path="/document/regulations/:id/edit"
+            element={<RegulationsEditPage />}
+          />
+          <Route
+            path="/document/regulations/new"
+            element={<NewRegulationsPage />}
+          />
         </Routes>
       </Layout>
     </BrowserRouter>
