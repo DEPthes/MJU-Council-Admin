@@ -14,6 +14,8 @@ import FooterPage from "./pages/Footer/FooterPage";
 import Home from "./pages/Home/HomePage";
 import NoticeListPage from "./pages/News/NoticeListPage";
 import NewNoticePage from "./pages/News/NewNoticePage";
+import NoticeDetailPage from "./pages/News/NoticeDetailPage";
+import NoticeEditPage from "./pages/News/NoticeEditPage";
 
 const Router = () => {
   return (
@@ -60,6 +62,8 @@ const Router = () => {
             element={<CoalitionFixPage />}
           />
           <Route path="/news/notice" element={<NoticeListPage />} />
+          <Route path="/news/notice/:id" element={<NoticeDetailPage />} />
+          <Route path="/news/notice/:id/edit" element={<NoticeEditPage />} />
           <Route path="/news/notice/new" element={<NewNoticePage />} />
         </Routes>
       </Layout>

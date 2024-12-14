@@ -26,3 +26,23 @@ export type NoticeDetail = {
     files: ImageFileResponse[];
   };
 };
+
+export type NoticePostRequest = {
+  images: File[];
+  files: File[];
+  createNoticeReq: {
+    title: string;
+    content: string;
+  };
+};
+
+export type NoticePutRequest = {
+  images: File[];
+  files: File[];
+  modifyNoticeReq: {
+    title: string;
+    content: string;
+    deleteImages: number[];
+    deleteFiles: number[];
+  };
+};
