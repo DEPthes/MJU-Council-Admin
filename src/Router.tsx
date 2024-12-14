@@ -16,6 +16,10 @@ import NoticeListPage from "./pages/News/NoticeListPage";
 import NewNoticePage from "./pages/News/NewNoticePage";
 import NoticeDetailPage from "./pages/News/NoticeDetailPage";
 import NoticeEditPage from "./pages/News/NoticeEditPage";
+import MinutesListPage from "./pages/Document/MinutesListPage";
+import MinutesDetailPage from "./pages/Document/MinutesDetailPage";
+import NewMinutesPage from "./pages/Document/NewMinutesPage";
+import MinutesEditPage from "./pages/Document/MinutesEditPage";
 
 const Router = () => {
   return (
@@ -65,6 +69,13 @@ const Router = () => {
           <Route path="/news/notice/:id" element={<NoticeDetailPage />} />
           <Route path="/news/notice/:id/edit" element={<NoticeEditPage />} />
           <Route path="/news/notice/new" element={<NewNoticePage />} />
+          <Route path="/document/minutes" element={<MinutesListPage />} />
+          <Route path="/document/minutes/:id" element={<MinutesDetailPage />} />
+          <Route
+            path="/document/minutes/:id/edit"
+            element={<MinutesEditPage />}
+          />
+          <Route path="/document/minutes/new" element={<NewMinutesPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>
