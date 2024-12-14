@@ -17,16 +17,19 @@ const NoticeListPage = () => {
 
   const [page, setPage] = useState(initialPage);
 
-  const { data } = useNotices(page);
+  const { data, refetch } = useNotices(page);
 
   useEffect(() => {
     setPage(initialPage);
   }, [searchParams]);
 
   // 전체 삭제
-  const onAllNoticeDelete = () => {
-    const response = deleteNotices();
-    console.log(response);
+  const onAllNoticeDelete = async () => {
+    const response = await deleteNotices();
+    if (response.check) {
+      setIsShowModal(false);
+      refetch();
+    }
   };
 
   return (

@@ -100,8 +100,8 @@ export const Image = styled.div`
 
 export const ImageDeleteButton = styled.div`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 8px;
   cursor: pointer;
 `;
 

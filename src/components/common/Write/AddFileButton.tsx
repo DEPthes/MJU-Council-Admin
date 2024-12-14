@@ -18,6 +18,12 @@ const AddFileButton = ({
   handleFileRemove,
   files,
 }: Props) => {
+  const handleFileInputClick = () => {
+    const input = document.getElementById("file-input") as HTMLInputElement;
+    input.value = "";
+    input.click();
+  };
+
   return (
     <>
       <S.Label>첨부 파일</S.Label>
@@ -28,9 +34,7 @@ const AddFileButton = ({
           onClick={() => handleFileRemove(index, "files")}
         />
       ))}
-      <S.FileButton
-        onClick={() => document.getElementById("file-input")?.click()}
-      >
+      <S.FileButton onClick={handleFileInputClick}>
         <Clip stroke="white" />
         파일 업로드
         <input

@@ -1,4 +1,4 @@
-import { Add } from "@/assets/common";
+import { Add, ImageDeleteButton } from "@/assets/common";
 import { ImageFileResponse } from "@/types/common";
 import * as S from "@/styles/common/WriteStyle";
 
@@ -24,6 +24,12 @@ const AddImageContainer = ({
     return item.url;
   };
 
+  const handleFileInputClick = () => {
+    const input = document.getElementById("image-input") as HTMLInputElement;
+    input.value = "";
+    input.click();
+  };
+
   return (
     <>
       <S.Label>이미지</S.Label>
@@ -43,13 +49,11 @@ const AddImageContainer = ({
             <S.ImageDeleteButton
               onClick={() => handleFileRemove(index, "images")}
             >
-              <S.ImageDeleteButton />
+              <ImageDeleteButton />
             </S.ImageDeleteButton>
           </S.Image>
         ))}
-        <S.AddImageButton
-          onClick={() => document.getElementById("image-input")?.click()}
-        >
+        <S.AddImageButton onClick={handleFileInputClick}>
           <Add />
         </S.AddImageButton>
         <input
