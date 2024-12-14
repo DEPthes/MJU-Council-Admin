@@ -5,10 +5,10 @@ import ListItem from "@/components/common/List/ListItem";
 import PageComponent from "@/components/common/PageComponent";
 import DeleteModal from "@/components/common/DeleteModal";
 import ButtonContainer from "@/components/common/List/ListBtnContainer";
-import { useMinutes } from "@/hooks/minutes/useMinutes";
-import { deleteMinutes } from "@/apis/minutes";
+import { useRegulations } from "@/hooks/regulations/useRegulations";
+import { deleteRegulations } from "@/apis/regulations";
 
-const MinutesListPage = () => {
+const RegulationsListPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const initialPage = parseInt(searchParams.get("page") || "1", 10) - 1;
@@ -17,7 +17,7 @@ const MinutesListPage = () => {
 
   const [page, setPage] = useState(initialPage);
 
-  const { data, refetch } = useMinutes(page);
+  const { data, refetch } = useRegulations(page);
 
   useEffect(() => {
     setPage(initialPage);
@@ -25,7 +25,8 @@ const MinutesListPage = () => {
 
   // 전체 삭제
   const onAllNoticeDelete = async () => {
-    const response = await deleteMinutes();
+    const response = await deleteRegulations();
+
     if (response.check) {
       setIsShowModal(false);
       refetch();
@@ -36,14 +37,14 @@ const MinutesListPage = () => {
     <S.Container>
       {isShowModal && (
         <DeleteModal
-          text="모든 회의록이 사라집니다."
+          text="모든 회칙 및 세칙이 사라집니다."
           onCancel={() => setIsShowModal(false)}
           onSubmit={onAllNoticeDelete}
         />
       )}
       <ButtonContainer
         onDelete={() => setIsShowModal(true)}
-        onPost={() => navigate("/document/minutes/new")}
+        onPost={() => navigate("/document/regulations/new")}
       />
       {data.information.contents.length > 0 ? (
         <>
@@ -54,7 +55,9 @@ const MinutesListPage = () => {
                   key={index}
                   title={item.title}
                   date={item.date.split("T")[0].replaceAll("-", ".")}
-                  onClick={() => navigate(`/document/minutes/${item.minuteId}`)}
+                  onClick={() =>
+                    navigate(`/document/regulations/${item.regulationId}`)
+                  }
                 />
               );
             })}
@@ -62,10 +65,10 @@ const MinutesListPage = () => {
           <PageComponent totalPage={data.information.totalPage} />
         </>
       ) : (
-        <S.EmptyText>회의록이 없습니다.</S.EmptyText>
+        <S.EmptyText>회칙 및 세칙이 없습니다.</S.EmptyText>
       )}
     </S.Container>
   );
 };
 
-export default MinutesListPage;
+export default RegulationsListPage;

@@ -1,47 +1,47 @@
-export type MinutesList = {
+export type RegulationsList = {
   check: boolean;
   information: {
     totalPage: number;
     pageSize: number;
     totalElements: number;
     contents: {
-      minuteId: number;
+      regulationId: number;
       title: string;
       date: string;
     }[];
   };
 };
 
-export type MinutesDetail = {
+export type RegulationsDetail = {
   check: boolean;
   information: {
-    minuteId: number;
+    regulationId: number;
     title: string;
     content: string;
     date: string;
-    files: MinutesFileResponse[];
+    files: RegulationsFileResponse[];
   };
 };
 
-export type MinutesFileResponse = {
-  minuteFileId: number;
+export type RegulationsFileResponse = {
+  regulationFileId: number;
   fileName: string;
   fileUrl: string;
 };
 
-export type MinutesPostRequest = {
-  files: File[];
-  createMinuteReq: {
+export type RegulationsPostRequest = {
+  createRegulationReq: {
     title: string;
     content: string;
   };
+  file: File[];
 };
 
-export type MinutesPatchRequest = {
-  files: File[];
-  modifyMinuteReq: {
+export type RegulationsPatchRequest = {
+  modifyRegulationReq: {
     title: string;
     content: string;
     deleteFiles: number[];
   };
+  file: File[];
 };

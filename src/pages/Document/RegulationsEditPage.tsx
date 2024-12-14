@@ -1,35 +1,33 @@
-import { patchMinutes } from "@/apis/minutes";
+import { patchRegulations } from "@/apis/regulations";
 import CheckModal from "@/components/common/CheckModal";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import ContentInput from "@/components/common/Write/ContentInput";
 import TitleInput from "@/components/common/Write/TitleInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
-import { useMinutesDetail } from "@/hooks/minutes/useMinutesDetail";
+import { useRegulationsDetail } from "@/hooks/regulations/useRegulationsDetail";
 import * as S from "@/styles/common/WritePageStyle";
 import {
-  MinutesFileResponse,
-  MinutesPatchRequest,
-} from "@/types/Document/minutes";
+  RegulationsFileResponse,
+  RegulationsPatchRequest,
+} from "@/types/Document/regulations";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const MinutesEditPage = () => {
+const RegulationsEditPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data } = useMinutesDetail(Number(id));
+  const { data } = useRegulationsDetail(Number(id));
 
   const [isShowModal, setIsShowModal] = useState(false);
 
-  const [minutesDetail, setMinutesDetail] = useState(data);
+  const [regulationsDetail, setRegulationsDetail] = useState(data);
 
-  // 조건: 제목과 내용이 비어있을 때
-  const isSubmitDisabled =
-    !minutesDetail.information.title.trim() ||
-    !minutesDetail.information.content.trim();
+  // 조건: 제목이 비어있을 때
+  const isSubmitDisabled = !regulationsDetail.information.title.trim();
 
   // 조건: 기존 데이터와 변경 데이터가 같을 때
   const isDataUnchanged =
-    JSON.stringify(data) === JSON.stringify(minutesDetail);
+    JSON.stringify(data) === JSON.stringify(regulationsDetail);
 
   // 제목, 내용 작성 함수
   const handleInputChange = (
@@ -42,7 +40,7 @@ const MinutesEditPage = () => {
       e.target.style.height = `${e.target.scrollHeight}px`;
     }
 
-    setMinutesDetail((prev) => ({
+    setRegulationsDetail((prev) => ({
       ...prev,
       information: {
         ...prev.information,
@@ -68,14 +66,14 @@ const MinutesEditPage = () => {
           );
         }
 
-        setMinutesDetail((prev) => ({
+        setRegulationsDetail((prev) => ({
           ...prev,
           information: {
             ...prev.information,
             [key]: [
               ...prev.information[key],
               ...fileArray,
-            ] as MinutesFileResponse[],
+            ] as RegulationsFileResponse[],
           },
         }));
       }
@@ -85,7 +83,7 @@ const MinutesEditPage = () => {
   // 파일 삭제 함수
   const handleFileRemove = (index: number, key: "files" | "images") => {
     if (key === "files") {
-      setMinutesDetail((prev) => {
+      setRegulationsDetail((prev) => {
         const updatedArray = prev.information[key].filter(
           (_, i) => i !== index
         );
@@ -103,31 +101,32 @@ const MinutesEditPage = () => {
 
   // 수정된 공지사항 저장
   const handleSubmit = async () => {
-    const newFiles = minutesDetail.information.files.filter(
+    const newFiles = regulationsDetail.information.files.filter(
       (item) => item instanceof File
     );
 
     const deletedFileIds = data.information.files
       .filter(
         (originalItem) =>
-          !minutesDetail.information.files.some(
+          !regulationsDetail.information.files.some(
             (currentItem) =>
               !(currentItem instanceof File) &&
-              (currentItem as any).minuteFileId === originalItem.minuteFileId
+              (currentItem as any).regulationFileId ===
+                originalItem.regulationFileId
           )
       )
-      .map((deletedItem) => deletedItem.minuteFileId);
+      .map((deletedItem) => deletedItem.regulationFileId);
 
-    const minutesModifyPost: MinutesPatchRequest = {
-      files: newFiles,
-      modifyMinuteReq: {
-        title: minutesDetail.information.title,
-        content: minutesDetail.information.content,
+    const regulationsModifyPost: RegulationsPatchRequest = {
+      file: newFiles,
+      modifyRegulationReq: {
+        title: regulationsDetail.information.title,
+        content: regulationsDetail.information.content,
         deleteFiles: deletedFileIds,
       },
     };
 
-    const response = await patchMinutes(Number(id), minutesModifyPost);
+    const response = await patchRegulations(Number(id), regulationsModifyPost);
 
     if (response.check) {
       navigate(-1);
@@ -150,20 +149,22 @@ const MinutesEditPage = () => {
       />
       <hr />
       <TitleInput
-        title={minutesDetail.information.title}
+        title={regulationsDetail.information.title}
         handleInputChange={handleInputChange}
+        placeholder="회칙 및 세칙명을 입력하세요. (필수)"
       />
       <ContentInput
-        content={minutesDetail.information.content}
+        content={regulationsDetail.information.content}
         handleInputChange={handleInputChange}
+        placeholder="내용을 입력하세요. (선택)"
       />
       <AddFileButton
         handleFileChange={handleFileChange}
         handleFileRemove={handleFileRemove}
-        files={minutesDetail.information.files}
+        files={regulationsDetail.information.files}
       />
     </S.Container>
   );
 };
 
-export default MinutesEditPage;
+export default RegulationsEditPage;

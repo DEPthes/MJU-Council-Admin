@@ -2,7 +2,8 @@ import { Clip } from "@/assets/common";
 import NewFileComponent from "@/components/common/Write/NewFileComponent";
 import { ImageFileResponse } from "@/types/common";
 import * as S from "@/styles/common/WriteStyle";
-import { FileResponse } from "@/types/Document/minutes";
+import { MinutesFileResponse } from "@/types/Document/minutes";
+import { RegulationsFileResponse } from "@/types/Document/regulations";
 
 interface Props {
   handleFileChange: (
@@ -11,7 +12,11 @@ interface Props {
     filterType?: string
   ) => void;
   handleFileRemove: (index: number, key: "files" | "images") => void;
-  files: File[] | ImageFileResponse[] | FileResponse[];
+  files:
+    | File[]
+    | ImageFileResponse[]
+    | MinutesFileResponse[]
+    | RegulationsFileResponse[];
 }
 
 const AddFileButton = ({
