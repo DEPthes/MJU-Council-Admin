@@ -7,14 +7,13 @@ import PolicyPromiseItem from "./PolicyPromiseItem";
 const PolicyPromiseComponent = () => {
   const [isShowNewPromise, setIsShowNewPromise] = useState<boolean>(false);
 
-  const [searchParams] = useSearchParams();
-  const policy = searchParams.get("policy");
+  const [policyParams] = useSearchParams();
+  const policy = policyParams.get("policy");
   const { data, refetch } = usePromise(policy!);
 
   useEffect(() => {
     refetch();
-  }, [policy]);
-
+  }, [policy, policyParams]);
   const promiseData = data.information;
 
   const emptyData = {

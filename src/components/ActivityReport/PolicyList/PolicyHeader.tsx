@@ -5,7 +5,7 @@ import { usePatchPromiseCategory } from "@/hooks/activityReport/usePromise";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { PromiseCategory } from "@/types/ActivityReport/Policy/policy";
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DeleteModal from "../../common/DeleteModal";
 
 interface PolicyHeaderProps {
@@ -14,7 +14,6 @@ interface PolicyHeaderProps {
 }
 
 const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
-  const [policyParams, setPolicyParams] = useSearchParams();
   const navigator = useNavigate();
 
   const [isFix, setIsFix] = useState<boolean>(false);
@@ -27,16 +26,15 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
 
   const { mutate: patchPromiseCategory } = usePatchPromiseCategory();
 
-  const foundCategory = categoryList.find((item) => item.title === title);
-  const promiseCategoryId = foundCategory!.promiseCategoryId;
+  const foundCategory = categoryList.find((item) => item.title == title);
+  const promiseCategoryId = foundCategory?.promiseCategoryId ?? 0;
+
   const handleSubmit = () => {
     patchPromiseCategory(
       { promiseCategoryId, promiseTitle: title },
       {
         onSuccess: () => {
-          policyParams.set("policy", decodeURIComponent(title));
-          setPolicyParams(policyParams);
-          navigator(`/activityReport/policyList?policy=${policyParams}`);
+          navigator(0);
         },
         onError: (error) => {
           console.error("등록 실패:", error);

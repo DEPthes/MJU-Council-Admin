@@ -2,11 +2,13 @@ import SubmitButton from "@/components/common/Button/SubmitButton";
 import { usePostPromiseCategory } from "@/hooks/activityReport/usePromise";
 import * as S from "@styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const PolicyNewHeader: React.FC = () => {
-  const [policyParams, setPolicyParams] = useSearchParams();
+interface PolicyNewHeaderProps {
+  onExit: () => void;
+}
 
+const PolicyNewHeader: React.FC<PolicyNewHeaderProps> = ({ onExit }) => {
   const [promiseTitle, setPromiseTitle] = useState<string>("");
 
   const { mutate: postPromiseCategory } = usePostPromiseCategory();
@@ -25,9 +27,8 @@ const PolicyNewHeader: React.FC = () => {
       { promiseTitle },
       {
         onSuccess: () => {
-          policyParams.set("policy", decodeURIComponent(promiseTitle));
-          setPolicyParams(policyParams);
-          navigator(`/activityReport/policyList?policy=${policyParams}`);
+          onExit();
+          navigator(`/activityReport/policyList`);
         },
         onError: (error) => {
           console.error("공지 등록 실패:", error);
