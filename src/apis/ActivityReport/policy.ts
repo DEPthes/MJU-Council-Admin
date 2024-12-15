@@ -57,3 +57,8 @@ export async function postPromise(
   console.log(promiseTitle);
   return await api.post(`/api/v1/promise/${promiseTitle}`, body);
 }
+
+// 공약 삭제
+export async function deletePromise(promiseId: number): Promise<{}> {
+  return await api.delete(`/api/v1/promise/${promiseId}`);
+}

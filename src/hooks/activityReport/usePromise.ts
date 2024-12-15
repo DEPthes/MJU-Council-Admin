@@ -4,7 +4,11 @@ import {
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
 
-import { getPromise, postPromise } from "@/apis/ActivityReport/policy";
+import {
+  deletePromise,
+  getPromise,
+  postPromise,
+} from "@/apis/ActivityReport/policy";
 import {
   PromiseInformation,
   PromiseListResponse,
@@ -28,5 +32,11 @@ export function usePostPromise() {
     { promiseTitle: string; body: PromiseInformation }
   >({
     mutationFn: ({ promiseTitle, body }) => postPromise(promiseTitle, body),
+  });
+}
+
+export function useDeletePromise() {
+  return useMutation<{}, Error, { promiseId: number }>({
+    mutationFn: ({ promiseId }) => deletePromise(promiseId),
   });
 }

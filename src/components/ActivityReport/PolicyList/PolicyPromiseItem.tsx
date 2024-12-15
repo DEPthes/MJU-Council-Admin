@@ -2,16 +2,19 @@ import DeleteButton from "@/components/common/Button/DeleteButton";
 import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
 import { fulfillments } from "@/constants/ActivityReport";
+import { useDeletePromise } from "@/hooks/activityReport/usePromise";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyPromiseItemStyle";
 import { PromiseResponseInformation } from "@/types/ActivityReport/Policy/policy";
 import { getFulfillmentRate } from "@/utils/ActivityReport";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface PolicyPromiseItemProps {
   item: PromiseResponseInformation;
 }
 
 const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
+  const navigator = useNavigate();
   const [isFix, setIsFix] = useState<boolean>(false);
   const [promise, setPromise] = useState<PromiseResponseInformation>({
     promiseCategoryId: item.promiseCategoryId,
@@ -19,6 +22,9 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
     content: item.content,
     progress: item.progress,
   });
+
+  const { mutate: deletePromise } = useDeletePromise();
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -32,12 +38,27 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
     setPromise((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleDeletePromise = () => {
+    deletePromise(
+      { promiseId: promise.promiseCategoryId },
+      {
+        onSuccess: () => {
+          navigator("/activityReport/policyList");
+          navigator(0);
+        },
+        onError: (error) => {
+          console.error("등록 실패:", error);
+        },
+      }
+    );
+  };
+
   return (
     <S.Container>
       <S.ButtonContainer>
         {isFix ? (
           <>
-            <DeleteButton onClick={() => setIsFix(false)} />
+            <DeleteButton onClick={handleDeletePromise} />
             <SubmitButton onClick={() => console.log()} />
           </>
         ) : (
