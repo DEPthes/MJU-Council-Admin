@@ -3,19 +3,19 @@ import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
 import { fulfillments } from "@/constants/ActivityReport";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyPromiseItemStyle";
-import { Promise } from "@/types/ActivityReport/Policy";
+import { PromiseInformation } from "@/types/ActivityReport/Policy/policy";
 import { getFulfillmentRate } from "@/utils/ActivityReport";
 import React, { useState } from "react";
 
 interface PolicyPromiseItemProps {
-  item: Promise;
+  item: PromiseInformation;
   fix?: boolean;
 }
 
 const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item, fix }) => {
   const [isFix, setIsFix] = useState<boolean>(fix ?? false);
-  const [promise, setPromise] = useState<Promise>({
-    id: item.id,
+  const [promise, setPromise] = useState<PromiseInformation>({
+    promiseCategoryId: item.promiseCategoryId,
     title: item.title,
     content: item.content,
     progress: item.progress,
@@ -89,8 +89,8 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item, fix }) => {
                 <S.bar progress={getFulfillmentRate(item.progress)} />
               </S.barBackground>
               <S.dotContainer>
-                {fulfillments.map((fulfillmentItem) => (
-                  <S.fulfillmentTextContainer>
+                {fulfillments.map((fulfillmentItem, index) => (
+                  <S.fulfillmentTextContainer key={index}>
                     <S.dot
                       $selected={
                         fulfillments[item.progress] === fulfillmentItem

@@ -1,9 +1,10 @@
 import { Add } from "@/assets/ActivityReport";
+import { PromiseCategory } from "@/types/ActivityReport/Policy/policy";
 import * as S from "@styles/ActivityReport/PolicyList/PolicyMenuBarStyle";
 import { useSearchParams } from "react-router-dom";
 
 interface PolicyMenuBarProps {
-  policyList: string[];
+  policyList: PromiseCategory[];
   onClick: (policy: string) => void;
 }
 
@@ -15,9 +16,13 @@ const PolicyMenuBar: React.FC<PolicyMenuBarProps> = ({
   const policy = policyParams.get("policy");
   return (
     <S.Container>
-      {policyList.map((title) => (
-        <S.Item $isSelected={title === policy} onClick={() => onClick(title)}>
-          {title}
+      {policyList.map((category) => (
+        <S.Item
+          key={category.promiseCategoryId}
+          $isSelected={category.title === policy}
+          onClick={() => onClick(category.title)}
+        >
+          {category.title}
         </S.Item>
       ))}
       <S.Item $isSelected={policy === "new"} onClick={() => onClick("new")}>
