@@ -28,21 +28,12 @@ const PolicyListPage = () => {
     setIsShowNewHeader(policy === "new");
   };
 
-  const handleNewHeader = (header: string) => {
-    if (!header) {
-      alert("정책 카테고리명을 입력해주세요.");
-      return;
-    }
-    policyParams.set("policy", decodeURIComponent(header));
-    setPolicyParams(policyParams);
-  };
-
   return (
     <>
       <PolicyMenuBar policyList={categoryList} onClick={handleChangePolicy} />
       <S.Container>
         {isShowNewHeader ? (
-          <PolicyNewHeader onSubmit={handleNewHeader} />
+          <PolicyNewHeader />
         ) : (
           <>
             <PolicyHeader title={policy!} />
