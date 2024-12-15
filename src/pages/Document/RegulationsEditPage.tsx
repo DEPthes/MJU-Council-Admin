@@ -1,4 +1,4 @@
-import { patchRegulations } from "@/apis/regulations";
+import { putRegulations } from "@/apis/regulations";
 import CheckModal from "@/components/common/CheckModal";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import ContentInput from "@/components/common/Write/ContentInput";
@@ -8,7 +8,7 @@ import { useRegulationsDetail } from "@/hooks/regulations/useRegulationsDetail";
 import * as S from "@/styles/common/WritePageStyle";
 import {
   RegulationsFileResponse,
-  RegulationsPatchRequest,
+  RegulationsPutRequest,
 } from "@/types/Document/regulations";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -117,7 +117,7 @@ const RegulationsEditPage = () => {
       )
       .map((deletedItem) => deletedItem.regulationFileId);
 
-    const regulationsModifyPost: RegulationsPatchRequest = {
+    const regulationsModifyPost: RegulationsPutRequest = {
       file: newFiles,
       modifyRegulationReq: {
         title: regulationsDetail.information.title,
@@ -126,7 +126,7 @@ const RegulationsEditPage = () => {
       },
     };
 
-    const response = await patchRegulations(Number(id), regulationsModifyPost);
+    const response = await putRegulations(Number(id), regulationsModifyPost);
 
     if (response.check) {
       navigate(-1);
