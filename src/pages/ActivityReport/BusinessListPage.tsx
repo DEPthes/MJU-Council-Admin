@@ -14,9 +14,8 @@ const BusinessListPage = () => {
   const page = pageParams.get("page") || "1";
 
   const { data } = useBusinessList({ page: Number(page) });
-  console.log(data);
-
   const businessData = data.information.contents;
+
   return (
     <S.Container>
       {isShowModal && (

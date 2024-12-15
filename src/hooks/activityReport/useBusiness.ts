@@ -1,4 +1,5 @@
 import {
+  useMutation,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
@@ -6,10 +7,12 @@ import {
 import {
   getBusinessDetail,
   getBusinessList,
+  postBusiness,
 } from "@/apis/ActivityReport/business";
 import {
   BusinessDetailResponse,
   BusinessListResponse,
+  BusinessPostRequest,
 } from "@/types/ActivityReport/business";
 
 interface useBusinessListProps {
@@ -39,5 +42,12 @@ export function useBusinessDetail(
   return useSuspenseQuery({
     queryKey: ["GetBusinessDetail", businessId],
     queryFn: () => getBusinessDetail(businessId),
+  });
+}
+
+export function usePostBusiness() {
+  return useMutation<{}, Error, BusinessPostRequest>({
+    mutationFn: ({ images, files, createBusinessReq }) =>
+      postBusiness({ images, files, createBusinessReq }),
   });
 }

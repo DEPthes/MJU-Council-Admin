@@ -19,6 +19,15 @@ export interface BusinessListResponse {
   message: string | null;
 }
 
+export type BusinessPostRequest = {
+  images: File[];
+  files: File[];
+  createBusinessReq: {
+    title: string;
+    content: string;
+  };
+};
+
 // --------------------- {{ 사업 상세 조회 }} -------------------------------
 
 interface BusinessFile {

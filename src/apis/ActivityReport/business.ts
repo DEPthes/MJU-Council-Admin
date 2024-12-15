@@ -1,7 +1,9 @@
 import {
   BusinessDetailResponse,
   BusinessListResponse,
+  BusinessPostRequest,
 } from "@/types/ActivityReport/business";
+
 import { api } from "..";
 
 // 사업 목록 조회
@@ -24,6 +26,43 @@ export async function getBusinessDetail(
   id: number
 ): Promise<BusinessDetailResponse> {
   const response = await api.get(`/api/v1/businesses/${id}`);
+
+  return response?.data;
+}
+
+// 사업 등록
+export async function postBusiness({
+  images,
+  files,
+  createBusinessReq,
+}: BusinessPostRequest) {
+  const formData = new FormData();
+
+  if (images && images.length > 0) {
+    images.forEach((image) => formData.append("images", image));
+  } else {
+    formData.append(
+      "images",
+      new Blob([], { type: "application/octet-stream" })
+    );
+  }
+
+  if (files && files.length > 0) {
+    files.forEach((file) => formData.append("files", file));
+  } else {
+    formData.append(
+      "files",
+      new Blob([], { type: "application/octet-stream" })
+    );
+  }
+
+  const blob = new Blob([JSON.stringify(createBusinessReq)], {
+    type: "application/json",
+  });
+  formData.append("createBusinessReq", blob);
+  console.log(formData);
+
+  const response = await api.post(`/api/v1/businesses`, formData);
 
   return response?.data;
 }
