@@ -19,6 +19,7 @@ export const AddButton = styled.button`
   align-items: center;
   font: var(--PC_ButtonText);
   color: var(--Primary);
+  cursor: pointer;
 
   &:hover {
     border: 2px solid var(--Primary);

@@ -63,6 +63,7 @@ export async function putRegulations(
   });
   formData.append("modifyRegulationReq", blob);
 
+
   const response = await api.put(
     `/api/v1/regulations/${regulationId}`,
     formData
