@@ -24,7 +24,7 @@ const MinutesListPage = () => {
   }, [searchParams]);
 
   // 전체 삭제
-  const onAllNoticeDelete = async () => {
+  const onAllDelete = async () => {
     const response = await deleteMinutes();
     if (response.check) {
       setIsShowModal(false);
@@ -38,7 +38,7 @@ const MinutesListPage = () => {
         <DeleteModal
           text="모든 회의록이 사라집니다."
           onCancel={() => setIsShowModal(false)}
-          onSubmit={onAllNoticeDelete}
+          onSubmit={onAllDelete}
         />
       )}
       <ButtonContainer

@@ -20,3 +20,11 @@ export const EmptyText = styled.p`
   text-align: center;
   padding: 20% 0 30%;
 `;
+
+export const GridContainer = styled.div`
+  margin: 60px 0 160px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 40px;
+  row-gap: 80px;
+`;

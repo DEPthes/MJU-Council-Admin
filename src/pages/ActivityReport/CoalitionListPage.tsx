@@ -1,4 +1,4 @@
-import CoalitionComponent from "@/components/ActivityReport/Coalition/CoalitionComponent";
+import GridItemContainer from "@/components/common/List/GridItemContainer";
 import ListBtnContainer from "@/components/common/List/ListBtnContainer";
 import * as S from "@styles/ActivityReport/Coalition/CoalitionPageStyle";
 import { useNavigate } from "react-router-dom";
@@ -100,7 +100,16 @@ const CoalitionListPage = () => {
       />
       <S.CoalitionContainer>
         {data.information.contents.map((item, index) => (
-          <CoalitionComponent key={index} item={item} />
+          <GridItemContainer
+            key={index}
+            cover={item.cover}
+            title={item.title}
+            subject="제휴"
+            date={`${item.startDate} ~ ${item.endDate}`}
+            onClick={() =>
+              navigator(`/activityReport/coalitionDetail/${item.allianceId}`)
+            }
+          />
         ))}
       </S.CoalitionContainer>
     </S.Container>

@@ -24,6 +24,13 @@ import RegulationsDetailPage from "./pages/Document/RegulationsDetailPage";
 import RegulationsListPage from "./pages/Document/RegulationsListPage";
 import NewRegulationsPage from "./pages/Document/NewRegulationsPage";
 import RegulationsEditPage from "./pages/Document/RegulationsEditPage";
+import EventListPage from "./pages/News/EventListPage";
+import NewEventPage from "./pages/News/NewEventPage";
+import EventDetailPage from "./pages/News/EventDetailPage";
+import NewEventGuidePage from "./pages/News/NewEventGuidePage";
+import EventGuideDetailPage from "./pages/News/EventGuideDetailPage";
+import EventEditPage from "./pages/News/EventEditPage";
+import EventGuideEditPage from "./pages/News/EventGuideEditPage";
 
 const Router = () => {
   return (
@@ -73,6 +80,19 @@ const Router = () => {
           <Route path="/news/notice/:id" element={<NoticeDetailPage />} />
           <Route path="/news/notice/:id/edit" element={<NoticeEditPage />} />
           <Route path="/news/notice/new" element={<NewNoticePage />} />
+          <Route path="/news/event" element={<EventListPage />} />
+          <Route path="/news/event/new" element={<NewEventPage />} />
+          <Route path="/news/event/:id" element={<EventDetailPage />} />
+          <Route path="/news/event/:id/edit" element={<EventEditPage />} />
+          <Route path="/news/event/:id/new" element={<NewEventGuidePage />} />
+          <Route
+            path="/news/event/:id/:guideId"
+            element={<EventGuideDetailPage />}
+          />
+          <Route
+            path="/news/event/:id/:guideId/edit"
+            element={<EventGuideEditPage />}
+          />
           <Route path="/document/minutes" element={<MinutesListPage />} />
           <Route path="/document/minutes/:id" element={<MinutesDetailPage />} />
           <Route
