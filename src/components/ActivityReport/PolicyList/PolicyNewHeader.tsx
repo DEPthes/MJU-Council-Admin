@@ -1,5 +1,5 @@
 import SubmitButton from "@/components/common/Button/SubmitButton";
-import { usePostPromiseCategory } from "@/hooks/activityReport/usePromise";
+import { usePostPromiseCategory } from "@/hooks/activityReport/usePolicyCategory";
 import * as S from "@styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

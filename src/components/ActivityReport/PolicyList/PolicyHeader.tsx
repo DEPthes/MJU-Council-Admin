@@ -1,7 +1,10 @@
 import DeleteButton from "@/components/common/Button/DeleteButton";
 import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
-import { usePatchPromiseCategory } from "@/hooks/activityReport/usePromise";
+import {
+  useDeletePromiseCategory,
+  usePatchPromiseCategory,
+} from "@/hooks/activityReport/usePolicyCategory";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { PromiseCategory } from "@/types/ActivityReport/Policy/policy";
 import { useState } from "react";
@@ -25,6 +28,7 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
   };
 
   const { mutate: patchPromiseCategory } = usePatchPromiseCategory();
+  const { mutate: deletePromiseCategory } = useDeletePromiseCategory();
 
   const foundCategory = categoryList.find((item) => item.title == title);
   const promiseCategoryId = foundCategory?.promiseCategoryId ?? 0;
@@ -45,14 +49,27 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
     setIsFix(false);
   };
 
+  const handleDelete = () => {
+    deletePromiseCategory(
+      { promiseCategoryId },
+      {
+        onSuccess: () => {
+          setIsShowModal(false);
+          navigator(0);
+        },
+        onError: (error) => {
+          console.error("등록 실패:", error);
+        },
+      }
+    );
+  };
+
   return (
     <S.Container>
       {isShowModal && (
         <DeleteModal
           onCancel={() => setIsShowModal(false)}
-          onSubmit={function (): void {
-            throw new Error("Function not implemented.");
-          }}
+          onSubmit={handleDelete}
         />
       )}
       <S.Bar />

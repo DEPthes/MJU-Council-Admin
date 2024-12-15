@@ -1,9 +1,5 @@
 import { PromiseListResponse } from "@/types/ActivityReport/Policy/policy";
 import { api } from "..";
-
-const Authorization =
-  "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InNpMTQ0NDQiLCJpYXQiOjE3MzQyNTQ3MTMsImV4cCI6MTczNDI1NjUxMywic3ViIjoic2kxNDQ0NCJ9.4cpiWx3AExXxoxCr6qSpWKGTNop7AT4QEsnwAZM-UQo";
-
 // ------------- {{ 정책 카테고리 }} ------------------------
 
 // 정책 카테고리 조회
@@ -29,13 +25,14 @@ export async function patchPromiseCategory(
   return await api.patch(
     `/api/v1/promise-category/${promiseCategoryId}/${encodeURIComponent(
       promiseTitle
-    )}`,
-    {
-      headers: {
-        Authorization: `Bearer ${Authorization}`,
-      },
-    }
+    )}`
   );
+}
+
+export async function deletePromiseCategory(
+  promiseCategoryId: number
+): Promise<string[]> {
+  return await api.delete(`/api/v1/promise-category/${promiseCategoryId}`);
 }
 
 // ------------- {{ 정책 공약 }} ------------------------
