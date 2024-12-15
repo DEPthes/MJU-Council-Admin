@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import {
+  deleteBusiness,
   getBusinessDetail,
   getBusinessList,
   postBusiness,
@@ -58,5 +59,11 @@ export function usePutBusiness() {
   return useMutation<{}, Error, BusinessPutRequest>({
     mutationFn: ({ businessId, images, files, modifyBusinessReq }) =>
       putBusiness(businessId!, { images, files, modifyBusinessReq }),
+  });
+}
+
+export function useDeleteBusiness() {
+  return useMutation<{}, Error, { businessId: number }>({
+    mutationFn: ({ businessId }) => deleteBusiness(businessId),
   });
 }
