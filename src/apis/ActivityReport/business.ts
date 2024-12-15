@@ -107,3 +107,8 @@ export async function putBusiness(
 export async function deleteBusiness(businessId: number): Promise<string[]> {
   return await api.delete(`/api/v1/businesses/${businessId}`);
 }
+
+//사업 전체삭제
+export async function deleteAllBusiness(): Promise<string[]> {
+  return await api.delete(`/api/v1/businesses`);
+}

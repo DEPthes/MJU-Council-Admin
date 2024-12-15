@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import {
+  deleteAllBusiness,
   deleteBusiness,
   getBusinessDetail,
   getBusinessList,
@@ -65,5 +66,11 @@ export function usePutBusiness() {
 export function useDeleteBusiness() {
   return useMutation<{}, Error, { businessId: number }>({
     mutationFn: ({ businessId }) => deleteBusiness(businessId),
+  });
+}
+
+export function useDeleteAllBusiness() {
+  return useMutation<{}, Error>({
+    mutationFn: () => deleteAllBusiness(),
   });
 }
