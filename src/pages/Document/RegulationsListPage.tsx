@@ -24,7 +24,7 @@ const RegulationsListPage = () => {
   }, [searchParams]);
 
   // 전체 삭제
-  const onAllNoticeDelete = async () => {
+  const onAllDelete = async () => {
     const response = await deleteRegulations();
 
     if (response.check) {
@@ -39,7 +39,7 @@ const RegulationsListPage = () => {
         <DeleteModal
           text="모든 회칙 및 세칙이 사라집니다."
           onCancel={() => setIsShowModal(false)}
-          onSubmit={onAllNoticeDelete}
+          onSubmit={onAllDelete}
         />
       )}
       <ButtonContainer

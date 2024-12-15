@@ -13,7 +13,7 @@ const NoticeListPage = () => {
   const [searchParams] = useSearchParams();
   const initialPage = parseInt(searchParams.get("page") || "1", 10) - 1;
 
-  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [isShowModal, setIsShowModal] = useState(false);
 
   const [page, setPage] = useState(initialPage);
 
@@ -24,7 +24,7 @@ const NoticeListPage = () => {
   }, [searchParams]);
 
   // 전체 삭제
-  const onAllNoticeDelete = async () => {
+  const onAllDelete = async () => {
     const response = await deleteNotices();
     if (response.check) {
       setIsShowModal(false);
@@ -38,7 +38,7 @@ const NoticeListPage = () => {
         <DeleteModal
           text="모든 공지사항이 사라집니다."
           onCancel={() => setIsShowModal(false)}
-          onSubmit={onAllNoticeDelete}
+          onSubmit={onAllDelete}
         />
       )}
       <ButtonContainer

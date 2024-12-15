@@ -3,8 +3,14 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 20px;
+  gap: 12px;
+  cursor: pointer;
+
+  > img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
 `;
 
 export const ItemContainer = styled.div`
@@ -17,7 +23,7 @@ export const ItemContainer = styled.div`
   cursor: pointer;
 `;
 
-export const HeacerContainer = styled.div`
+export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   font: var(--SectionTitle);

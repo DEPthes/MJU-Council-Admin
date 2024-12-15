@@ -29,6 +29,12 @@ export const ButtonContainer = styled.div`
   gap: 20px;
 `;
 
+export const Text = styled.p`
+  margin-top: 40px;
+  font: var(--PC_ButtonText);
+  color: var(--Primary);
+`;
+
 export const Date = styled.p`
   margin-top: 40px;
   font: var(--PC_BodyText);

@@ -6,6 +6,7 @@ export const Container = styled.div`
 `;
 
 export const CoalitionContainer = styled.div`
+  margin-top: 60px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);

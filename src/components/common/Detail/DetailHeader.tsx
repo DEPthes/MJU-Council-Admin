@@ -5,11 +5,12 @@ import BlueButton from "../Button/BlueButton";
 interface Props {
   title: string;
   date: string;
+  subTitle?: string;
   onDelete: () => void;
   onEdit: () => void;
 }
 
-const DetailHeader = ({ title, date, onDelete, onEdit }: Props) => {
+const DetailHeader = ({ title, subTitle, date, onDelete, onEdit }: Props) => {
   return (
     <>
       <S.TitleContainer>
@@ -19,6 +20,7 @@ const DetailHeader = ({ title, date, onDelete, onEdit }: Props) => {
           <BlueButton onClick={onEdit} text="수정" color="var(--Primary)" />
         </S.ButtonContainer>
       </S.TitleContainer>
+      {subTitle && <S.Text>{subTitle}</S.Text>}
       <S.Date>{date}</S.Date>
       <S.LongLine />
     </>
