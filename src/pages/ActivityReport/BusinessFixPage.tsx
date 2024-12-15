@@ -1,54 +1,25 @@
+import { putBusiness } from "@/apis/ActivityReport/business";
 import CheckModal from "@/components/common/CheckModal";
-import ContentInput from "@/components/common/Write/ContentInput";
 import AddFileButton from "@/components/common/Write/AddFileButton";
+import AddImageContainer from "@/components/common/Write/AddImageContainer";
+import ContentInput from "@/components/common/Write/ContentInput";
 import TitleInput from "@/components/common/Write/TitleInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
-import { BusinessDetailResponse } from "@/types/ActivityReport/Business/businessDetailType";
+import { useBusinessDetail } from "@/hooks/activityReport/useBusiness";
 import * as S from "@/styles/common/WritePageStyle";
+import { BusinessPutRequest } from "@/types/ActivityReport/business";
+import { BusinessDetailResponse } from "@/types/ActivityReport/Business/businessDetailType";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import AddImageContainer from "@/components/common/Write/AddImageContainer";
 
 const BusinessFixPage = () => {
-  const data = {
-    check: true,
-    information: {
-      title: "사업001",
-      content: "사업001의 내용입니다.",
-      createdAt: "2024-11-17",
-      images: [
-        {
-          id: 1,
-          name: "사업 사진",
-          url: "https://councill-s3-bucket/aethkefjdif.png",
-        },
-        {
-          id: 2,
-          name: "사업 사진",
-          url: "https://councill-s3-bucket/aethkefjdif.png",
-        },
-      ],
-      files: [
-        {
-          id: 1,
-          name: "사업 파일",
-          url: "https://councill-s3-bucket/aethkefjdif.pdf",
-        },
-        {
-          id: 2,
-          name: "사업 파일",
-          url: "https://councill-s3-bucket/aethkefjdif.hwp",
-        },
-      ],
-    },
-    message: "사업 1번을 조회합니다.",
-  };
-  const [businessPost, setBusinessPost] =
-    useState<BusinessDetailResponse>(data);
-
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const { id } = useParams<{ id: string }>();
+  const { data } = useBusinessDetail(Number(id));
+  const businessData = data.information;
+  const [businessPost, setBusinessPost] =
+    useState<BusinessDetailResponse>(data);
 
   // 제목과 내용이 비어 있는지 확인
   const isSubmitDisabled =
@@ -114,8 +85,51 @@ const BusinessFixPage = () => {
     });
   };
 
-  const handleSubmit = () => {
-    navigator(`/activityReport/BusinessDetail/${id}`);
+  const handleSubmit = async () => {
+    const newImages = businessData.images.filter(
+      (item) => item instanceof File
+    );
+
+    const newFiles = businessData.files.filter((item) => item instanceof File);
+
+    const deletedImageIds = businessData.images
+      .filter(
+        (originalItem) =>
+          !businessData.images.some(
+            (currentItem) =>
+              !(currentItem instanceof File) &&
+              (currentItem as any).id === originalItem.id
+          )
+      )
+      .map((deletedItem) => deletedItem.id);
+
+    const deletedFileIds = businessData.files
+      .filter(
+        (originalItem) =>
+          !businessData.files.some(
+            (currentItem) =>
+              !(currentItem instanceof File) &&
+              (currentItem as any).id === originalItem.id
+          )
+      )
+      .map((deletedItem) => deletedItem.id);
+
+    const businessModifyPost: BusinessPutRequest = {
+      images: newImages,
+      files: newFiles,
+      modifyBusinessReq: {
+        title: businessPost.information.title,
+        content: businessPost.information.content,
+        deleteImages: deletedImageIds,
+        deleteFiles: deletedFileIds,
+      },
+    };
+
+    const response = await putBusiness(Number(id), businessModifyPost);
+
+    if (response.check) {
+      navigator(-1);
+    }
   };
 
   return (

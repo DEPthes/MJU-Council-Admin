@@ -4,7 +4,7 @@ import {
   patchPromiseCategory,
   postPromiseCategory,
 } from "@/apis/ActivityReport/policy";
-import { PromiseCategoryResponse } from "@/types/ActivityReport/Policy/policy";
+import { PromiseCategoryResponse } from "@/types/ActivityReport/policy";
 import {
   useMutation,
   useSuspenseQuery,

@@ -6,7 +6,7 @@ import {
   usePatchPromiseCategory,
 } from "@/hooks/activityReport/usePolicyCategory";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
-import { PromiseCategory } from "@/types/ActivityReport/Policy/policy";
+import { PromiseCategory } from "@/types/ActivityReport/policy";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../../common/DeleteModal";

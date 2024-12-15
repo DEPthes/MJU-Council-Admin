@@ -1,16 +1,17 @@
 import CheckModal from "@/components/common/CheckModal";
-import ContentInput from "@/components/common/Write/ContentInput";
 import AddFileButton from "@/components/common/Write/AddFileButton";
+import AddImageContainer from "@/components/common/Write/AddImageContainer";
+import ContentInput from "@/components/common/Write/ContentInput";
 import TitleInput from "@/components/common/Write/TitleInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
-import { RequestData } from "@/types/ActivityReport/Business";
+import { usePostBusiness } from "@/hooks/activityReport/useBusiness";
 import * as S from "@/styles/common/WritePageStyle";
+import { BusinessPostRequest } from "@/types/ActivityReport/business";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AddImageContainer from "@/components/common/Write/AddImageContainer";
 
 const NewBusinessPage = () => {
-  const [businessPost, setBusinessPost] = useState<RequestData>({
+  const [businessPost, setBusinessPost] = useState<BusinessPostRequest>({
     images: [],
     files: [],
     createBusinessReq: {
@@ -20,6 +21,8 @@ const NewBusinessPage = () => {
   });
 
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+
+  const { mutate: postBusiness } = usePostBusiness();
 
   // 제목과 내용이 비어 있는지 확인
   const isSubmitDisabled =
@@ -81,6 +84,25 @@ const NewBusinessPage = () => {
     });
   };
 
+  const handlePostBusiness = () => {
+    postBusiness(
+      {
+        images: businessPost.images,
+        files: businessPost.files,
+        createBusinessReq: businessPost.createBusinessReq,
+      },
+      {
+        onSuccess: () => {
+          navigator("/activityReport/businessList");
+          navigator(0);
+        },
+        onError: (error) => {
+          console.error("등록 실패:", error);
+        },
+      }
+    );
+  };
+
   return (
     <S.Container>
       {isShowModal && (
@@ -92,9 +114,7 @@ const NewBusinessPage = () => {
       )}
       <WriteBtnContainer
         onCancel={() => setIsShowModal(true)}
-        onSubmit={function (): void {
-          throw new Error("Function not implemented.");
-        }}
+        onSubmit={handlePostBusiness}
         isDisabled={isSubmitDisabled}
       />
       <TitleInput

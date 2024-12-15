@@ -1,7 +1,7 @@
 import {
   PromiseInformation,
   PromiseListResponse,
-} from "@/types/ActivityReport/Policy/policy";
+} from "@/types/ActivityReport/policy";
 import { api } from "..";
 // ------------- {{ 정책 카테고리 }} ------------------------
 
