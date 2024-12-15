@@ -3,6 +3,7 @@ import BackButton from "@/components/common/Button/BackButton";
 import CheckModal from "@/components/common/CheckModal";
 import ContentView from "@/components/common/Detail/ContentView";
 import DetailHeader from "@/components/common/Detail/DetailHeader";
+import FileView from "@/components/common/Detail/FileView";
 import ImageView from "@/components/common/Detail/ImageView";
 import { useEventGuide } from "@/hooks/event/useEventGuide";
 import * as S from "@/styles/common/WritePageStyle";
@@ -49,6 +50,9 @@ const EventGuideDetailPage = () => {
         <ImageView images={data.information.images} />
       )}
       <ContentView content={data.information.content} />
+      {data.information.files.length > 0 && (
+        <FileView files={data.information.files} />
+      )}
     </S.Container>
   );
 };

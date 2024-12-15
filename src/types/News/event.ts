@@ -37,6 +37,7 @@ export type EventGuideDetail = {
     content: string;
     createdAt: string;
     images: ImageFileResponse[];
+    files: ImageFileResponse[];
   };
 };
 
@@ -63,6 +64,7 @@ export type EventPutRequest = {
 
 export type EventGuidePostRequest = {
   images: File[];
+  files: File[];
   createEventDetailReq: {
     title: string;
     content: string;
@@ -71,9 +73,11 @@ export type EventGuidePostRequest = {
 
 export type EventGuidePutRequest = {
   images: File[];
+  files: File[];
   modifyEventDetailReq: {
     title: string;
     content: string;
     deleteImages: number[];
+    deleteFiles: number[];
   };
 };

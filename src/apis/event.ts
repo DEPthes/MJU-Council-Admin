@@ -61,7 +61,7 @@ export async function postEvent({ images, createEventReq }: EventPostRequest) {
 // 행사 세부사항 등록
 export async function postEventGuide(
   eventId: number,
-  { images, createEventDetailReq }: EventGuidePostRequest
+  { images, files, createEventDetailReq }: EventGuidePostRequest
 ) {
   const formData = new FormData();
 
@@ -70,6 +70,15 @@ export async function postEventGuide(
   } else {
     formData.append(
       "images",
+      new Blob([], { type: "application/octet-stream" })
+    );
+  }
+
+  if (files && files.length > 0) {
+    files.forEach((file) => formData.append("files", file));
+  } else {
+    formData.append(
+      "files",
       new Blob([], { type: "application/octet-stream" })
     );
   }
@@ -114,7 +123,7 @@ export async function putEvent(
 export async function putEventGuide(
   eventId: number,
   eventDetailId: number,
-  { images, modifyEventDetailReq }: EventGuidePutRequest
+  { images, files, modifyEventDetailReq }: EventGuidePutRequest
 ) {
   const formData = new FormData();
 
@@ -123,6 +132,15 @@ export async function putEventGuide(
   } else {
     formData.append(
       "images",
+      new Blob([], { type: "application/octet-stream" })
+    );
+  }
+
+  if (files && files.length > 0) {
+    files.forEach((file) => formData.append("files", file));
+  } else {
+    formData.append(
+      "files",
       new Blob([], { type: "application/octet-stream" })
     );
   }
