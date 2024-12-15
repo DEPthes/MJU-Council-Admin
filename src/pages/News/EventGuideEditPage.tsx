@@ -1,5 +1,6 @@
 import { putEventGuide } from "@/apis/event";
 import CheckModal from "@/components/common/CheckModal";
+import AddFileButton from "@/components/common/Write/AddFileButton";
 import AddImageContainer from "@/components/common/Write/AddImageContainer";
 import ContentInput from "@/components/common/Write/ContentInput";
 import TitleInput from "@/components/common/Write/TitleInput";
@@ -54,53 +55,51 @@ const EventGuideEditPage = () => {
     key: "files" | "images",
     filterType?: string
   ) => {
-    if (key === "images") {
-      const files = e.target.files;
-      if (files) {
-        let fileArray = Array.from(files);
+    const files = e.target.files;
+    if (files) {
+      let fileArray = Array.from(files);
 
-        if (filterType) {
-          fileArray = fileArray.filter((file) =>
-            file.type.startsWith(filterType)
-          );
-        }
-
-        setEventDetail((prev) => ({
-          ...prev,
-          information: {
-            ...prev.information,
-            [key]: [
-              ...prev.information[key],
-              ...fileArray,
-            ] as ImageFileResponse[],
-          },
-        }));
+      if (filterType) {
+        fileArray = fileArray.filter((file) =>
+          file.type.startsWith(filterType)
+        );
       }
+
+      setEventDetail((prev) => ({
+        ...prev,
+        information: {
+          ...prev.information,
+          [key]: [
+            ...prev.information[key],
+            ...fileArray,
+          ] as ImageFileResponse[],
+        },
+      }));
     }
   };
 
   // 이미지 삭제 함수
   const handleFileRemove = (index: number, key: "files" | "images") => {
-    if (key === "images") {
-      setEventDetail((prev) => {
-        const updatedArray = prev.information[key].filter(
-          (_, i) => i !== index
-        );
+    setEventDetail((prev) => {
+      const updatedArray = prev.information[key].filter((_, i) => i !== index);
 
-        return {
-          ...prev,
-          information: {
-            ...prev.information,
-            [key]: updatedArray,
-          },
-        };
-      });
-    }
+      return {
+        ...prev,
+        information: {
+          ...prev.information,
+          [key]: updatedArray,
+        },
+      };
+    });
   };
 
   // 수정된 행사 저장
   const handleSubmit = async () => {
     const newImages = eventDetail.information.images.filter(
+      (item) => item instanceof File
+    );
+
+    const newFiles = eventDetail.information.files.filter(
       (item) => item instanceof File
     );
 
@@ -115,12 +114,25 @@ const EventGuideEditPage = () => {
       )
       .map((deletedItem) => deletedItem.id);
 
+    const deletedFileIds = data.information.files
+      .filter(
+        (originalItem) =>
+          !eventDetail.information.files.some(
+            (currentItem) =>
+              !(currentItem instanceof File) &&
+              (currentItem as any).id === originalItem.id
+          )
+      )
+      .map((deletedItem) => deletedItem.id);
+
     const eventModifyPost: EventGuidePutRequest = {
       images: newImages,
+      files: newFiles,
       modifyEventDetailReq: {
         title: eventDetail.information.title,
         content: eventDetail.information.content,
         deleteImages: deletedImageIds,
+        deleteFiles: deletedFileIds,
       },
     };
 
@@ -162,6 +174,11 @@ const EventGuideEditPage = () => {
       <ContentInput
         content={eventDetail.information.content}
         handleInputChange={handleInputChange}
+      />
+      <AddFileButton
+        handleFileChange={handleFileChange}
+        handleFileRemove={handleFileRemove}
+        files={eventDetail.information.files}
       />
     </S.Container>
   );

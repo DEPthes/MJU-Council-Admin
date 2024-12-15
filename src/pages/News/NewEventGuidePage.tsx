@@ -1,5 +1,6 @@
 import { postEventGuide } from "@/apis/event";
 import CheckModal from "@/components/common/CheckModal";
+import AddFileButton from "@/components/common/Write/AddFileButton";
 import AddImageContainer from "@/components/common/Write/AddImageContainer";
 import ContentInput from "@/components/common/Write/ContentInput";
 import TitleInput from "@/components/common/Write/TitleInput";
@@ -16,6 +17,7 @@ const NewEventGuidePage = () => {
 
   const [eventPost, setEventPost] = useState<EventGuidePostRequest>({
     images: [],
+    files: [],
     createEventDetailReq: {
       title: "",
       content: "",
@@ -59,37 +61,33 @@ const NewEventGuidePage = () => {
     key: "files" | "images",
     filterType?: string
   ) => {
-    if (key === "images") {
-      const files = e.target.files;
-      if (files) {
-        let fileArray = Array.from(files);
+    const files = e.target.files;
+    if (files) {
+      let fileArray = Array.from(files);
 
-        if (filterType) {
-          fileArray = fileArray.filter((file) =>
-            file.type.startsWith(filterType)
-          );
-        }
-
-        setEventPost((prev) => ({
-          ...prev,
-          [key]: [...prev[key], ...fileArray],
-        }));
+      if (filterType) {
+        fileArray = fileArray.filter((file) =>
+          file.type.startsWith(filterType)
+        );
       }
+
+      setEventPost((prev) => ({
+        ...prev,
+        [key]: [...prev[key], ...fileArray],
+      }));
     }
   };
 
   // 이미지 삭제 함수
   const handleFileRemove = (index: number, key: "files" | "images") => {
-    if (key === "images") {
-      setEventPost((prev) => {
-        const updatedArray = prev[key].filter((_, i) => i !== index);
+    setEventPost((prev) => {
+      const updatedArray = prev[key].filter((_, i) => i !== index);
 
-        return {
-          ...prev,
-          [key]: updatedArray,
-        };
-      });
-    }
+      return {
+        ...prev,
+        [key]: updatedArray,
+      };
+    });
   };
 
   // 행사 글 등록
@@ -128,6 +126,11 @@ const NewEventGuidePage = () => {
       <ContentInput
         content={eventPost.createEventDetailReq.content}
         handleInputChange={handleInputChange}
+      />
+      <AddFileButton
+        handleFileChange={handleFileChange}
+        handleFileRemove={handleFileRemove}
+        files={eventPost.files}
       />
     </S.Container>
   );
