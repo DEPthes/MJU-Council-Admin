@@ -3,14 +3,20 @@ import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
 import { usePatchPromiseCategory } from "@/hooks/activityReport/usePromise";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
+import { PromiseCategory } from "@/types/ActivityReport/Policy/policy";
 import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import DeleteModal from "../../common/DeleteModal";
 
 interface PolicyHeaderProps {
   title: string;
+  categoryList: PromiseCategory[];
 }
 
-const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title }) => {
+const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
+  const [policyParams, setPolicyParams] = useSearchParams();
+  const navigator = useNavigate();
+
   const [isFix, setIsFix] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
@@ -19,22 +25,24 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title }) => {
     setInputValue(e.target.value);
   };
 
-  const { mutate: postPromiseCategory } = usePatchPromiseCategory();
+  const { mutate: patchPromiseCategory } = usePatchPromiseCategory();
 
+  const foundCategory = categoryList.find((item) => item.title === title);
+  const promiseCategoryId = foundCategory!.promiseCategoryId;
   const handleSubmit = () => {
-    // postPromiseCategory(
-    //   { promiseTitle },
-    //   {
-    //     onSuccess: () => {
-    //       policyParams.set("policy", decodeURIComponent(promiseTitle));
-    //       setPolicyParams(policyParams);
-    //       navigator(`/activityReport/policyList?policy=${policyParams}`);
-    //     },
-    //     onError: (error) => {
-    //       console.error("공지 등록 실패:", error);
-    //     },
-    //   }
-    // );
+    patchPromiseCategory(
+      { promiseCategoryId, promiseTitle: title },
+      {
+        onSuccess: () => {
+          policyParams.set("policy", decodeURIComponent(title));
+          setPolicyParams(policyParams);
+          navigator(`/activityReport/policyList?policy=${policyParams}`);
+        },
+        onError: (error) => {
+          console.error("등록 실패:", error);
+        },
+      }
+    );
 
     setIsFix(false);
   };
