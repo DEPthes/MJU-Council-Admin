@@ -54,6 +54,7 @@ const AddBtn: React.FC = () => {
       {/* 모달 렌더링 */}
       {isModal && (
         <RemoveModal
+          text="이미지를 삭제하시겠습니까?"
           setIsModal={setIsModal}
           onConfirm={handleConfirmRemove}
         />

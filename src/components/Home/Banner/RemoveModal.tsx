@@ -3,6 +3,7 @@ import * as S from "@styles/Home/Banner/RemoveModalComponentSytle";
 interface Remove {
   setIsModal: (value: boolean) => void;
   onConfirm: () => void;
+  text: string;
 }
 
 const RemoveModal: React.FC<Remove> = (props) => {
@@ -12,7 +13,7 @@ const RemoveModal: React.FC<Remove> = (props) => {
       
       <S.MDiv>
         <S.TextDiv>
-          <S.MText>이미지를 삭제하시겠습니까?</S.MText>
+          <S.MText>{props.text}</S.MText>
           <S.BtnDiv>
             <S.MButton onClick={() => props.setIsModal(false)}>취소</S.MButton>
             <S.MCButton onClick={props.onConfirm}>확인</S.MCButton>
