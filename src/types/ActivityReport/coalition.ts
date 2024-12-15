@@ -29,3 +29,32 @@ export interface BusinessButtonContainerProps {
 export interface CoalitionComponentProps {
   item: CoalitionContent;
 }
+
+// -------------------- {{ 재휴 상세 조회 }} --------------------------
+
+interface Image {
+  id: number;
+  name: string;
+  url: string;
+}
+
+interface File {
+  id: number;
+  name: string;
+  url: string;
+}
+
+interface CoalitionInfo {
+  title: string;
+  content: string;
+  startDate: string;
+  endDate: string;
+  images: Image[];
+  files: File[];
+}
+
+export interface CoalitionDetailiResponse {
+  check: boolean;
+  information: CoalitionInfo;
+  message: string;
+}

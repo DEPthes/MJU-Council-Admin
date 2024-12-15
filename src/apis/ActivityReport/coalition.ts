@@ -1,10 +1,12 @@
 import {
-  BusinessDetailResponse,
   BusinessPostRequest,
   BusinessPutRequest,
 } from "@/types/ActivityReport/business";
 
-import { CoalitionListResponse } from "@/types/ActivityReport/coalition";
+import {
+  CoalitionDetailiResponse,
+  CoalitionListResponse,
+} from "@/types/ActivityReport/coalition";
 import { api } from "..";
 
 // 재휴 목록 조회
@@ -15,11 +17,11 @@ export async function getCoalitionList(
   return response?.data;
 }
 
-// 사업 목록 상세 조회
-export async function getBusinessDetail(
+// 재휴 목록 상세 조회
+export async function getCoalitionDetail(
   id: number
-): Promise<BusinessDetailResponse> {
-  const response = await api.get(`/api/v1/businesses/${id}`);
+): Promise<CoalitionDetailiResponse> {
+  const response = await api.get(`/api/v1/alliances/${id}`);
 
   return response?.data;
 }
