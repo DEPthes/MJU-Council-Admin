@@ -6,19 +6,19 @@ const PolicyPromiseComponent = () => {
   const [isShowNewPromise, setIsShowNewPromise] = useState<boolean>(false);
   const data = [
     {
-      id: 1,
+      promiseCategoryId: 1,
       title: "재수강 학점 A0 확대",
       content: "블라블라블라",
       progress: 0,
     },
     {
-      id: 2,
+      promiseCategoryId: 2,
       title: "청소 꼼꼼히 하기",
       content: "블라블라블라",
       progress: 1,
     },
     {
-      id: 3,
+      promiseCategoryId: 3,
       title: "청소 꼼꼼히 ggg하기",
       content: "블라블라블라",
       progress: 2,
@@ -26,7 +26,7 @@ const PolicyPromiseComponent = () => {
   ];
 
   const emptyData = {
-    id: 0,
+    promiseCategoryId: 0,
     title: "",
     content: "",
     progress: 0,
