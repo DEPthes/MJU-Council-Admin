@@ -1,7 +1,7 @@
 import {
   MinutesDetail,
   MinutesList,
-  MinutesPatchRequest,
+  MinutesPutRequest,
   MinutesPostRequest,
 } from "@/types/Document/minutes";
 import { api } from ".";
@@ -49,9 +49,9 @@ export async function postMinutes({
 }
 
 // 회의록 수정
-export async function patchMinutes(
+export async function putMinutes(
   minutesId: number,
-  { files, modifyMinuteReq }: MinutesPatchRequest
+  { files, modifyMinuteReq }: MinutesPutRequest
 ) {
   const formData = new FormData();
 
@@ -69,7 +69,7 @@ export async function patchMinutes(
   });
   formData.append("modifyMinuteReq", blob);
 
-  const response = await api.patch(`/api/v1/minutes/${minutesId}`, formData);
+  const response = await api.put(`/api/v1/minutes/${minutesId}`, formData);
 
   return response?.data;
 }

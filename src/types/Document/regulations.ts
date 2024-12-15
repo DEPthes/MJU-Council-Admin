@@ -37,7 +37,7 @@ export type RegulationsPostRequest = {
   file: File[];
 };
 
-export type RegulationsPatchRequest = {
+export type RegulationsPutRequest = {
   modifyRegulationReq: {
     title: string;
     content: string;

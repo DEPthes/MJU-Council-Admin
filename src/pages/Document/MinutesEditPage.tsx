@@ -1,4 +1,4 @@
-import { patchMinutes } from "@/apis/minutes";
+import { putMinutes } from "@/apis/minutes";
 import CheckModal from "@/components/common/CheckModal";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import ContentInput from "@/components/common/Write/ContentInput";
@@ -8,7 +8,7 @@ import { useMinutesDetail } from "@/hooks/minutes/useMinutesDetail";
 import * as S from "@/styles/common/WritePageStyle";
 import {
   MinutesFileResponse,
-  MinutesPatchRequest,
+  MinutesPutRequest,
 } from "@/types/Document/minutes";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -118,7 +118,7 @@ const MinutesEditPage = () => {
       )
       .map((deletedItem) => deletedItem.minuteFileId);
 
-    const minutesModifyPost: MinutesPatchRequest = {
+    const minutesModifyPost: MinutesPutRequest = {
       files: newFiles,
       modifyMinuteReq: {
         title: minutesDetail.information.title,
@@ -127,7 +127,7 @@ const MinutesEditPage = () => {
       },
     };
 
-    const response = await patchMinutes(Number(id), minutesModifyPost);
+    const response = await putMinutes(Number(id), minutesModifyPost);
 
     if (response.check) {
       navigate(-1);

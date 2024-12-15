@@ -37,7 +37,7 @@ export type MinutesPostRequest = {
   };
 };
 
-export type MinutesPatchRequest = {
+export type MinutesPutRequest = {
   files: File[];
   modifyMinuteReq: {
     title: string;

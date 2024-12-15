@@ -1,7 +1,7 @@
 import {
   RegulationsDetail,
   RegulationsList,
-  RegulationsPatchRequest,
+  RegulationsPutRequest,
   RegulationsPostRequest,
 } from "@/types/Document/regulations";
 import { api } from ".";
@@ -46,9 +46,9 @@ export async function postRegulations({
 }
 
 // 학생회칙 수정
-export async function patchRegulations(
+export async function putRegulations(
   regulationId: number,
-  { file, modifyRegulationReq }: RegulationsPatchRequest
+  { file, modifyRegulationReq }: RegulationsPutRequest
 ) {
   const formData = new FormData();
 
@@ -63,7 +63,7 @@ export async function patchRegulations(
   });
   formData.append("modifyRegulationReq", blob);
 
-  const response = await api.patch(
+  const response = await api.put(
     `/api/v1/regulations/${regulationId}`,
     formData
   );
