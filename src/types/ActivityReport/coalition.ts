@@ -13,7 +13,7 @@ export interface CoalitionInformation {
   contents: CoalitionContent[];
 }
 
-export interface CoalitionData {
+export interface CoalitionListResponse {
   check: boolean;
   information: CoalitionInformation;
   message: string;

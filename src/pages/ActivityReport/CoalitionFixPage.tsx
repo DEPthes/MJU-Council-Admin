@@ -1,13 +1,13 @@
 import CheckModal from "@/components/common/CheckModal";
-import { BusinessDetailResponse } from "@/types/ActivityReport/Business/businessDetailType";
-import * as S from "@/styles/common/WritePageStyle";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
-import TitleInput from "@/components/common/Write/TitleInput";
-import ContentInput from "@/components/common/Write/ContentInput";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import AddImageContainer from "@/components/common/Write/AddImageContainer";
+import ContentInput from "@/components/common/Write/ContentInput";
+import TitleInput from "@/components/common/Write/TitleInput";
+import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
+import * as S from "@/styles/common/WritePageStyle";
+import { BusinessDetailResponse } from "@/types/ActivityReport/businessDetailType";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CoalitionFixPage = () => {
   const data = {
