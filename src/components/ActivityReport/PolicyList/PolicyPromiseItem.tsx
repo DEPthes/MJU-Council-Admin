@@ -3,18 +3,17 @@ import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
 import { fulfillments } from "@/constants/ActivityReport";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyPromiseItemStyle";
-import { PromiseInformation } from "@/types/ActivityReport/Policy/policy";
+import { PromiseResponseInformation } from "@/types/ActivityReport/Policy/policy";
 import { getFulfillmentRate } from "@/utils/ActivityReport";
 import React, { useState } from "react";
 
 interface PolicyPromiseItemProps {
-  item: PromiseInformation;
-  fix?: boolean;
+  item: PromiseResponseInformation;
 }
 
-const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item, fix }) => {
-  const [isFix, setIsFix] = useState<boolean>(fix ?? false);
-  const [promise, setPromise] = useState<PromiseInformation>({
+const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
+  const [isFix, setIsFix] = useState<boolean>(false);
+  const [promise, setPromise] = useState<PromiseResponseInformation>({
     promiseCategoryId: item.promiseCategoryId,
     title: item.title,
     content: item.content,

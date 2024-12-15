@@ -1,4 +1,7 @@
-import { PromiseListResponse } from "@/types/ActivityReport/Policy/policy";
+import {
+  PromiseInformation,
+  PromiseListResponse,
+} from "@/types/ActivityReport/Policy/policy";
 import { api } from "..";
 // ------------- {{ 정책 카테고리 }} ------------------------
 
@@ -44,4 +47,13 @@ export async function getPromise(
   const response = await api.get(`/api/v1/promise/${promiseTitle}`);
 
   return response?.data;
+}
+
+// 공약 추가
+export async function postPromise(
+  promiseTitle: string,
+  body: PromiseInformation
+): Promise<{}> {
+  console.log(promiseTitle);
+  return await api.post(`/api/v1/promise/${promiseTitle}`, body);
 }

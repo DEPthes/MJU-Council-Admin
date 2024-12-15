@@ -15,7 +15,14 @@ export interface PromiseCategoryResponse {
 }
 
 // ------------------- {{ Promise }} ----------------------
+
 export interface PromiseInformation {
+  title: string;
+  content: string;
+  progress: number;
+}
+
+export interface PromiseResponseInformation {
   promiseCategoryId: number;
   title: string;
   content: string;
@@ -24,6 +31,6 @@ export interface PromiseInformation {
 
 export interface PromiseListResponse {
   check: boolean;
-  information: PromiseInformation[];
+  information: PromiseResponseInformation[];
   message: string | null;
 }

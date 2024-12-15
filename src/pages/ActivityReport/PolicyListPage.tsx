@@ -5,11 +5,9 @@ import PolicyPromiseComponent from "@/components/ActivityReport/PolicyList/Polic
 import { usePromiseCategory } from "@/hooks/activityReport/usePolicyCategory";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyListPageStyle";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const PolicyListPage = () => {
-  const navigator = useNavigate();
-
   const [isShowNewHeader, setIsShowNewHeader] = useState<boolean>(false);
   const [policyParams, setPolicyParams] = useSearchParams();
   const policy = policyParams.get("policy");

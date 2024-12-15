@@ -1,10 +1,14 @@
 import {
+  useMutation,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
 
-import { getPromise } from "@/apis/ActivityReport/policy";
-import { PromiseListResponse } from "@/types/ActivityReport/Policy/policy";
+import { getPromise, postPromise } from "@/apis/ActivityReport/policy";
+import {
+  PromiseInformation,
+  PromiseListResponse,
+} from "@/types/ActivityReport/Policy/policy";
 
 // ------------- {{ 정책 공약 }} ------------------------
 
@@ -14,5 +18,15 @@ export function usePromise(
   return useSuspenseQuery({
     queryKey: ["GetPromise"],
     queryFn: () => getPromise(promiseTitle),
+  });
+}
+
+export function usePostPromise() {
+  return useMutation<
+    {},
+    Error,
+    { promiseTitle: string; body: PromiseInformation }
+  >({
+    mutationFn: ({ promiseTitle, body }) => postPromise(promiseTitle, body),
   });
 }
