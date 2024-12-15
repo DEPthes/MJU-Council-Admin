@@ -4,14 +4,11 @@ import {
   MinutesPatchRequest,
   MinutesPostRequest,
 } from "@/types/Document/minutes";
-import axios from "axios";
-
-// 토큰
-const Authorization = "";
+import { api } from ".";
 
 // 회의록 전체 조회
 export async function getMinutes(page: number): Promise<MinutesList> {
-  const response = await axios.get(`/api/v1/minutes?page=${page}&size=10`);
+  const response = await api.get(`/api/v1/minutes?page=${page}&size=10`);
 
   return response?.data;
 }
@@ -20,7 +17,7 @@ export async function getMinutes(page: number): Promise<MinutesList> {
 export async function getMinutesDetail(
   minuteId: number
 ): Promise<MinutesDetail> {
-  const response = await axios.get(`/api/v1/minutes/${minuteId}`);
+  const response = await api.get(`/api/v1/minutes/${minuteId}`);
 
   return response?.data;
 }
@@ -46,11 +43,7 @@ export async function postMinutes({
   });
   formData.append("createMinuteReq", blob);
 
-  const response = await axios.post(`/api/v1/minutes`, formData, {
-    headers: {
-      Authorization: `Bearer ${Authorization}`,
-    },
-  });
+  const response = await api.post(`/api/v1/minutes`, formData);
 
   return response?.data;
 }
@@ -76,33 +69,21 @@ export async function patchMinutes(
   });
   formData.append("modifyMinuteReq", blob);
 
-  const response = await axios.patch(`/api/v1/minutes/${minutesId}`, formData, {
-    headers: {
-      Authorization: `Bearer ${Authorization}`,
-    },
-  });
+  const response = await api.patch(`/api/v1/minutes/${minutesId}`, formData);
 
   return response?.data;
 }
 
 // 회의록 삭제
 export async function deleteMinutesDetail(minutesId: number) {
-  const response = await axios.delete(`/api/v1/minutes/${minutesId}`, {
-    headers: {
-      Authorization: `Bearer ${Authorization}`,
-    },
-  });
+  const response = await api.delete(`/api/v1/minutes/${minutesId}`);
 
   return response?.data;
 }
 
 // 회의록 전체 삭제
 export async function deleteMinutes() {
-  const response = await axios.delete(`/api/v1/minutes`, {
-    headers: {
-      Authorization: `Bearer ${Authorization}`,
-    },
-  });
+  const response = await api.delete(`/api/v1/minutes`);
 
   return response?.data;
 }
