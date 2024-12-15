@@ -27,6 +27,17 @@ export type BusinessPostRequest = {
     content: string;
   };
 };
+export type BusinessPutRequest = {
+  businessId?: number;
+  images: File[];
+  files: File[];
+  modifyBusinessReq: {
+    title: string;
+    content: string;
+    deleteImages?: number[];
+    deleteFiles?: number[];
+  };
+};
 
 // --------------------- {{ 사업 상세 조회 }} -------------------------------
 
