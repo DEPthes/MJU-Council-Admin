@@ -8,7 +8,7 @@ import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
 import { useBusinessDetail } from "@/hooks/activityReport/useBusiness";
 import * as S from "@/styles/common/WritePageStyle";
 import { BusinessPutRequest } from "@/types/ActivityReport/business";
-import { BusinessDetailResponse } from "@/types/ActivityReport/Business/businessDetailType";
+import { BusinessDetailResponse } from "@/types/ActivityReport/businessDetailType";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 

@@ -1,24 +1,32 @@
 import {
+  useMutation,
   useSuspenseQuery,
   UseSuspenseQueryResult,
 } from "@tanstack/react-query";
 
 import {
+  deleteAllCoalition,
+  deleteCoalition,
   getCoalitionDetail,
   getCoalitionList,
+  postCoalition,
 } from "@/apis/ActivityReport/coalition";
 import {
-  AllianceDetailResponse,
-  AllianceListResponse,
+  CoalitionDetailiResponse,
+  CoalitionListResponse,
+  CoalitionPostRequest,
 } from "@/types/ActivityReport/coalition";
 
 interface useCoalitionListProps {
   page: number;
 }
 
-export function useCoalitionList({
+export function useCoalitionsList({
   page,
-}: useCoalitionListProps): UseSuspenseQueryResult<AllianceListResponse, Error> {
+}: useCoalitionListProps): UseSuspenseQueryResult<
+  CoalitionListResponse,
+  Error
+> {
   return useSuspenseQuery({
     queryKey: ["GetCoalition"],
     queryFn: () => getCoalitionList(page),
@@ -26,10 +34,29 @@ export function useCoalitionList({
 }
 
 export function useCoalitionDetail(
-  allianceId: number
-): UseSuspenseQueryResult<AllianceDetailResponse, Error> {
+  id: number
+): UseSuspenseQueryResult<CoalitionDetailiResponse, Error> {
   return useSuspenseQuery({
-    queryKey: ["GetBusinessDetail", allianceId],
-    queryFn: () => getCoalitionDetail(allianceId),
+    queryKey: ["GetBusinessDetail", id],
+    queryFn: () => getCoalitionDetail(id),
+  });
+}
+
+export function usePostCoalition() {
+  return useMutation<{}, Error, CoalitionPostRequest>({
+    mutationFn: ({ images, files, createAllianceReq }) =>
+      postCoalition({ images, files, createAllianceReq }),
+  });
+}
+
+export function useDeleteCoalition() {
+  return useMutation<{}, Error, { allianceId: number }>({
+    mutationFn: ({ allianceId }) => deleteCoalition(allianceId),
+  });
+}
+
+export function useDeleteAllCoalition() {
+  return useMutation<{}, Error>({
+    mutationFn: () => deleteAllCoalition(),
   });
 }
