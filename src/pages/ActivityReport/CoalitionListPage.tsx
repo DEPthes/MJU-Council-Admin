@@ -1,22 +1,45 @@
+import DeleteModal from "@/components/common/DeleteModal";
 import GridItemContainer from "@/components/common/List/GridItemContainer";
 import ListBtnContainer from "@/components/common/List/ListBtnContainer";
 import PageComponent from "@/components/common/PageComponent";
-import { useCoalitionsList } from "@/hooks/activityReport/useCoalition";
+import {
+  useCoalitionsList,
+  useDeleteAllCoalition,
+} from "@/hooks/activityReport/useCoalition";
 import * as S from "@styles/ActivityReport/Coalition/CoalitionPageStyle";
+import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const CoalitionListPage = () => {
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const navigator = useNavigate();
   const [pageParams] = useSearchParams();
   const page = pageParams.get("page") || "1";
   const { data } = useCoalitionsList({ page: Number(page) });
 
+  const { mutate: deleteAllCoalition } = useDeleteAllCoalition();
+
+  const handleDeletePromise = () => {
+    deleteAllCoalition(undefined, {
+      onSuccess: () => {
+        navigator(0);
+      },
+      onError: (error) => {
+        console.error("등록 실패:", error);
+      },
+    });
+  };
+
   return (
     <S.Container>
+      {isShowModal && (
+        <DeleteModal
+          onCancel={() => setIsShowModal(false)}
+          onSubmit={handleDeletePromise}
+        />
+      )}
       <ListBtnContainer
-        onDelete={function (): void {
-          throw new Error("Function not implemented.");
-        }}
+        onDelete={() => setIsShowModal(true)}
         onPost={() => navigator("/activityReport/newCoalition")}
       />
       <S.CoalitionContainer>
