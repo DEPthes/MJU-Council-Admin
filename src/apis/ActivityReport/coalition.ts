@@ -23,7 +23,7 @@ export async function getCoalitionDetail(
   return response?.data;
 }
 
-// 사업 등록
+// 재휴 등록
 export async function postCoalition({
   images,
   files,
@@ -60,7 +60,7 @@ export async function postCoalition({
   return response?.data;
 }
 
-// 사업 수정
+// 재휴 수정
 export async function putCoalition(
   allianceId: number,
   { images, files, modifyAllianceReq }: CoalitionPutRequest
@@ -95,12 +95,12 @@ export async function putCoalition(
   return response?.data;
 }
 
-//사업 삭제
-export async function deleteBusiness(businessId: number): Promise<string[]> {
-  return await api.delete(`/api/v1/businesses/${businessId}`);
+//재휴 삭제
+export async function deleteCoalition(allianceId: number): Promise<string[]> {
+  return await api.delete(`/api/v1/alliances/${allianceId}`);
 }
 
-//사업 전체삭제
-export async function deleteAllBusiness(): Promise<string[]> {
-  return await api.delete(`/api/v1/businesses`);
+//재휴 전체삭제
+export async function deleteAllCoalition(): Promise<string[]> {
+  return await api.delete(`/api/v1/alliances`);
 }

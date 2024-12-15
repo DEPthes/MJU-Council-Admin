@@ -5,16 +5,12 @@ import {
 } from "@tanstack/react-query";
 
 import {
-  deleteAllBusiness,
-  deleteBusiness,
-  putBusiness,
-} from "@/apis/ActivityReport/business";
-import {
+  deleteAllCoalition,
+  deleteCoalition,
   getCoalitionDetail,
   getCoalitionList,
   postCoalition,
 } from "@/apis/ActivityReport/coalition";
-import { BusinessPutRequest } from "@/types/ActivityReport/business";
 import {
   CoalitionDetailiResponse,
   CoalitionListResponse,
@@ -53,21 +49,14 @@ export function usePostCoalition() {
   });
 }
 
-export function usePutBusiness() {
-  return useMutation<{}, Error, BusinessPutRequest>({
-    mutationFn: ({ businessId, images, files, modifyBusinessReq }) =>
-      putBusiness(businessId!, { images, files, modifyBusinessReq }),
+export function useDeleteCoalition() {
+  return useMutation<{}, Error, { allianceId: number }>({
+    mutationFn: ({ allianceId }) => deleteCoalition(allianceId),
   });
 }
 
-export function useDeleteBusiness() {
-  return useMutation<{}, Error, { businessId: number }>({
-    mutationFn: ({ businessId }) => deleteBusiness(businessId),
-  });
-}
-
-export function useDeleteAllBusiness() {
+export function useDeleteAllCoalition() {
   return useMutation<{}, Error>({
-    mutationFn: () => deleteAllBusiness(),
+    mutationFn: () => deleteAllCoalition(),
   });
 }
