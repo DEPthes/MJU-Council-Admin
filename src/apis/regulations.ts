@@ -4,14 +4,11 @@ import {
   RegulationsPatchRequest,
   RegulationsPostRequest,
 } from "@/types/Document/regulations";
-import axios from "axios";
-
-// 토큰
-const Authorization = "";
+import { api } from ".";
 
 // 학생회칙 전체 조회
 export async function getRegulations(page: number): Promise<RegulationsList> {
-  const response = await axios.get(`/api/v1/regulations?page=${page}&size=10`);
+  const response = await api.get(`/api/v1/regulations?page=${page}&size=10`);
 
   return response?.data;
 }
@@ -20,7 +17,7 @@ export async function getRegulations(page: number): Promise<RegulationsList> {
 export async function getRegulationsDetail(
   regulationsId: number
 ): Promise<RegulationsDetail> {
-  const response = await axios.get(`/api/v1/regulations/${regulationsId}`);
+  const response = await api.get(`/api/v1/regulations/${regulationsId}`);
 
   return response?.data;
 }
@@ -43,11 +40,7 @@ export async function postRegulations({
   });
   formData.append("createRegulationReq", blob);
 
-  const response = await axios.post(`/api/v1/regulations`, formData, {
-    headers: {
-      Authorization: `Bearer ${Authorization}`,
-    },
-  });
+  const response = await api.post(`/api/v1/regulations`, formData);
 
   return response?.data;
 }
@@ -70,14 +63,9 @@ export async function patchRegulations(
   });
   formData.append("modifyRegulationReq", blob);
 
-  const response = await axios.patch(
+  const response = await api.patch(
     `/api/v1/regulations/${regulationId}`,
-    formData,
-    {
-      headers: {
-        Authorization: `Bearer ${Authorization}`,
-      },
-    }
+    formData
   );
 
   return response?.data;
@@ -85,22 +73,14 @@ export async function patchRegulations(
 
 // 학생회칙 삭제
 export async function deleteRegulationsDetail(regulationId: number) {
-  const response = await axios.delete(`/api/v1/regulations/${regulationId}`, {
-    headers: {
-      Authorization: `Bearer ${Authorization}`,
-    },
-  });
+  const response = await api.delete(`/api/v1/regulations/${regulationId}`);
 
   return response?.data;
 }
 
 // 학생회칙 전체 삭제
 export async function deleteRegulations() {
-  const response = await axios.delete(`/api/v1/regulations`, {
-    headers: {
-      Authorization: `Bearer ${Authorization}`,
-    },
-  });
+  const response = await api.delete(`/api/v1/regulations`);
 
   return response?.data;
 }
