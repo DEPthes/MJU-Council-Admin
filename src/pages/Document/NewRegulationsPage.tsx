@@ -1,39 +1,35 @@
-import { postNotice } from "@/apis/notice";
+import { postRegulations } from "@/apis/regulations";
 import CheckModal from "@/components/common/CheckModal";
 import AddFileButton from "@/components/common/Write/AddFileButton";
-import AddImageContainer from "@/components/common/Write/AddImageContainer";
 import ContentInput from "@/components/common/Write/ContentInput";
 import TitleInput from "@/components/common/Write/TitleInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
 import * as S from "@/styles/common/WritePageStyle";
-import { NoticePostRequest } from "@/types/News/notice";
+import { RegulationsPostRequest } from "@/types/Document/regulations";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NewNoticePage = () => {
+const NewRegulationsPage = () => {
   const navigate = useNavigate();
   const [isShowModal, setIsShowModal] = useState(false);
 
-  const [noticePost, setNoticePost] = useState<NoticePostRequest>({
-    images: [],
-    files: [],
-    createNoticeReq: {
-      title: "",
-      content: "",
-    },
-  });
+  const [regulationsPost, setRegulationsPost] =
+    useState<RegulationsPostRequest>({
+      file: [],
+      createRegulationReq: {
+        title: "",
+        content: "",
+      },
+    });
 
-  // 조건: 제목과 내용이 비어있을 때
-  const isSubmitDisabled =
-    !noticePost.createNoticeReq.title.trim() ||
-    !noticePost.createNoticeReq.content.trim();
+  // 조건: 제목이 비어있을 때
+  const isSubmitDisabled = !regulationsPost.createRegulationReq.title.trim();
 
   // 조건: 아무것도 작성하지 않았을 때
   const isNoneList =
-    noticePost.images.length === 0 &&
-    noticePost.files.length === 0 &&
-    noticePost.createNoticeReq.title === "" &&
-    noticePost.createNoticeReq.content === "";
+    regulationsPost.file.length === 0 &&
+    regulationsPost.createRegulationReq.title === "" &&
+    regulationsPost.createRegulationReq.content === "";
 
   // 제목, 내용 작성 함수
   const handleInputChange = (
@@ -46,56 +42,60 @@ const NewNoticePage = () => {
       e.target.style.height = `${e.target.scrollHeight}px`;
     }
 
-    setNoticePost((prev) => ({
+    setRegulationsPost((prev) => ({
       ...prev,
-      createNoticeReq: {
-        ...prev.createNoticeReq,
+      createRegulationReq: {
+        ...prev.createRegulationReq,
         [name]: value,
       },
     }));
   };
 
-  // 이미지, 파일 저장 함수
+  // 파일 저장 함수
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     key: "files" | "images",
     filterType?: string
   ) => {
-    const files = e.target.files;
-    if (files) {
-      let fileArray = Array.from(files);
+    if (key === "files") {
+      const files = e.target.files;
+      if (files) {
+        let fileArray = Array.from(files);
 
-      if (filterType) {
-        fileArray = fileArray.filter((file) =>
-          file.type.startsWith(filterType)
-        );
+        if (filterType) {
+          fileArray = fileArray.filter((file) =>
+            file.type.startsWith(filterType)
+          );
+        }
+
+        setRegulationsPost((prev) => ({
+          ...prev,
+          file: [...prev.file, ...fileArray],
+        }));
       }
-
-      setNoticePost((prev) => ({
-        ...prev,
-        [key]: [...prev[key], ...fileArray],
-      }));
     }
   };
 
-  // 이미지, 파일 삭제 함수
+  // 파일 삭제 함수
   const handleFileRemove = (index: number, key: "files" | "images") => {
-    setNoticePost((prev) => {
-      const updatedArray = prev[key].filter((_, i) => i !== index);
+    if (key === "files") {
+      setRegulationsPost((prev) => {
+        const updatedArray = prev.file.filter((_, i) => i !== index);
 
-      return {
-        ...prev,
-        [key]: updatedArray,
-      };
-    });
+        return {
+          ...prev,
+          file: updatedArray,
+        };
+      });
+    }
   };
 
   // 공지사항 글 등록
   const handleSubmit = async () => {
-    const response = await postNotice(noticePost);
+    const response = await postRegulations(regulationsPost);
 
     if (response.check) {
-      navigate("/news/notice");
+      navigate("/document/regulations");
     }
   };
 
@@ -115,25 +115,22 @@ const NewNoticePage = () => {
       />
       <hr />
       <TitleInput
-        title={noticePost.createNoticeReq.title}
+        title={regulationsPost.createRegulationReq.title}
         handleInputChange={handleInputChange}
-      />
-      <AddImageContainer
-        images={noticePost.images}
-        handleFileRemove={handleFileRemove}
-        handleFileChange={handleFileChange}
+        placeholder="회칙 및 세칙명을 입력하세요. (필수)"
       />
       <ContentInput
-        content={noticePost.createNoticeReq.content}
+        content={regulationsPost.createRegulationReq.content}
         handleInputChange={handleInputChange}
+        placeholder="내용을 입력하세요. (선택)"
       />
       <AddFileButton
         handleFileChange={handleFileChange}
         handleFileRemove={handleFileRemove}
-        files={noticePost.files}
+        files={regulationsPost.file}
       />
     </S.Container>
   );
 };
 
-export default NewNoticePage;
+export default NewRegulationsPage;

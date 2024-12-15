@@ -1,23 +1,21 @@
-import { postNotice } from "@/apis/notice";
+import { postMinutes } from "@/apis/minutes";
 import CheckModal from "@/components/common/CheckModal";
 import AddFileButton from "@/components/common/Write/AddFileButton";
-import AddImageContainer from "@/components/common/Write/AddImageContainer";
 import ContentInput from "@/components/common/Write/ContentInput";
 import TitleInput from "@/components/common/Write/TitleInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
 import * as S from "@/styles/common/WritePageStyle";
-import { NoticePostRequest } from "@/types/News/notice";
+import { MinutesPostRequest } from "@/types/Document/minutes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NewNoticePage = () => {
+const NewMinutesPage = () => {
   const navigate = useNavigate();
   const [isShowModal, setIsShowModal] = useState(false);
 
-  const [noticePost, setNoticePost] = useState<NoticePostRequest>({
-    images: [],
+  const [minutesPost, setMinutesPost] = useState<MinutesPostRequest>({
     files: [],
-    createNoticeReq: {
+    createMinuteReq: {
       title: "",
       content: "",
     },
@@ -25,15 +23,14 @@ const NewNoticePage = () => {
 
   // 조건: 제목과 내용이 비어있을 때
   const isSubmitDisabled =
-    !noticePost.createNoticeReq.title.trim() ||
-    !noticePost.createNoticeReq.content.trim();
+    !minutesPost.createMinuteReq.title.trim() ||
+    !minutesPost.createMinuteReq.content.trim();
 
   // 조건: 아무것도 작성하지 않았을 때
   const isNoneList =
-    noticePost.images.length === 0 &&
-    noticePost.files.length === 0 &&
-    noticePost.createNoticeReq.title === "" &&
-    noticePost.createNoticeReq.content === "";
+    minutesPost.files.length === 0 &&
+    minutesPost.createMinuteReq.title === "" &&
+    minutesPost.createMinuteReq.content === "";
 
   // 제목, 내용 작성 함수
   const handleInputChange = (
@@ -46,56 +43,60 @@ const NewNoticePage = () => {
       e.target.style.height = `${e.target.scrollHeight}px`;
     }
 
-    setNoticePost((prev) => ({
+    setMinutesPost((prev) => ({
       ...prev,
-      createNoticeReq: {
-        ...prev.createNoticeReq,
+      createMinuteReq: {
+        ...prev.createMinuteReq,
         [name]: value,
       },
     }));
   };
 
-  // 이미지, 파일 저장 함수
+  // 파일 저장 함수
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     key: "files" | "images",
     filterType?: string
   ) => {
-    const files = e.target.files;
-    if (files) {
-      let fileArray = Array.from(files);
+    if (key === "files") {
+      const files = e.target.files;
+      if (files) {
+        let fileArray = Array.from(files);
 
-      if (filterType) {
-        fileArray = fileArray.filter((file) =>
-          file.type.startsWith(filterType)
-        );
+        if (filterType) {
+          fileArray = fileArray.filter((file) =>
+            file.type.startsWith(filterType)
+          );
+        }
+
+        setMinutesPost((prev) => ({
+          ...prev,
+          [key]: [...prev[key], ...fileArray],
+        }));
       }
-
-      setNoticePost((prev) => ({
-        ...prev,
-        [key]: [...prev[key], ...fileArray],
-      }));
     }
   };
 
-  // 이미지, 파일 삭제 함수
+  // 파일 삭제 함수
   const handleFileRemove = (index: number, key: "files" | "images") => {
-    setNoticePost((prev) => {
-      const updatedArray = prev[key].filter((_, i) => i !== index);
+    if (key === "files") {
+      setMinutesPost((prev) => {
+        const updatedArray = prev[key].filter((_, i) => i !== index);
 
-      return {
-        ...prev,
-        [key]: updatedArray,
-      };
-    });
+        return {
+          ...prev,
+          [key]: updatedArray,
+        };
+      });
+    }
   };
 
   // 공지사항 글 등록
   const handleSubmit = async () => {
-    const response = await postNotice(noticePost);
+    const response = await postMinutes(minutesPost);
 
     if (response.check) {
-      navigate("/news/notice");
+      navigate("/document/minutes");
     }
   };
 
@@ -115,25 +116,20 @@ const NewNoticePage = () => {
       />
       <hr />
       <TitleInput
-        title={noticePost.createNoticeReq.title}
+        title={minutesPost.createMinuteReq.title}
         handleInputChange={handleInputChange}
       />
-      <AddImageContainer
-        images={noticePost.images}
-        handleFileRemove={handleFileRemove}
-        handleFileChange={handleFileChange}
-      />
       <ContentInput
-        content={noticePost.createNoticeReq.content}
+        content={minutesPost.createMinuteReq.content}
         handleInputChange={handleInputChange}
       />
       <AddFileButton
         handleFileChange={handleFileChange}
         handleFileRemove={handleFileRemove}
-        files={noticePost.files}
+        files={minutesPost.files}
       />
     </S.Container>
   );
 };
 
-export default NewNoticePage;
+export default NewMinutesPage;

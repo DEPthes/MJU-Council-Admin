@@ -2,6 +2,8 @@ import { Clip } from "@/assets/common";
 import NewFileComponent from "@/components/common/Write/NewFileComponent";
 import { ImageFileResponse } from "@/types/common";
 import * as S from "@/styles/common/WriteStyle";
+import { MinutesFileResponse } from "@/types/Document/minutes";
+import { RegulationsFileResponse } from "@/types/Document/regulations";
 
 interface Props {
   handleFileChange: (
@@ -10,7 +12,11 @@ interface Props {
     filterType?: string
   ) => void;
   handleFileRemove: (index: number, key: "files" | "images") => void;
-  files: File[] | ImageFileResponse[];
+  files:
+    | File[]
+    | ImageFileResponse[]
+    | MinutesFileResponse[]
+    | RegulationsFileResponse[];
 }
 
 const AddFileButton = ({
@@ -18,19 +24,28 @@ const AddFileButton = ({
   handleFileRemove,
   files,
 }: Props) => {
+  const handleFileInputClick = () => {
+    const input = document.getElementById("file-input") as HTMLInputElement;
+    input.value = "";
+    input.click();
+  };
+
   return (
     <>
       <S.Label>첨부 파일</S.Label>
-      {files.map((item, index) => (
-        <NewFileComponent
-          key={index}
-          title={item.name}
-          onClick={() => handleFileRemove(index, "files")}
-        />
-      ))}
-      <S.FileButton
-        onClick={() => document.getElementById("file-input")?.click()}
-      >
+      {files.map((item, index) => {
+        const fileItem =
+          "fileName" in item ? { ...item, name: item.fileName } : item;
+
+        return (
+          <NewFileComponent
+            key={index}
+            title={fileItem.name}
+            onClick={() => handleFileRemove(index, "files")}
+          />
+        );
+      })}
+      <S.FileButton onClick={handleFileInputClick}>
         <Clip stroke="white" />
         파일 업로드
         <input

@@ -1,4 +1,4 @@
-import { postNotice } from "@/apis/notice";
+import { postEventGuide } from "@/apis/event";
 import CheckModal from "@/components/common/CheckModal";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import AddImageContainer from "@/components/common/Write/AddImageContainer";
@@ -6,18 +6,19 @@ import ContentInput from "@/components/common/Write/ContentInput";
 import TitleInput from "@/components/common/Write/TitleInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
 import * as S from "@/styles/common/WritePageStyle";
-import { NoticePostRequest } from "@/types/News/notice";
+import { EventGuidePostRequest } from "@/types/News/event";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const NewNoticePage = () => {
+const NewEventGuidePage = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [isShowModal, setIsShowModal] = useState(false);
 
-  const [noticePost, setNoticePost] = useState<NoticePostRequest>({
+  const [eventPost, setEventPost] = useState<EventGuidePostRequest>({
     images: [],
     files: [],
-    createNoticeReq: {
+    createEventDetailReq: {
       title: "",
       content: "",
     },
@@ -25,15 +26,14 @@ const NewNoticePage = () => {
 
   // 조건: 제목과 내용이 비어있을 때
   const isSubmitDisabled =
-    !noticePost.createNoticeReq.title.trim() ||
-    !noticePost.createNoticeReq.content.trim();
+    !eventPost.createEventDetailReq.title.trim() ||
+    !eventPost.createEventDetailReq.content.trim();
 
   // 조건: 아무것도 작성하지 않았을 때
   const isNoneList =
-    noticePost.images.length === 0 &&
-    noticePost.files.length === 0 &&
-    noticePost.createNoticeReq.title === "" &&
-    noticePost.createNoticeReq.content === "";
+    eventPost.images.length === 0 &&
+    eventPost.createEventDetailReq.title === "" &&
+    eventPost.createEventDetailReq.content === "";
 
   // 제목, 내용 작성 함수
   const handleInputChange = (
@@ -46,16 +46,16 @@ const NewNoticePage = () => {
       e.target.style.height = `${e.target.scrollHeight}px`;
     }
 
-    setNoticePost((prev) => ({
+    setEventPost((prev) => ({
       ...prev,
-      createNoticeReq: {
-        ...prev.createNoticeReq,
+      createEventDetailReq: {
+        ...prev.createEventDetailReq,
         [name]: value,
       },
     }));
   };
 
-  // 이미지, 파일 저장 함수
+  // 이미지 저장 함수
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     key: "files" | "images",
@@ -71,16 +71,16 @@ const NewNoticePage = () => {
         );
       }
 
-      setNoticePost((prev) => ({
+      setEventPost((prev) => ({
         ...prev,
         [key]: [...prev[key], ...fileArray],
       }));
     }
   };
 
-  // 이미지, 파일 삭제 함수
+  // 이미지 삭제 함수
   const handleFileRemove = (index: number, key: "files" | "images") => {
-    setNoticePost((prev) => {
+    setEventPost((prev) => {
       const updatedArray = prev[key].filter((_, i) => i !== index);
 
       return {
@@ -90,12 +90,12 @@ const NewNoticePage = () => {
     });
   };
 
-  // 공지사항 글 등록
+  // 행사 글 등록
   const handleSubmit = async () => {
-    const response = await postNotice(noticePost);
+    const response = await postEventGuide(Number(id), eventPost);
 
     if (response.check) {
-      navigate("/news/notice");
+      navigate(-1);
     }
   };
 
@@ -115,25 +115,25 @@ const NewNoticePage = () => {
       />
       <hr />
       <TitleInput
-        title={noticePost.createNoticeReq.title}
+        title={eventPost.createEventDetailReq.title}
         handleInputChange={handleInputChange}
       />
       <AddImageContainer
-        images={noticePost.images}
+        images={eventPost.images}
         handleFileRemove={handleFileRemove}
         handleFileChange={handleFileChange}
       />
       <ContentInput
-        content={noticePost.createNoticeReq.content}
+        content={eventPost.createEventDetailReq.content}
         handleInputChange={handleInputChange}
       />
       <AddFileButton
         handleFileChange={handleFileChange}
         handleFileRemove={handleFileRemove}
-        files={noticePost.files}
+        files={eventPost.files}
       />
     </S.Container>
   );
 };
 
-export default NewNoticePage;
+export default NewEventGuidePage;

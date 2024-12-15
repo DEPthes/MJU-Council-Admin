@@ -100,8 +100,8 @@ export const Image = styled.div`
 
 export const ImageDeleteButton = styled.div`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 8px;
   cursor: pointer;
 `;
 
@@ -112,6 +112,7 @@ export const AddImageButton = styled.button`
   text-align: center;
   border: none;
   aspect-ratio: 1;
+  background-color: var(--M5);
 `;
 
 export const DateContainer = styled.div`
@@ -137,13 +138,5 @@ export const DateInput = styled.input`
 
   &:focus {
     border: none;
-  }
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-image: none;
-  &::-webkit-calendar-picker-indicator {
-    display: none;
   }
 `;

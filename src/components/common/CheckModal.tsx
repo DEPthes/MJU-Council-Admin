@@ -15,7 +15,6 @@ const CheckModal: React.FC<CheckModalProps> = ({
   onSubmit,
   onCancel,
 }) => {
-  console.log(text);
   return (
     <S.Overlay>
       <S.Container>
