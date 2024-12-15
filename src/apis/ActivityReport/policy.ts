@@ -33,7 +33,7 @@ export async function postPromiseCategory(
 export async function getPromise(
   promiseTitle: string
 ): Promise<PromiseListResponse> {
-  const response = await axios.get(`/api/v1/promise-category/${promiseTitle}`);
+  const response = await axios.get(`/api/v1/promise/${promiseTitle}`);
 
   return response?.data;
 }

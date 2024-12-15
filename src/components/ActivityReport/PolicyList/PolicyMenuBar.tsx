@@ -1,22 +1,29 @@
 import { Add } from "@/assets/ActivityReport";
-import { PromiseCategory } from "@/types/ActivityReport/Policy/policy";
+import { usePromiseCategory } from "@/hooks/activityReport/usePromise";
 import * as S from "@styles/ActivityReport/PolicyList/PolicyMenuBarStyle";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 interface PolicyMenuBarProps {
-  policyList: PromiseCategory[];
   onClick: (policy: string) => void;
 }
 
-const PolicyMenuBar: React.FC<PolicyMenuBarProps> = ({
-  policyList,
-  onClick,
-}) => {
-  const [policyParams] = useSearchParams();
+const PolicyMenuBar: React.FC<PolicyMenuBarProps> = ({ onClick }) => {
+  const [policyParams, setPolicyParams] = useSearchParams();
   const policy = policyParams.get("policy");
+
+  const { data } = usePromiseCategory();
+  const categoryList = data.information;
+
+  useEffect(() => {
+    if (!policy) {
+      policyParams.set("policy", decodeURIComponent(categoryList[0].title));
+      setPolicyParams(policyParams);
+    }
+  }, [policyParams, setPolicyParams, policy]);
   return (
     <S.Container>
-      {policyList.map((category) => (
+      {categoryList.map((category) => (
         <S.Item
           key={category.promiseCategoryId}
           $isSelected={category.title === policy}
