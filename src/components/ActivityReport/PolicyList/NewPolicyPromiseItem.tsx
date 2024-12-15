@@ -3,7 +3,7 @@ import SubmitButton from "@/components/common/Button/SubmitButton";
 import { fulfillments } from "@/constants/ActivityReport";
 import { usePostPromise } from "@/hooks/activityReport/usePromise";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyPromiseItemStyle";
-import { PromiseResponseInformation } from "@/types/ActivityReport/Policy/policy";
+import { PromiseResponseInformation } from "@/types/ActivityReport/policy";
 import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 

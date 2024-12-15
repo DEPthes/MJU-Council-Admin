@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const Token = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRvb2dpIiwiaWF0IjoxNzM0MjY4MDE0LCJleHAiOjE3MzQyNjk4MTQsInN1YiI6ImRvb2dpIn0.LPZI9IO7oA3cg0FU8hvHBR6KCUzTc5xjoS3uODZugLE";
+const Token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InNpMTQ0NDQiLCJpYXQiOjE3MzQyODc2NjYsImV4cCI6MTczNDI4OTQ2Niwic3ViIjoic2kxNDQ0NCJ9.l8UR0hZv_nERhmmtMjrckDg5MecbfH0ZsgXNzoVm8bA";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

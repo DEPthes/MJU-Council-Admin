@@ -12,7 +12,7 @@ import {
 import {
   PromiseInformation,
   PromiseListResponse,
-} from "@/types/ActivityReport/Policy/policy";
+} from "@/types/ActivityReport/policy";
 
 // ------------- {{ 정책 공약 }} ------------------------
 

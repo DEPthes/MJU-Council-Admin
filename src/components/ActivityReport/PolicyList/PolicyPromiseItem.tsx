@@ -4,7 +4,7 @@ import SubmitButton from "@/components/common/Button/SubmitButton";
 import { fulfillments } from "@/constants/ActivityReport";
 import { useDeletePromise } from "@/hooks/activityReport/usePromise";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyPromiseItemStyle";
-import { PromiseResponseInformation } from "@/types/ActivityReport/Policy/policy";
+import { PromiseResponseInformation } from "@/types/ActivityReport/policy";
 import { getFulfillmentRate } from "@/utils/ActivityReport";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { Add } from "@/assets/ActivityReport";
-import { PromiseCategory } from "@/types/ActivityReport/Policy/policy";
+import { PromiseCategory } from "@/types/ActivityReport/policy";
 import * as S from "@styles/ActivityReport/PolicyList/PolicyMenuBarStyle";
 import { useSearchParams } from "react-router-dom";
 

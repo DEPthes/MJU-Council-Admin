@@ -2,7 +2,7 @@ import {
   BusinessDetailResponse,
   BusinessListResponse,
 } from "@/types/ActivityReport/business";
-import axios from "axios";
+import { api } from "..";
 
 // 사업 목록 조회
 export async function getBusinessList(
@@ -15,8 +15,7 @@ export async function getBusinessList(
     url += `&keyword=${keyword}`;
   }
 
-  const response = await axios.get(url);
-
+  const response = await api.get(url);
   return response?.data;
 }
 
@@ -24,7 +23,7 @@ export async function getBusinessList(
 export async function getBusinessDetail(
   id: number
 ): Promise<BusinessDetailResponse> {
-  const response = await axios.get(`/api/v1/businesses/${id}`);
+  const response = await api.get(`/api/v1/businesses/${id}`);
 
   return response?.data;
 }
