@@ -55,6 +55,7 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
       {
         onSuccess: () => {
           setIsShowModal(false);
+          navigator("/activityReport/policyList");
           navigator(0);
         },
         onError: (error) => {
