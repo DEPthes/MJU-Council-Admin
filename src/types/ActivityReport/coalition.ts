@@ -38,7 +38,7 @@ interface CoalitionFile {
   url: string;
 }
 
-interface CoalitionInfo {
+export interface CoalitionInfo {
   title: string;
   content: string;
   startDate: string;
@@ -61,5 +61,18 @@ export type CoalitionPostRequest = {
     content: string;
     startDate: string;
     endDate: string;
+  };
+};
+
+export type CoalitionPutRequest = {
+  images: File[];
+  files: File[];
+  modifyAllianceReq: {
+    title: string;
+    content: string;
+    startDate: string;
+    endDate: string;
+    deleteImages?: number[];
+    deleteFiles?: number[];
   };
 };

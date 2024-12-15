@@ -1,9 +1,8 @@
-import { BusinessPutRequest } from "@/types/ActivityReport/business";
-
 import {
   CoalitionDetailiResponse,
   CoalitionListResponse,
   CoalitionPostRequest,
+  CoalitionPutRequest,
 } from "@/types/ActivityReport/coalition";
 import { api } from "..";
 
@@ -62,9 +61,9 @@ export async function postCoalition({
 }
 
 // 사업 수정
-export async function putBusiness(
-  businessId: number,
-  { images, files, modifyBusinessReq }: BusinessPutRequest
+export async function putCoalition(
+  allianceId: number,
+  { images, files, modifyAllianceReq }: CoalitionPutRequest
 ) {
   const formData = new FormData();
 
@@ -86,12 +85,12 @@ export async function putBusiness(
     );
   }
 
-  const blob = new Blob([JSON.stringify(modifyBusinessReq)], {
+  const blob = new Blob([JSON.stringify(modifyAllianceReq)], {
     type: "application/json",
   });
-  formData.append("modifyBusinessReq", blob);
+  formData.append("modifyAllianceReq", blob);
 
-  const response = await api.put(`/api/v1/businesses/${businessId}`, formData);
+  const response = await api.put(`/api/v1/alliances/${allianceId}`, formData);
 
   return response?.data;
 }
