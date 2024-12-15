@@ -7,6 +7,7 @@ import {
 import {
   getPromise,
   getPromiseCategory,
+  patchPromiseCategory,
   postPromiseCategory,
 } from "@/apis/ActivityReport/policy";
 import {
@@ -29,6 +30,17 @@ export function usePromiseCategory(): UseSuspenseQueryResult<
 export function usePostPromiseCategory() {
   return useMutation<string[], Error, { promiseTitle: string }>({
     mutationFn: ({ promiseTitle }) => postPromiseCategory(promiseTitle),
+  });
+}
+
+export function usePatchPromiseCategory() {
+  return useMutation<
+    string[],
+    Error,
+    { promiseCategoryId: number; promiseTitle: string }
+  >({
+    mutationFn: ({ promiseCategoryId, promiseTitle }) =>
+      patchPromiseCategory(promiseCategoryId, promiseTitle),
   });
 }
 

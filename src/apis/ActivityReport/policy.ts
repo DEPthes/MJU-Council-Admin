@@ -27,6 +27,22 @@ export async function postPromiseCategory(
   );
 }
 
+export async function patchPromiseCategory(
+  promiseCategoryId: number,
+  promiseTitle: string
+): Promise<string[]> {
+  return await axios.patch(
+    `/api/v1/promise-category/${promiseCategoryId}/${encodeURIComponent(
+      promiseTitle
+    )}`,
+    {
+      headers: {
+        Authorization: `Bearer ${Authorization}`,
+      },
+    }
+  );
+}
+
 // ------------- {{ 정책 공약 }} ------------------------
 
 // 공약 목록 조회

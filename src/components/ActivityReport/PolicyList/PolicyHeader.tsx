@@ -1,6 +1,7 @@
 import DeleteButton from "@/components/common/Button/DeleteButton";
 import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
+import { usePatchPromiseCategory } from "@/hooks/activityReport/usePromise";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { useState } from "react";
 import DeleteModal from "../../common/DeleteModal";
@@ -12,8 +13,29 @@ interface PolicyHeaderProps {
 const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title }) => {
   const [isFix, setIsFix] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const { mutate: postPromiseCategory } = usePatchPromiseCategory();
 
   const handleSubmit = () => {
+    // postPromiseCategory(
+    //   { promiseTitle },
+    //   {
+    //     onSuccess: () => {
+    //       policyParams.set("policy", decodeURIComponent(promiseTitle));
+    //       setPolicyParams(policyParams);
+    //       navigator(`/activityReport/policyList?policy=${policyParams}`);
+    //     },
+    //     onError: (error) => {
+    //       console.error("공지 등록 실패:", error);
+    //     },
+    //   }
+    // );
+
     setIsFix(false);
   };
 
@@ -29,7 +51,15 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title }) => {
       )}
       <S.Bar />
       <S.TextContainer>
-        {isFix ? <S.TextInput placeholder={title} /> : <S.Text>{title}</S.Text>}
+        {isFix ? (
+          <S.TextInput
+            placeholder={title}
+            onChange={handleChange}
+            value={inputValue}
+          />
+        ) : (
+          <S.Text>{title}</S.Text>
+        )}
         <S.ButtonContainer>
           {isFix ? (
             <>
