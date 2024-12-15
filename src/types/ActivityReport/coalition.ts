@@ -32,13 +32,7 @@ export interface CoalitionComponentProps {
 
 // -------------------- {{ 재휴 상세 조회 }} --------------------------
 
-interface Image {
-  id: number;
-  name: string;
-  url: string;
-}
-
-interface File {
+interface CoalitionFile {
   id: number;
   name: string;
   url: string;
@@ -49,8 +43,8 @@ interface CoalitionInfo {
   content: string;
   startDate: string;
   endDate: string;
-  images: Image[];
-  files: File[];
+  images: CoalitionFile[];
+  files: CoalitionFile[];
 }
 
 export interface CoalitionDetailiResponse {
@@ -58,3 +52,14 @@ export interface CoalitionDetailiResponse {
   information: CoalitionInfo;
   message: string;
 }
+
+export type CoalitionPostRequest = {
+  images: File[];
+  files: File[];
+  createAllianceReq: {
+    title: string;
+    content: string;
+    startDate: string;
+    endDate: string;
+  };
+};

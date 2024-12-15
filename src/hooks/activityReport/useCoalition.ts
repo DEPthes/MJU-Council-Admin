@@ -7,20 +7,18 @@ import {
 import {
   deleteAllBusiness,
   deleteBusiness,
-  postBusiness,
   putBusiness,
 } from "@/apis/ActivityReport/business";
 import {
   getCoalitionDetail,
   getCoalitionList,
+  postCoalition,
 } from "@/apis/ActivityReport/coalition";
-import {
-  BusinessPostRequest,
-  BusinessPutRequest,
-} from "@/types/ActivityReport/business";
+import { BusinessPutRequest } from "@/types/ActivityReport/business";
 import {
   CoalitionDetailiResponse,
   CoalitionListResponse,
+  CoalitionPostRequest,
 } from "@/types/ActivityReport/coalition";
 
 interface useCoalitionListProps {
@@ -48,10 +46,10 @@ export function useCoalitionDetail(
   });
 }
 
-export function usePostBusiness() {
-  return useMutation<{}, Error, BusinessPostRequest>({
-    mutationFn: ({ images, files, createBusinessReq }) =>
-      postBusiness({ images, files, createBusinessReq }),
+export function usePostCoalition() {
+  return useMutation<{}, Error, CoalitionPostRequest>({
+    mutationFn: ({ images, files, createAllianceReq }) =>
+      postCoalition({ images, files, createAllianceReq }),
   });
 }
 

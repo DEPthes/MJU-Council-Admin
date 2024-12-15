@@ -1,5 +1,5 @@
-import { ImageFileResponse } from "@/types/common";
 import * as S from "@/styles/common/WriteStyle";
+import { ImageFileResponse } from "@/types/common";
 
 interface Props {
   images: ImageFileResponse[];

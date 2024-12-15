@@ -1,11 +1,9 @@
-import {
-  BusinessPostRequest,
-  BusinessPutRequest,
-} from "@/types/ActivityReport/business";
+import { BusinessPutRequest } from "@/types/ActivityReport/business";
 
 import {
   CoalitionDetailiResponse,
   CoalitionListResponse,
+  CoalitionPostRequest,
 } from "@/types/ActivityReport/coalition";
 import { api } from "..";
 
@@ -27,11 +25,11 @@ export async function getCoalitionDetail(
 }
 
 // 사업 등록
-export async function postBusiness({
+export async function postCoalition({
   images,
   files,
-  createBusinessReq,
-}: BusinessPostRequest) {
+  createAllianceReq,
+}: CoalitionPostRequest) {
   const formData = new FormData();
 
   if (images && images.length > 0) {
@@ -52,13 +50,13 @@ export async function postBusiness({
     );
   }
 
-  const blob = new Blob([JSON.stringify(createBusinessReq)], {
+  const blob = new Blob([JSON.stringify(createAllianceReq)], {
     type: "application/json",
   });
-  formData.append("createBusinessReq", blob);
+  formData.append("createAllianceReq", blob);
   console.log(formData);
 
-  const response = await api.post(`/api/v1/businesses`, formData);
+  const response = await api.post(`/api/v1/alliances`, formData);
 
   return response?.data;
 }
