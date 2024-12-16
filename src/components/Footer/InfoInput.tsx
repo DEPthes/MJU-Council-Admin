@@ -1,17 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "@styles/Footer/InfoInputComponentStyle";
 import UploadFileIcon from "@assets/image/Button_File.svg";
 import Close from "@assets/image/Close.svg";
 
-const InfoInput = () => {
+interface InfoInputProps {
+  setGeneration: React.Dispatch<React.SetStateAction<number | string>>;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setSnsUrl: React.Dispatch<React.SetStateAction<string>>;
+  setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
+}
+
+interface InfoInputProps {
+  setGeneration: React.Dispatch<React.SetStateAction<number | string>>;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
+  setSnsUrl: React.Dispatch<React.SetStateAction<string>>;
+  setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
+  initialValues: { generation: number | string; name: string; email: string; snsUrl: string }; // 초기값
+}
+
+const InfoInput: React.FC<InfoInputProps> = ({
+  setGeneration,
+  setName,
+  setEmail,
+  setSnsUrl,
+  setImageFile,
+  initialValues,
+}) => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    // 초기값 설정
+    setGeneration(initialValues.generation);
+    setName(initialValues.name);
+    setEmail(initialValues.email);
+    setSnsUrl(initialValues.snsUrl);
+  }, [initialValues, setGeneration, setName, setEmail, setSnsUrl]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setUploadedImage(reader.result as string); // 이미지를 base64로 변환하여 상태에 저장
+        setUploadedImage(reader.result as string);
+        setImageFile(file); // 파일 상태 업데이트
       };
       reader.readAsDataURL(file);
     }
@@ -19,53 +52,62 @@ const InfoInput = () => {
 
   const handleRemoveFile = () => {
     setUploadedImage(null);
-  }
+    setImageFile(null);
+  };
 
   return (
-    <>
-      <S.WholeDiv>
-        <S.InfoDiv>
-          <S.IText>기수</S.IText>
-          <S.Input placeholder="숫자" />
-        </S.InfoDiv>
-        <S.InfoDiv>
-          <S.IText>총학생회명</S.IText>
-          <S.Input placeholder="이름을 입력해주세요" />
-        </S.InfoDiv>
-        <S.InfoDiv>
-          <S.IText>총학생회 로고</S.IText>
-            {uploadedImage == null ? 
-            (<S.FileUploadWrapper>
-              <S.FileInput
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-              <S.UploadImg src={UploadFileIcon}/>
-            </S.FileUploadWrapper>):
-            (<S.FileUploadWrapper>
-              <S.UploadPreviewWrapper>
-                <S.UploadPreview src={uploadedImage}/>
-                <S.DeleteButton onClick={handleRemoveFile}>
-                  <img src={Close} alt="Close" />
-                </S.DeleteButton>
-              </S.UploadPreviewWrapper>
-            </S.FileUploadWrapper>)
-            }
-        </S.InfoDiv>
-        <S.InfoDiv>
-          <S.IText>이메일</S.IText>
-          <S.Input placeholder="이메일을 입력해주세요" />
-        </S.InfoDiv>
-        <S.InfoDiv>
-          <S.IText>인스타그램 주소</S.IText>
-          <S.Input placeholder="인스타그램 채널 URL주소를 입력해주세요" />
-        </S.InfoDiv>
-        <S.InfoDiv>
-          <S.IText>카카오톡 주소</S.IText>
-          <S.Input placeholder="카카오톡 채널 주소를 입력해주세요" />
-        </S.InfoDiv>
-        <S.InfoDiv>
+    <S.WholeDiv>
+      <S.InfoDiv>
+        <S.IText>기수</S.IText>
+        <S.Input
+          placeholder="숫자"
+          value={initialValues.generation}
+          onChange={(e) => setGeneration(e.target.value)} // 기수 입력
+        />
+      </S.InfoDiv>
+      <S.InfoDiv>
+        <S.IText>총학생회명</S.IText>
+        <S.Input
+          placeholder="이름을 입력해주세요"
+          value={initialValues.name}
+          onChange={(e) => setName(e.target.value)} // 총학생회명 입력
+        />
+      </S.InfoDiv>
+      <S.InfoDiv>
+        <S.IText>총학생회 로고</S.IText>
+        {uploadedImage === null ? (
+          <S.FileUploadWrapper>
+            <S.FileInput type="file" accept="image/*" onChange={handleFileChange} />
+            <S.UploadImg src={UploadFileIcon} />
+          </S.FileUploadWrapper>
+        ) : (
+          <S.FileUploadWrapper>
+            <S.UploadPreviewWrapper>
+              <S.UploadPreview src={uploadedImage} />
+              <S.DeleteButton onClick={handleRemoveFile}>
+                <img src={Close} alt="Close" />
+              </S.DeleteButton>
+            </S.UploadPreviewWrapper>
+          </S.FileUploadWrapper>
+        )}
+      </S.InfoDiv>
+      <S.InfoDiv>
+        <S.IText>이메일</S.IText>
+        <S.Input
+          placeholder="이메일을 입력해주세요"
+          value={initialValues.email}
+          onChange={(e) => setEmail(e.target.value)} // 이메일 입력
+        />
+      </S.InfoDiv>
+      <S.InfoDiv>
+        <S.IText>인스타그램 주소</S.IText>
+        <S.Input
+          placeholder="인스타그램 채널 URL주소를 입력해주세요"
+          value={initialValues.snsUrl}
+          onChange={(e) => setSnsUrl(e.target.value)} // SNS URL 입력
+        />
+      </S.InfoDiv>
+      <S.InfoDiv>
           <S.IText>전화번호</S.IText>
           <S.Input placeholder="02-300-0901" value="02-300-0901" readOnly/>
         </S.InfoDiv>
@@ -77,9 +119,9 @@ const InfoInput = () => {
             readOnly
           />
         </S.InfoDiv>
-      </S.WholeDiv>
-    </>
+    </S.WholeDiv>
   );
 };
+
 
 export default InfoInput;

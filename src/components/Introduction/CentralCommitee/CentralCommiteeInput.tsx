@@ -1,10 +1,11 @@
-import AddContent from "../AddContent";
+import AddContent from "./AddContent";
 import ImgAddBtn from "../ImgAddBtn";
 import * as S from "@styles/Introduction/CentralCommitee/CentralCommiteeInputComponentStyle";
 
 interface Input{
-  image: string; 
-  content: string;
+  committeeId: number;
+  imgUrl: File|undefined; 
+  description: string;
 }
 
 interface CentralInput{
@@ -31,12 +32,12 @@ const CentralCommiteeInput: React.FC<CentralInput> = (props) => {
           <ImgAddBtn 
             title="로고"
             text="이미지를 삭제하시겠습니까?"
-            image={props.input.image}
+            image={props.input.imgUrl}
             setImage={(newImage) => updateInput("image", newImage)} 
             isFix={props.isFix}
           />
           <AddContent 
-            value={props.input.content} 
+            value={props.input.description} 
             onChange={(e) => updateInput("content", e.target.value)}
             isFix={props.isFix}
           />

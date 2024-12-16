@@ -29,14 +29,14 @@ export const InputDiv = styled.div`
     margin: 60px 0 60px 0;
 `;
 
-export const LID= styled.input<{isid:string}>`
+export const LID= styled.input<{$isid:string}>`
     display: flex;
     height: 60px;
     padding: 0px 20px;
     border-radius: 4px;
-    background: ${({isid})=>(isid=="true")?`White`:`var(--M5)`};
+    background: ${({$isid})=>($isid=="true")?`White`:`var(--M5)`};
     border-style: none;
-    border: ${({isid})=>(isid=="true")?`1px solid var(--M30)`:``};
+    border: ${({$isid})=>($isid=="true")?`1px solid var(--M30)`:``};
     outline: none;
     text-justify: center;
     line-height: 80px;
@@ -55,14 +55,14 @@ export const PWDiv = styled.div`
     margin-top: 20px;
 `;
 
-export const LPW = styled.input<{ispw:string}>`
+export const LPW = styled.input<{$ispw:string}>`
     display: flex;
     height: 60px;
     padding: 0px 20px;
     border-radius: 4px;
-    background: ${({ispw})=>(ispw=="true")?`White`:`var(--M5)`};
+    background: ${({$ispw})=>($ispw=="true")?`White`:`var(--M5)`};
     border-style: none;
-    border: ${({ispw})=>(ispw=="true")?`1px solid var(--M30)`:``};
+    border: ${({$ispw})=>($ispw=="true")?`1px solid var(--M30)`:``};
     outline: none;
     text-justify: center;
     line-height: 80px;
@@ -86,7 +86,7 @@ export const PWBtn = styled.img`
     height: 32px;
 `;
 
-export const LBtn = styled.button<{isclick: string}>`
+export const LBtn = styled.button<{$isclick: string}>`
     display: flex;
     text-align: center;
     justify-content: center;
@@ -94,7 +94,7 @@ export const LBtn = styled.button<{isclick: string}>`
     width: 400px;
     height: 60px;
     border-radius: 4px;
-    background: ${({ isclick }) => (isclick=="true" ? `var(--Primary)` : `var(--M50)`)};
+    background: ${({ $isclick }) => ($isclick=="true" ? `var(--Primary)` : `var(--M50)`)};
     color: var(--White);
     font: var(--PC_ButtonText);
     cursor: pointer;

@@ -7,8 +7,8 @@ import RemoveModal from "../Home/Banner/RemoveModal";
 interface Input{
     text: string;
     title: string;
-    image: string|undefined;
-    setImage: React.Dispatch<React.SetStateAction<string|undefined>>;
+    image: File|undefined;
+    setImage: React.Dispatch<React.SetStateAction<File|undefined>>;
     isFix: boolean;
 }
 const ImgAddBtn:React.FC<Input> = (props) => {
@@ -16,10 +16,10 @@ const ImgAddBtn:React.FC<Input> = (props) => {
 
     const handleUploadImage = (e: ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
+      props.setImage(file);
       if(file){
         const reader = new FileReader();
         reader.onload = () => {
-            props.setImage(reader.result as string);
         };
         reader.readAsDataURL(file);
       }
@@ -30,7 +30,7 @@ const ImgAddBtn:React.FC<Input> = (props) => {
     }
 
     const handleConfirmRemove = () => {
-        props.setImage(""); 
+        props.setImage(undefined); 
         setOpenModal(false);
       };
 
@@ -38,7 +38,7 @@ const ImgAddBtn:React.FC<Input> = (props) => {
         <>
           <S.UploadBtnDiv>
             <S.Caption>{props.title}</S.Caption>
-            {props.image == ""?(
+            {!props.image?(
                 <S.AddWrapper>
                     {props.isFix?
                     <S.AddInput
@@ -50,10 +50,16 @@ const ImgAddBtn:React.FC<Input> = (props) => {
                 </S.AddWrapper>
             ):(
                 <S.AddWrapper>
-                    <S.FullImg src={props.image}/>
+                    <S.FullImg src={
+                        props.image
+                        ? props.image instanceof File
+                        ? URL.createObjectURL(props.image) // File 객체 처리
+                        : props.image // 기존 URL 처리
+                        : "/default-image.png"}/>
+                    {props.isFix? 
                     <S.DeleteButton onClick={handleOpenModal}>
-                    <img src={Close} alt="Close" />
-                    </S.DeleteButton>
+                    <img src={Close}/>
+                    </S.DeleteButton>:<></>}
                 </S.AddWrapper>
             )}
           </S.UploadBtnDiv>

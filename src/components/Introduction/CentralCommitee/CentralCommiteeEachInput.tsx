@@ -2,29 +2,32 @@ import AddCollageContent from "./AddCollageContent";
 import ImgAddBtn from "../ImgAddBtn";
 import * as S from "@styles/Introduction/CentralCommitee/CentralCommiteeEachInputComopnentStyle";
 
-interface EInput{
-    image: string;
-    part: string;
-    councilTitle: string;
-    homePage: string;
-    instagram: string;
+interface EInput {
+  committeeId?: number;
+  imgUrl: File|undefined;
+  college: string;
+  name: string;
+  pageUrl?: string;
+  snsUrl: string;
 }
 
-interface CentralInput{
+interface CentralInput {
   isFix: boolean;
   canEnter: boolean;
-  setCanEnter: (value: boolean)=>void;
-  clicked: ()=>void;
+  setCanEnter: (value: boolean) => void;
+  clicked: () => void;
   input: EInput;
   setInputs: React.Dispatch<React.SetStateAction<EInput[]>>;
   isLast: boolean;
 }
 
 const CentralCommiteeEachInput: React.FC<CentralInput> = (props) => {
-  const updateInput = (key: "image" | "part" | "councilTitle" | "homePage" | "instagram", value: any) => {
+  const updateInput = (key: keyof EInput, value: any) => {
     props.setInputs((prev) =>
       prev.map((item) =>
-        item === props.input ? { ...item, [key]: value } : item
+        item.committeeId === props.input.committeeId
+          ? { ...item, [key]: value }
+          : item
       )
     );
   };
@@ -33,22 +36,22 @@ const CentralCommiteeEachInput: React.FC<CentralInput> = (props) => {
     <>
       <S.InputDiv>
         <S.TopDiv>
-          <ImgAddBtn 
+          <ImgAddBtn
             title="로고"
             text="이미지를 삭제하시겠습니까?"
-            image={props.input.image}
-            setImage={(newImage) => updateInput("image", newImage)} 
+            image={props.input.imgUrl}
+            setImage={(newImage) => updateInput("imgUrl", newImage)} // Update imgUrl
             isFix={props.isFix}
           />
-          <AddCollageContent 
-            valueTitle={props.input.councilTitle} 
-            valueHomePage={props.input.homePage} 
-            valueInstagram={props.input.instagram}
-            valuePart={props.input.part}
-            onChangePart={(e) => updateInput("part", e.target.value)}
-            onChangeTitle={(e) => updateInput("councilTitle", e.target.value)}
-            onChangeHomePage={(e) => updateInput("homePage", e.target.value)}
-            onChangeInstagram={(e) => updateInput("instagram", e.target.value)}
+          <AddCollageContent
+            valueTitle={props.input.name}
+            valueHomePage={props.input.pageUrl}
+            valueInstagram={props.input.snsUrl}
+            valuePart={props.input.college}
+            onChangePart={(e) => updateInput("college", e.target.value)} // Update college
+            onChangeTitle={(e) => updateInput("name", e.target.value)} // Update name
+            onChangeHomePage={(e) => updateInput("pageUrl", e.target.value)} // Update pageUrl
+            onChangeInstagram={(e) => updateInput("snsUrl", e.target.value)} // Update snsUrl
             isFix={props.isFix}
           />
         </S.TopDiv>
@@ -57,7 +60,7 @@ const CentralCommiteeEachInput: React.FC<CentralInput> = (props) => {
             <S.DeleteBtn onClick={props.clicked}>삭제</S.DeleteBtn>
           </S.BtnDiv>
         )}
-        {props.isLast?<></>:<S.Line/>}
+        {!props.isLast && <S.Line />}
       </S.InputDiv>
     </>
   );

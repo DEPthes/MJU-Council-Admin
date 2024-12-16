@@ -6,16 +6,18 @@ interface Title{
     setIsFix: (value: boolean) => void;
     canEnter: boolean;
     setCanEnter: (value: boolean) => void;
+    setPost: (value: boolean) => void;
+    post: boolean
 }
 
-const TitleBar:React.FC<Title> = (props) => {
+const EachOrganizationTitleBar:React.FC<Title> = (props) => {
 
     const handleFixClick = () => {
         props.setIsFix(!props.isFix);
     }
 
-    const handleButtonClick = () => {
-
+    const handleButtonClick = async () => {
+        props.setPost(!props.post);
     }
 
     return(
@@ -35,4 +37,4 @@ const TitleBar:React.FC<Title> = (props) => {
     );
 };
 
-export default TitleBar;
+export default EachOrganizationTitleBar;

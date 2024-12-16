@@ -1,114 +1,131 @@
-import * as S from "@/styles/Introduction/Organization/OrganizationComponentStyle";
-import TitleBar from "@/components/Introduction/TitleBar";
+import * as S from "@/styles/Introduction/EachPart/EachPartComponentStyle";
 import { useEffect, useState } from "react";
 import CaptionAddBtn from "@/components/Introduction/CaptionAddBtn";
-import OrganizationInput from "@/components/Introduction/Organization/OrganizationInput";
-import EachOrganizationInput from "@/components/Introduction/Organization/EachOrganizationInput";
 import RemoveModal from "@/components/Home/Banner/RemoveModal";
+import { postDepartment, deleteOrganization, getOrganization } from "@/apis/introduction";
+import EachOrganizationInput from "@/components/Introduction/Organization/EachOrganizationInput";
+import EachOrganizationTitleBar from "@/components/Introduction/Organization/EachOrgainzationTitleBar";
 
-interface Input{
-  image: string;
-  content: string;
+interface Input {
+  organizationId?: number;
+  imgUrl: File|undefined;
+  title: string;
 }
+
 const OrganizationPage = () => {
   const [isFix, setIsFix] = useState<boolean>(false);
-  const [isEachFix, setIsEachFix] = useState<boolean>(false);
   const [canEnter, setCanEnter] = useState<boolean>(false);
-  const [canEachEnter, setCanEachEnter] = useState<boolean>(false);
-  const [inputs, setInputs] = useState<string|undefined>(); 
-  const [eInputs, setEInputs] = useState<Input[]>([]);
-  const [openModal, setOpenModal] = useState<boolean>();
-  const [deleteIndex, setDeleteIndex] = useState<number|null>(null);
+  const [inputs, setInputs] = useState<Input[]>([]);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
+  const [post, setPost] = useState<boolean>(false);
 
-  const deleteInput = () => {
-    setInputs("");
-  };
-
-  const addEInput = () => {
-    setEInputs((prev) => [
+  // 새 입력 추가
+  const addInput = async () => {
+    setInputs((prev) => [
       ...prev,
-      { image: "", content: "" }, 
+      { imgUrl: undefined, title: "" }, 
     ]);
   };
 
-  const deleteEInput = () => {
-    if(deleteIndex!==null)
-    setEInputs((prev) => prev.filter((_, i) => i !== deleteIndex));
-    setOpenModal(false);
-    setDeleteIndex(null);
+  // 입력 삭제
+  const deleteInput = async () => {
+    if (deleteIndex !== null) {
+      try {
+        const organizationId = inputs[deleteIndex].organizationId;
+        if (organizationId) await deleteOrganization(organizationId); // 서버에서 삭제
+        setInputs((prev) => prev.filter((_, i) => i !== deleteIndex));
+      } catch (error) {
+        console.error("삭제 실패:", error);
+      } finally {
+        setOpenModal(false);
+        setDeleteIndex(null);
+      }
+    }
+  };
+
+  // 데이터 가져오기
+  const fetchIntroData = async () => {
+    try {
+      const data = await getOrganization();
+      setInputs(data.information);
+      console.log(data.information)
+    } catch (error) {
+      console.error("데이터 불러오기 실패:", error);
+    }
+  };
+
+  const isFull = (inputs: Input[]) => {
+    return inputs.every((input) => input.imgUrl !== null && input.title !== "");
   };
 
   const handleOpenModal = (index: number) => {
     setOpenModal(true);
     setDeleteIndex(index);
-  }
+  };
+  ///여기 다시
+  const handlePost = async () => {
+    try {
+      // Iterate over the inputs and post each one
+      for (const input of inputs) {
+        if (input.imgUrl && input.title) {
+          // Call postDepartment with description and image
+          await postDepartment(input.title, input.imgUrl);
+          console.log("부서 생성 성공");
+        }
+      }
+    } catch (error) {
+      console.error("부서 생성 실패:", error);
+    }
+  };
+  
 
-//전체 조직도
-  const isFull = (input: string|undefined) => {
-    return input!=="";
-  }
-//국별 조직도
-  const isEachOrFull = (eInputs: Input[]) => {
-    return eInputs.every((input) => input.image!=="" && input.content!=="");
-  }
-  useEffect(()=>{
-    setInputs("");
-  },[])
+  useEffect(() => {
+    fetchIntroData();
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setCanEnter(isFull(inputs));
-  },[inputs])
+  }, [inputs]);
 
-  useEffect(()=>{
-    setCanEachEnter(isEachOrFull(eInputs));
-  }, [eInputs])
+  useEffect(() => {
+    handlePost();
+  }, [post]);
 
   return (
-      <>
-        <S.OrgDiv>
-          <TitleBar 
-            title="전체 조직도" 
-            isFix={isFix} 
-            setIsFix={setIsFix} 
-            canEnter={canEnter} 
-            setCanEnter={setCanEnter} 
-          />
-          <OrganizationInput
+    <>
+      <S.EachPartDiv>
+        <EachOrganizationTitleBar
+          title="국별 조직도"
+          isFix={isFix}
+          setIsFix={setIsFix}
+          canEnter={canEnter}
+          setCanEnter={setCanEnter}
+          setPost={setPost}
+          post = {post}
+        />
+        {inputs.map((input, index) => (
+          <EachOrganizationInput
+            key={index}
             isFix={isFix}
             canEnter={canEnter}
             setCanEnter={setCanEnter}
-            clicked={() => deleteInput()}
-            input={inputs} 
-            setInputs={setInputs}
-          />
-          <TitleBar 
-            title="국별 조직도" 
-            isFix={isEachFix} 
-            setIsFix={setIsEachFix} 
-            canEnter={canEachEnter} 
-            setCanEnter={setCanEachEnter} 
-          />
-          {eInputs.map((input, index) => (
-          <EachOrganizationInput
-            key={index}
-            isFix={isEachFix}
-            canEnter={canEachEnter}
-            setCanEnter={setCanEachEnter}
             clicked={() => handleOpenModal(index)}
-            input={input} 
-            setInputs={setEInputs}
-            isLast={index === eInputs.length-1}
+            input={input}
+            setInputs={setInputs}
+            isLast={index === inputs.length - 1}
           />
         ))}
-          {isEachFix ? <CaptionAddBtn clicked={addEInput} /> : <></>}
-        </S.OrgDiv>
-        {openModal?
+        {isFix && <CaptionAddBtn clicked={addInput} />}
+      </S.EachPartDiv>
+      {openModal && (
         <RemoveModal
+          text="이미지와 캡션 필드를 모두 삭제하시겠습니까?"
+          onConfirm={deleteInput}
           setIsModal={setOpenModal}
-          text="조직도 이미지와 국명 필드 모두 삭제하시겠습니까?"
-          onConfirm={deleteEInput}/>
-        :<></>}
-      </>
+        />
+      )}
+    </>
   );
 };
 

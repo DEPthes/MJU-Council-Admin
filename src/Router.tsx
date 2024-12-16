@@ -31,6 +31,10 @@ import NewEventGuidePage from "./pages/News/NewEventGuidePage";
 import EventGuideDetailPage from "./pages/News/EventGuideDetailPage";
 import EventEditPage from "./pages/News/EventEditPage";
 import EventGuideEditPage from "./pages/News/EventGuideEditPage";
+import CentralCommiteePage from "./pages/Introduction/CentralCommiteePage";
+import EachPartPage from "./pages/Introduction/EachPartPage";
+import IntroductionPage from "./pages/Introduction/IntroductionPage";
+import OrganizationPage from "./pages/Introduction/OrganizationPage";
 
 const Router = () => {
   return (

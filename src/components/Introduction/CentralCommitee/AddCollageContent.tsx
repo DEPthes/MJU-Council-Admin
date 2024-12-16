@@ -2,8 +2,8 @@ import * as S from "@styles/Introduction/CentralCommitee/AddCollageContentCompon
 
 interface Info{
   valuePart: string;
-  valueTitle: string;
-  valueHomePage: string;
+  valueTitle: string|undefined;
+  valueHomePage: string|undefined;
   valueInstagram: string;
   onChangePart: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;

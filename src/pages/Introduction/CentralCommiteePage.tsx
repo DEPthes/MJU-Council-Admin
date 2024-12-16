@@ -1,21 +1,26 @@
 import * as S from "@/styles/Introduction/CentralCommitee/CentralCommiteeComponentStyle";
-import TitleBar from "@/components/Introduction/TitleBar";
 import CentralCommiteeInput from "@/components/Introduction/CentralCommitee/CentralCommiteeInput";
 import CentralCommiteeEachInput from "@components/Introduction/CentralCommitee/CentralCommiteeEachInput";
 import { useEffect, useState } from "react";
 import CaptionAddBtn from "@/components/Introduction/CaptionAddBtn";
 import RemoveModal from "@/components/Home/Banner/RemoveModal";
+import { getCommittee, deleteCommittees } from "@/apis/introduction";
+import CentralCommiteeTitleBar from "@/components/Introduction/CentralCommitee/CentralCommiteeTitleBar";
+import EachCommiteeTitleBar from "@/components/Introduction/CentralCommitee/EachCommiteeTitleBar";
 
-interface Input{
-  image: string;
-  content: string;
+interface Input {
+  committeeId: number;
+  imgUrl: File|undefined;
+  description: string;
 }
-interface EInput{
-  image: string;
-  part: string;
-  councilTitle: string;
-  homePage: string;
-  instagram: string;
+
+interface EInput {
+  committeeId?: number;
+  imgUrl: File|undefined;
+  college: string;
+  name: string;
+  pageUrl?: string;
+  snsUrl: string;
 }
 
 const CentralCommiteePage = () => {
@@ -26,97 +31,131 @@ const CentralCommiteePage = () => {
   const [inputs, setInputs] = useState<Input[]>([]);
   const [eInputs, setEInputs] = useState<EInput[]>([]);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [deleteIndex, setDeleteIndex] = useState<number|null>(null);
+  const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
 
   const addInput = () => {
     setEInputs((prev) => [
       ...prev,
-      { image: "", part: "" , councilTitle:"", homePage:"", instagram:""}, 
+      { committeeId:prev.length+1, imgUrl: undefined, college: "", name: "", pageUrl: "", snsUrl: "" },
     ]);
   };
 
-  const deleteInput = () => {
-    if(deleteIndex!==null)
-    setEInputs((prev) => prev.filter((_, i) => i !== deleteIndex));
-    setDeleteIndex(null);
-    setOpenModal(false);
+  const deleteInput = async () => {
+    if (deleteIndex !== null) {
+      try {
+        const committeeId = eInputs[deleteIndex]?.committeeId;
+        if (committeeId) {
+          await deleteCommittees(committeeId); // 서버에서 삭제 요청
+        }
+        setEInputs((prev) => prev.filter((_, i) => i !== deleteIndex)); // 상태 업데이트
+      } catch (error) {
+        console.error("조직 삭제 실패:", error);
+      } finally {
+        setDeleteIndex(null);
+        setOpenModal(false);
+      }
+    }
   };
 
   const handleOpenModal = (index: number) => {
     setOpenModal(true);
     setDeleteIndex(index);
-  }
+  };
 
   const isFull = (inputs: Input[]) => {
-    return inputs.every((input) => input.image!=="" && input.content!=="");
-  }
+    return inputs.every((input) => input.imgUrl !== undefined && input.description !== "");
+  };
 
   const isEFull = (inputs: EInput[]) => {
-    return inputs.every((input) => input.image!=="" && input.part!==""&& input.councilTitle!==""&&input.instagram!=="");
-  }
+    return inputs.every(
+      (input) =>
+        input.imgUrl !== undefined &&
+        input.college !== "" &&
+        input.name !== "" &&
+        input.snsUrl !== ""
+    );
+  };
 
-  useEffect(()=>{
-    setInputs([{image:"", content:""}]);
-    setEInputs([{image: "", part: "" , councilTitle:"", homePage:"", instagram:""}]);
-  },[])
+  const fetchCommitteeData = async () => {
+    try {
+      const data = await getCommittee();
+      const nullDescriptions = data.information.filter(
+        (item: { description: any }) => item.description !== null
+      );
+      const validDescriptions = data.information.filter(
+        (item: { description: any }) => item.description == null
+      );
 
-  useEffect(()=>{
+      setInputs(nullDescriptions);
+      setEInputs(validDescriptions);
+    } catch (error) {
+      console.error("중운위 데이터 불러오기 실패:", error);
+    }
+  };
+
+  useEffect(() => {
+    setInputs([{committeeId:0, imgUrl: undefined, description: "" }]);
+    fetchCommitteeData();
+  }, []);
+
+  useEffect(() => {
     setCanEnter(isFull(inputs));
-  },[inputs])
+  }, [inputs]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setCanEEnter(isEFull(eInputs));
-  },[eInputs])
+  }, [eInputs]);
 
   return (
-      <>
-        <S.CentralDiv>
-          <TitleBar 
-            title="중앙운영위원회 소개" 
-            isFix={isFix} 
-            setIsFix={setIsFix} 
-            canEnter={canEnter} 
-            setCanEnter={setCanEnter} 
-          />
-          {inputs.map((input, index) => (
+    <>
+      <S.CentralDiv>
+        <CentralCommiteeTitleBar
+          title="중앙운영위원회 소개"
+          isFix={isFix}
+          setIsFix={setIsFix}
+          canEnter={canEnter}
+          setCanEnter={setCanEnter}
+        />
+        {inputs.map((input, index) => (
           <CentralCommiteeInput
             key={index}
             isFix={isFix}
             canEnter={canEnter}
             setCanEnter={setCanEnter}
-            input={input} 
+            input={input}
             setInputs={setInputs}
           />
         ))}
 
-          <TitleBar 
-            title="소속 단과대학 학생회 소개" 
-            isFix={isEFix} 
-            setIsFix={setIsEFix}
-            canEnter={canEEnter} 
-            setCanEnter={setCanEEnter} 
-          />
-          {eInputs.map((input, index) => (
+        <EachCommiteeTitleBar
+          title="소속 단과대학 학생회 소개"
+          isFix={isEFix}
+          setIsFix={setIsEFix}
+          canEnter={canEEnter}
+          setCanEnter={setCanEEnter}
+        />
+        {eInputs.map((input, index) => (
           <CentralCommiteeEachInput
             key={index}
             isFix={isEFix}
             canEnter={canEEnter}
             setCanEnter={setCanEEnter}
             clicked={() => handleOpenModal(index)}
-            input={input} 
+            input={input}
             setInputs={setEInputs}
-            isLast={index === eInputs.length-1}
+            isLast={index === eInputs.length - 1}
           />
         ))}
-          {isEFix ? <CaptionAddBtn clicked={addInput} /> : <></>}
-        </S.CentralDiv>
-        {openModal?
+        {isEFix ? <CaptionAddBtn clicked={addInput} /> : null}
+      </S.CentralDiv>
+      {openModal ? (
         <RemoveModal
           text="해당 단과대학 정보를 모두 삭제하시겠습니까?"
           onConfirm={deleteInput}
-          setIsModal={setOpenModal}/>
-      :<></>}
-      </>
+          setIsModal={setOpenModal}
+        />
+      ) : null}
+    </>
   );
 };
 
