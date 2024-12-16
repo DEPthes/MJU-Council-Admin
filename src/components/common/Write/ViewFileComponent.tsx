@@ -1,6 +1,6 @@
 import { Clip } from "@/assets/common";
 import * as S from "@/styles/common/WriteStyle";
-import { BusinessFile } from "@/types/ActivityReport/Business/businessDetailType";
+import { BusinessFile } from "@/types/ActivityReport/businessDetailType";
 
 interface Props {
   file: BusinessFile;

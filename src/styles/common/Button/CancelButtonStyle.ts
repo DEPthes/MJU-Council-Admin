@@ -5,15 +5,15 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  width: 180px;
-  height: 60px;
+  width: 100px;
+  height: 40px;
   cursor: pointer;
   background-color: white;
   border: 1px solid var(--M70);
 `;
 
 export const Text = styled.p`
-  font: var(--PC_ButtonText);
+  font: var(--PC_ButtonText2);
   color: var(--M70);
   text-align: center;
 `;

@@ -1,54 +1,28 @@
+import { putCoalition } from "@/apis/ActivityReport/coalition";
 import CheckModal from "@/components/common/CheckModal";
-import { BusinessDetailResponse } from "@/types/ActivityReport/Business/businessDetailType";
-import * as S from "@/styles/common/WritePageStyle";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
-import TitleInput from "@/components/common/Write/TitleInput";
-import ContentInput from "@/components/common/Write/ContentInput";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import AddImageContainer from "@/components/common/Write/AddImageContainer";
+import ContentInput from "@/components/common/Write/ContentInput";
+import TitleInput from "@/components/common/Write/TitleInput";
+import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
+import { useCoalitionDetail } from "@/hooks/activityReport/useCoalition";
+import * as S from "@/styles/common/WritePageStyle";
+import {
+  CoalitionDetailiResponse,
+  CoalitionPutRequest,
+} from "@/types/ActivityReport/coalition";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CoalitionFixPage = () => {
-  const data = {
-    check: true,
-    information: {
-      title: "사업001",
-      content: "사업001의 내용입니다.",
-      createdAt: "2024-11-17",
-      images: [
-        {
-          id: 1,
-          name: "사업 사진",
-          url: "https://councill-s3-bucket/aethkefjdif.png",
-        },
-        {
-          id: 2,
-          name: "사업 사진",
-          url: "https://councill-s3-bucket/aethkefjdif.png",
-        },
-      ],
-      files: [
-        {
-          id: 1,
-          name: "사업 파일",
-          url: "https://councill-s3-bucket/aethkefjdif.pdf",
-        },
-        {
-          id: 2,
-          name: "사업 파일",
-          url: "https://councill-s3-bucket/aethkefjdif.hwp",
-        },
-      ],
-    },
-    message: "사업 1번을 조회합니다.",
-  };
-  const [coalitionPost, setCoalitionPost] =
-    useState<BusinessDetailResponse>(data);
-
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const { id } = useParams<{ id: string }>();
+  const { data } = useCoalitionDetail(Number(id));
+  const coalitionData = data.information;
+
+  const [coalitionPost, setCoalitionPost] =
+    useState<CoalitionDetailiResponse>(data);
 
   // 제목과 내용이 비어 있는지 확인
   const isSubmitDisabled =
@@ -114,8 +88,53 @@ const CoalitionFixPage = () => {
     });
   };
 
-  const handleSubmit = () => {
-    navigator(`/activityReport/BusinessDetail/${id}`);
+  const handleSubmit = async () => {
+    const newImages = coalitionData.images.filter(
+      (item) => item instanceof File
+    );
+
+    const newFiles = coalitionData.files.filter((item) => item instanceof File);
+
+    const deletedImageIds = coalitionData.images
+      .filter(
+        (originalItem) =>
+          !coalitionData.images.some(
+            (currentItem) =>
+              !(currentItem instanceof File) &&
+              (currentItem as any).id === originalItem.id
+          )
+      )
+      .map((deletedItem) => deletedItem.id);
+
+    const deletedFileIds = coalitionData.files
+      .filter(
+        (originalItem) =>
+          !coalitionData.files.some(
+            (currentItem) =>
+              !(currentItem instanceof File) &&
+              (currentItem as any).id === originalItem.id
+          )
+      )
+      .map((deletedItem) => deletedItem.id);
+
+    const businessModifyPost: CoalitionPutRequest = {
+      images: newImages,
+      files: newFiles,
+      modifyAllianceReq: {
+        title: coalitionPost.information.title,
+        content: coalitionPost.information.content,
+        startDate: coalitionPost.information.startDate,
+        endDate: coalitionPost.information.endDate,
+        deleteImages: deletedImageIds,
+        deleteFiles: deletedFileIds,
+      },
+    };
+
+    const response = await putCoalition(Number(id), businessModifyPost);
+
+    if (response.check) {
+      navigator(-1);
+    }
   };
 
   return (
@@ -136,6 +155,22 @@ const CoalitionFixPage = () => {
         title={coalitionPost.information.title}
         handleInputChange={handleInputChange}
       />
+      <S.Label>기간</S.Label>
+      <S.DateConatiner>
+        <S.DateInput
+          value={coalitionPost.information.startDate}
+          placeholder={"0000.00.00"}
+          name="startDate"
+          onChange={handleInputChange}
+        />
+        ~
+        <S.DateInput
+          value={coalitionPost.information.endDate}
+          placeholder={"0000.00.00"}
+          name="endDate"
+          onChange={handleInputChange}
+        />
+      </S.DateConatiner>
       <AddImageContainer
         images={coalitionPost.information.images}
         handleFileRemove={handleFileRemove}
