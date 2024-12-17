@@ -1,6 +1,6 @@
 import { api } from ".";
 
-
+//get은 잘 됨
 export async function getIntroduce() {
     try {
       const response = await api.get(`http://52.79.142.78:8080/api/v1/council/images`);
@@ -21,9 +21,10 @@ export async function getCommittee() {
     }
 }
 
-export async function getEachPart() {
+export async function getDepartment() {
     try {
       const response = await api.get(`http://52.79.142.78:8080/api/v1/departments`);
+      console.log(response.data.information);
       return response.data;
     } catch (error) {
       console.error("국소개 get 중 오류 발생:", error);
@@ -42,13 +43,14 @@ export async function getOrganization() {
 }
 
 // 소개 추가 API
-export async function postIntroduction(description: string, image: File | undefined) {
-  try {
-    const formData = new FormData();
-    formData.append("request", new Blob([JSON.stringify({ description })], { type: "application/json" }));
-    if (image) formData.append("image", image);
+export const postIntroduction = async(description: string, image: File | null)=> {
+  const formData = new FormData();
 
-    const response = await api.post(`http://52.79.142.78:8080/api/v1/council/images`, formData);
+  formData.append("description", description);
+  if(image) formData.append("image", image);
+
+  try {
+    const response = await api.post(`http://52.79.142.78:8080/api/v1/council/images`, formData, {headers: {"Content-Type":"multipart/form-data"}});
     return response.data;
   } catch (error) {
     console.error("소개 추가 요청 중 오류 발생:", error);
@@ -57,25 +59,20 @@ export async function postIntroduction(description: string, image: File | undefi
 }
 
 // 소개 수정 API
-export async function putIntroduction(committeeId: number, description: string, image: File | undefined) {
+export const putIntroduction = async(councilImageId: string, description: string, image: File | undefined) => {
+  const formData = new FormData();
+  formData.append("description", description), {type: "application/json"};
+  if (image) formData.append("image", image); console.log(image);
   try {
-    const formData = new FormData();
-    formData.append("request", new Blob([JSON.stringify({ description })], { type: "application/json" }));
-    if (image) formData.append("image", image);
-
-    const response = await api.put(
-      `http://52.79.142.78:8080/api/v1/images/${committeeId}`,
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
+    const response = await api.put(`http://52.79.142.78:8080/api/v1/council/images/${councilImageId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
     return response.data;
   } catch (error) {
-    console.error("소개 수정 요청 중 오류 발생:", error);
+    console.error("put 요청 중 오류 발생:", error);
     throw error;
   }
 }
 
-export async function deleteIntroduction(councilImageId: number) {
+export async function deleteIntroduction(councilImageId: string) {
   try {
     const response = await api.delete(
       `http://52.79.142.78:8080/api/v1/council/images/${councilImageId}`
@@ -90,13 +87,13 @@ export async function deleteIntroduction(councilImageId: number) {
 ////////////////////////////////organization
 
 // 조직도 추가 API
-export async function postOrganization(titles: string, images: File | undefined) {
-  try {
+export const postOrganization = async(titles: string, images: File | undefined) => {
     const formData = new FormData();
-    formData.append("request", new Blob([JSON.stringify({ titles })], { type: "application/json" }));
+    formData.append("titles", titles);
     if (images) formData.append("images", images);
 
-    const response = await api.post(`http://52.79.142.78:8080/api/v1/organizations`, formData);
+  try {
+    const response = await api.post(`http://52.79.142.78:8080/api/v1/organizations`, formData, {headers:{"Content-Type":"multipart/form-data"}});
     return response.data;
   } catch (error) {
     console.error("요청 중 오류 발생:", error);
@@ -105,13 +102,12 @@ export async function postOrganization(titles: string, images: File | undefined)
 }
 
 // 조직도 수정 API
-export async function putOrganization(organizationId: number, title: string, image: File | undefined) {
+export const putOrganization = async(organizationId: string, title: string, image: File | undefined) => {
+  const formData = new FormData();
+  formData.append("title", title);
+  if (image) formData.append("image", image);
   try {
-    const formData = new FormData();
-    formData.append("request", new Blob([JSON.stringify({ title })], { type: "application/json" }));
-    if (image) formData.append("image", image);
-
-    const response = await api.put(`http://52.79.142.78:8080/api/v1/organizations/${organizationId}`, formData);
+    const response = await api.put(`http://52.79.142.78:8080/api/v1/organizations/${organizationId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
     return response.data;
   } catch (error) {
     console.error("요청 중 오류 발생:", error);
@@ -119,7 +115,7 @@ export async function putOrganization(organizationId: number, title: string, ima
   }
 }
 
-export async function deleteOrganization(organizationId: number) {
+export async function deleteOrganization(organizationId: string) {
   try {
     const response = await api.delete(
       `http://52.79.142.78:8080/api/v1/organizations/${organizationId}`
@@ -134,13 +130,13 @@ export async function deleteOrganization(organizationId: number) {
 ////////////////////////////////eachpart
 
 // 부서 추가 API
-export async function postDepartment(description: string, image: File | undefined) {
-  try {
-    const formData = new FormData();
-    formData.append("request", new Blob([JSON.stringify({ description })], { type: "application/json" }));
-    if (image) formData.append("image", image);
+export const postDepartment = async(description: string, image: File | undefined) => {
+  const formData = new FormData();
+  formData.append("description", description);
+  if (image) formData.append("image", image);
 
-    const response = await api.post(`http://52.79.142.78:8080/api/v1/departments`, formData);
+  try {
+    const response = await api.post(`http://52.79.142.78:8080/api/v1/departments`, formData, {headers:{"Content-Type":"multipart/form-data"}});
     return response.data;
   } catch (error) {
     console.error("post 요청 중 오류 발생:", error);
@@ -149,13 +145,12 @@ export async function postDepartment(description: string, image: File | undefine
 }
 
 // 부서 수정 API
-export async function putDepartment(departmentId: number, description: string, image: File | undefined) {
+export const putDepartment = async(departmentId: string, description: string, image: File | undefined) => {
+  const formData = new FormData();
+  formData.append("description", description);
+  if (image) formData.append("image", image); console.log(image);
   try {
-    const formData = new FormData();
-    formData.append("request", new Blob([JSON.stringify({ description })], { type: "application/json" }));
-    if (image) formData.append("image", image);
-
-    const response = await api.put(`http://52.79.142.78:8080/api/v1/departments/${departmentId}`, formData);
+    const response = await api.put(`http://52.79.142.78:8080/api/v1/departments/${departmentId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
     return response.data;
   } catch (error) {
     console.error("put 요청 중 오류 발생:", error);
@@ -166,7 +161,7 @@ export async function putDepartment(departmentId: number, description: string, i
 
 
 
-export async function deleteDepartment(departmentId: number) {
+export async function deleteDepartment(departmentId: string) {
   try {
     const response = await api.delete(
       `http://52.79.142.78:8080/api/v1/departments/${departmentId}`
@@ -180,16 +175,16 @@ export async function deleteDepartment(departmentId: number) {
 
 
 // 단과대 추가 API
-export async function postCommittees({ description, college, name, pageUrl, snsUrl, image }: { description: string; college: string; name: string; pageUrl: string; snsUrl: string; image: File | undefined }) {
+export const postCommittees = async(description: string|null, college: string|null, name: string|null, pageUrl: string|null, snsUrl: string|null, image: File | undefined ) => {
+  const formData = new FormData();
+  formData.append(
+    "request",
+    new Blob([JSON.stringify({ description, college, name, pageUrl, snsUrl })], { type: "application/json" })
+  );
+  if (image) formData.append("image", image);
   try {
-    const formData = new FormData();
-    formData.append(
-      "request",
-      new Blob([JSON.stringify({ description, college, name, pageUrl, snsUrl })], { type: "application/json" })
-    );
-    if (image) formData.append("image", image);
 
-    const response = await api.post(`http://52.79.142.78:8080/api/v1/committees`, formData);
+    const response = await api.post(`http://52.79.142.78:8080/api/v1/committees`, formData, {headers:{"Content-Type":"multipart/form-data"}});
     return response.data;
   } catch (error) {
     console.error("단과대 추가 요청 중 오류 발생:", error);
@@ -198,16 +193,15 @@ export async function postCommittees({ description, college, name, pageUrl, snsU
 }
 
 // 단과대 수정 API
-export async function putCommittees({ committeeId, description, college, name, pageUrl, snsUrl, image }: { committeeId: number; description: string; college: string; name: string; pageUrl: string; snsUrl: string; image: File | undefined }) {
+export const putCommittees = async(committeeId: string, description: string |null, college: string|null, name: string|null, pageUrl: string|null, snsUrl: string|null, image: File | undefined ) => {
+  const formData = new FormData();
+  formData.append(
+    "request",
+    new Blob([JSON.stringify({ description, college, name, pageUrl, snsUrl })], { type: "application/json" })
+  );
+  if (image) formData.append("image", image);
   try {
-    const formData = new FormData();
-    formData.append(
-      "request",
-      new Blob([JSON.stringify({ description, college, name, pageUrl, snsUrl })], { type: "application/json" })
-    );
-    if (image) formData.append("image", image);
-
-    const response = await api.put(`http://52.79.142.78:8080/api/v1/committees/${committeeId}`, formData);
+    const response = await api.put(`http://52.79.142.78:8080/api/v1/committees/${committeeId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
     return response.data;
   } catch (error) {
     console.error("단과대 수정 요청 중 오류 발생:", error);
@@ -217,7 +211,7 @@ export async function putCommittees({ committeeId, description, college, name, p
 
 
 // 이미지 및 콘텐츠 삭제 API
-export async function deleteCommittees(committeeId: number) {
+export async function deleteCommittees(committeeId: string) {
   try {
     const response = await api.delete(`http://52.79.142.78:8080/api/v1/committees/${committeeId}`);
     return response.data;

@@ -18,12 +18,11 @@ const FooterPage = () => {
             try {
                 const data = await getFooter();
                 if (data.check) {
-                    const { generation, name, email, snsUrl, logoUrl } = data.information;
+                    const { generation, name, email, snsUrl } = data.information;
                     setGeneration(generation || ""); // 기수
                     setName(name || ""); // 총학생회명
                     setEmail(email || ""); // 이메일
                     setSnsUrl(snsUrl || ""); // SNS URL
-                    setImageFile(logoUrl || "")
                 }
             } catch (error) {
                 console.error("Error fetching footer data:", error);
@@ -42,6 +41,7 @@ const FooterPage = () => {
             try {
                 await putFooter(generation as string, name, email, snsUrl, imageFile);
                 alert("총학생회 정보가 성공적으로 업데이트되었습니다!");
+                window.location.href = "/";
             } catch (error) {
                 console.error("Error updating footer:", error);
                 alert("업데이트 중 오류가 발생했습니다.");
@@ -50,11 +50,6 @@ const FooterPage = () => {
             alert("모든 필드를 채워주세요!");
         }
     };
-
-    // 로딩 중일 때 로딩 메시지 표시
-    if (loading) {
-        return <div>로딩 중...</div>;
-    }
 
     return (
         <S.FDiv>

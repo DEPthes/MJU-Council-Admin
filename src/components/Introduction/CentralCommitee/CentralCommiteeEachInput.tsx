@@ -3,10 +3,10 @@ import ImgAddBtn from "../ImgAddBtn";
 import * as S from "@styles/Introduction/CentralCommitee/CentralCommiteeEachInputComopnentStyle";
 
 interface EInput {
-  committeeId?: number;
+  committeeId: string;
   imgUrl: File|undefined;
   college: string;
-  name: string;
+  name?: string;
   pageUrl?: string;
   snsUrl: string;
 }

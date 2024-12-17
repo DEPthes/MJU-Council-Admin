@@ -1,14 +1,14 @@
-import * as S from "@/styles/Introduction/EachPart/EachPartComponentStyle";
 import { useEffect, useState } from "react";
+import * as S from "@/styles/Introduction/EachPart/EachPartComponentStyle";
 import CaptionAddBtn from "@/components/Introduction/CaptionAddBtn";
 import RemoveModal from "@/components/Home/Banner/RemoveModal";
-import { postDepartment, deleteOrganization, getOrganization } from "@/apis/introduction";
-import EachOrganizationInput from "@/components/Introduction/Organization/EachOrganizationInput";
+import { deleteOrganization, putOrganization, postOrganization, getOrganization } from "@/apis/introduction";
 import EachOrganizationTitleBar from "@/components/Introduction/Organization/EachOrgainzationTitleBar";
+import EachOrganizationInput from "@/components/Introduction/Organization/EachOrganizationInput";
 
 interface Input {
-  organizationId?: number;
-  imgUrl: File|undefined;
+  organizationId: string;
+  imgUrl: File | undefined;
   title: string;
 }
 
@@ -19,12 +19,13 @@ const OrganizationPage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
   const [post, setPost] = useState<boolean>(false);
+  const [initialInputs, setInitialInputs] = useState<Input[]>([]); // 초기 데이터 저장
 
   // 새 입력 추가
   const addInput = async () => {
     setInputs((prev) => [
       ...prev,
-      { imgUrl: undefined, title: "" }, 
+      { organizationId: "", imgUrl: undefined, title: "" },
     ]);
   };
 
@@ -32,8 +33,8 @@ const OrganizationPage = () => {
   const deleteInput = async () => {
     if (deleteIndex !== null) {
       try {
-        const organizationId = inputs[deleteIndex].organizationId;
-        if (organizationId) await deleteOrganization(organizationId); // 서버에서 삭제
+        const councilImageId = inputs[deleteIndex].organizationId;
+        if (councilImageId) await deleteOrganization(councilImageId); // 서버에서 삭제
         setInputs((prev) => prev.filter((_, i) => i !== deleteIndex));
       } catch (error) {
         console.error("삭제 실패:", error);
@@ -48,37 +49,50 @@ const OrganizationPage = () => {
   const fetchIntroData = async () => {
     try {
       const data = await getOrganization();
-      setInputs(data.information);
-      console.log(data.information)
+      setInputs(data.information); // 입력 값으로 저장
+      setInitialInputs(data.information); // 초기 값 저장
     } catch (error) {
       console.error("데이터 불러오기 실패:", error);
     }
   };
 
   const isFull = (inputs: Input[]) => {
-    return inputs.every((input) => input.imgUrl !== null && input.title !== "");
+    return inputs.every((input) => input.imgUrl !== undefined && input.title !== "");
   };
 
   const handleOpenModal = (index: number) => {
     setOpenModal(true);
     setDeleteIndex(index);
   };
-  ///여기 다시
+
+  // 기존 값과 비교하여 변경된 값만 처리
   const handlePost = async () => {
     try {
-      // Iterate over the inputs and post each one
       for (const input of inputs) {
-        if (input.imgUrl && input.title) {
-          // Call postDepartment with description and image
-          await postDepartment(input.title, input.imgUrl);
-          console.log("부서 생성 성공");
+        const initialInput = initialInputs.find((init) => init.organizationId === input.organizationId);
+
+        // 기존 값과 비교하여 변경된 경우에만 처리
+        if (
+          (initialInput?.imgUrl !== input.imgUrl || initialInput?.title !== input.title) &&
+          input.imgUrl &&
+          input.title
+        ) {
+          if (input.organizationId) {
+            // 기존 업데이트 (이미지와 캡션)
+            await putOrganization(input.organizationId, input.title, input.imgUrl);
+            console.log("intro 수정 성공");
+          } else {
+            // 새로 생성 (이미지와 캡션)
+            await postOrganization(input.title, input.imgUrl);
+            console.log("intro 생성 성공");
+          }
         }
       }
     } catch (error) {
-      console.error("부서 생성 실패:", error);
+      console.error("intro 처리 실패:", error);
     }
+    setIsFix(false);
   };
-  
 
   useEffect(() => {
     fetchIntroData();
@@ -86,11 +100,16 @@ const OrganizationPage = () => {
 
   useEffect(() => {
     setCanEnter(isFull(inputs));
+    // for(const input of inputs){
+    //   setInputDescriptions(input.description);
+    // }
   }, [inputs]);
 
   useEffect(() => {
-    handlePost();
-  }, [post]);
+    if (post) {
+      handlePost();
+    }
+  }, [post]); 
 
   return (
     <>
@@ -102,7 +121,7 @@ const OrganizationPage = () => {
           canEnter={canEnter}
           setCanEnter={setCanEnter}
           setPost={setPost}
-          post = {post}
+          post={post}
         />
         {inputs.map((input, index) => (
           <EachOrganizationInput
@@ -120,7 +139,7 @@ const OrganizationPage = () => {
       </S.EachPartDiv>
       {openModal && (
         <RemoveModal
-          text="이미지와 캡션 필드를 모두 삭제하시겠습니까?"
+          text="이미지와 캡션 필드를 삭제하시겠습니까?"
           onConfirm={deleteInput}
           setIsModal={setOpenModal}
         />

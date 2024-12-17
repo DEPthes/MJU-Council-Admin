@@ -1,15 +1,14 @@
-import * as S from "@/styles/Introduction/EachPart/EachPartComponentStyle";
-import EachPartInput from "@/components/Introduction/EachPart/EachPartInput";
 import { useEffect, useState } from "react";
+import * as S from "@/styles/Introduction/EachPart/EachPartComponentStyle";
 import CaptionAddBtn from "@/components/Introduction/CaptionAddBtn";
 import RemoveModal from "@/components/Home/Banner/RemoveModal";
-import { postDepartment, deleteIntroduction, getIntroduce } from "@/apis/introduction";
+import { deleteIntroduction, getIntroduce, putIntroduction, postIntroduction } from "@/apis/introduction";
 import IntroduceTitleBar from "@/components/Introduction/Introduce/IntroduceTitleBar";
 import IntroduceInput from "@/components/Introduction/Introduce/IntroductionInput";
 
 interface Input {
-  councilImageId?: number;
-  imgUrl: File|undefined;
+  councilImageId: string;
+  imgUrl: File | undefined;
   description: string;
 }
 
@@ -20,12 +19,13 @@ const IntroductionPage = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
   const [post, setPost] = useState<boolean>(false);
+  const [initialInputs, setInitialInputs] = useState<Input[]>([]); // 초기 데이터 저장
 
   // 새 입력 추가
   const addInput = async () => {
     setInputs((prev) => [
       ...prev,
-      { imgUrl: undefined, description: "" }, 
+      { councilImageId: "", imgUrl: undefined, description: "" },
     ]);
   };
 
@@ -49,36 +49,57 @@ const IntroductionPage = () => {
   const fetchIntroData = async () => {
     try {
       const data = await getIntroduce();
-      setInputs(data.information);
+      setInputs(data.information); // 입력 값으로 저장
+      setInitialInputs(data.information); // 초기 값 저장
     } catch (error) {
       console.error("데이터 불러오기 실패:", error);
     }
   };
 
   const isFull = (inputs: Input[]) => {
-    return inputs.every((input) => input.imgUrl !== null && input.description !== "");
+    return inputs.every((input) => input.imgUrl !== undefined && input.description !== "");
   };
 
   const handleOpenModal = (index: number) => {
     setOpenModal(true);
     setDeleteIndex(index);
   };
-  ///여기 다시
+
+  // 기존 값과 비교하여 변경된 값만 처리
   const handlePost = async () => {
     try {
-      // Iterate over the inputs and post each one
       for (const input of inputs) {
-        if (input.imgUrl && input.description) {
-          // Call postDepartment with description and image
-          await postDepartment(input.description, input.imgUrl);
-          console.log("부서 생성 성공");
+        const initialInput = initialInputs.find((init) => init.councilImageId === input.councilImageId);
+        let fileToSend = input.imgUrl;
+
+        // input.imgUrl이 string(이미지 URL)인 경우 File 객체로 변환
+        if (typeof input.imgUrl === "string") {
+          const response = await fetch(input.imgUrl);
+          const blob = await response.blob();
+          fileToSend = new File([blob], "image.jpg", { type: blob.type }); // 파일 이름과 타입 설정
+        }
+        if (
+          (initialInput?.imgUrl !== input.imgUrl || initialInput?.description !== input.description) &&
+          input.imgUrl &&
+          input.description
+        ) {
+          if (input.councilImageId) {
+            // 기존 업데이트 (이미지와 캡션)
+            console.log(typeof(input.imgUrl))
+            await putIntroduction(input.councilImageId, input.description, input.imgUrl);
+            console.log("intro 수정 성공");
+          } else {
+            // 새로 생성 (이미지와 캡션)
+            await postIntroduction(input.description, input.imgUrl);
+            console.log("intro 생성 성공");
+          }
         }
       }
     } catch (error) {
-      console.error("부서 생성 실패:", error);
+      console.error("intro 처리 실패:", error);
     }
+    setIsFix(false);
   };
-  
 
   useEffect(() => {
     fetchIntroData();
@@ -86,11 +107,16 @@ const IntroductionPage = () => {
 
   useEffect(() => {
     setCanEnter(isFull(inputs));
+    // for(const input of inputs){
+    //   setInputDescriptions(input.description);
+    // }
   }, [inputs]);
 
   useEffect(() => {
-    handlePost();
-  }, [post]);
+    if (post) {
+      handlePost();
+    }
+  }, [post]); 
 
   return (
     <>
@@ -102,7 +128,7 @@ const IntroductionPage = () => {
           canEnter={canEnter}
           setCanEnter={setCanEnter}
           setPost={setPost}
-          post = {post}
+          post={post}
         />
         {inputs.map((input, index) => (
           <IntroduceInput
@@ -120,7 +146,7 @@ const IntroductionPage = () => {
       </S.EachPartDiv>
       {openModal && (
         <RemoveModal
-          text="이미지와 캡션 필드를 모두 삭제하시겠습니까?"
+          text="이미지와 캡션 필드를 삭제하시겠습니까?"
           onConfirm={deleteInput}
           setIsModal={setOpenModal}
         />

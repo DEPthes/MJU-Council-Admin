@@ -1,4 +1,3 @@
-import { postDepartment } from "@/apis/introduction";
 import * as S from "@styles/Introduction/TitleBarComponentStyle";
 
 interface Title{
@@ -8,7 +7,7 @@ interface Title{
     canEnter: boolean;
     setCanEnter: (value: boolean) => void;
     setPost: (value: boolean) => void;
-    post: boolean
+    post: boolean;
 }
 
 const EachPartTitleBar:React.FC<Title> = (props) => {
@@ -29,7 +28,7 @@ const EachPartTitleBar:React.FC<Title> = (props) => {
                     {props.isFix==false ? 
                     (<S.TitleBtnFix onClick={handleFixClick}>수정</S.TitleBtnFix>):
                     (props.canEnter==false?
-                    (<S.TitleNotEnterBtn onClick={handleButtonClick}>등록</S.TitleNotEnterBtn>):
+                    (<S.TitleNotEnterBtn>등록</S.TitleNotEnterBtn>):
                     (<S.TitleBtnFix onClick={handleButtonClick}>등록</S.TitleBtnFix>))
                     }
                 </S.BtnDiv>
