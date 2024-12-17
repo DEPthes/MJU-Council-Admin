@@ -1,21 +1,24 @@
 import CheckModal from "@/components/common/CheckModal";
-import { RequestData } from "@/types/ActivityReport/Business";
-import * as S from "@/styles/common/WritePageStyle";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
-import TitleInput from "@/components/common/Write/TitleInput";
-import ContentInput from "@/components/common/Write/ContentInput";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import AddImageContainer from "@/components/common/Write/AddImageContainer";
+import ContentInput from "@/components/common/Write/ContentInput";
+import TitleInput from "@/components/common/Write/TitleInput";
+import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
+import { usePostCoalition } from "@/hooks/activityReport/useCoalition";
+import * as S from "@/styles/common/WritePageStyle";
+import { CoalitionPostRequest } from "@/types/ActivityReport/coalition";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const NewCoalitionPage = () => {
-  const [businessPost, setBusinessPost] = useState<RequestData>({
+  const [businessPost, setBusinessPost] = useState<CoalitionPostRequest>({
     images: [],
     files: [],
-    createBusinessReq: {
+    createAllianceReq: {
       title: "",
       content: "",
+      startDate: "",
+      endDate: "",
     },
   });
 
@@ -23,8 +26,10 @@ const NewCoalitionPage = () => {
 
   // 제목과 내용이 비어 있는지 확인
   const isSubmitDisabled =
-    !businessPost.createBusinessReq.title.trim() ||
-    !businessPost.createBusinessReq.content.trim();
+    !businessPost.createAllianceReq.title.trim() ||
+    !businessPost.createAllianceReq.content.trim();
+
+  const { mutate: postCoalition } = usePostCoalition();
 
   const navigator = useNavigate();
 
@@ -40,8 +45,8 @@ const NewCoalitionPage = () => {
 
     setBusinessPost((prev) => ({
       ...prev,
-      createBusinessReq: {
-        ...prev.createBusinessReq,
+      createAllianceReq: {
+        ...prev.createAllianceReq,
         [name]: value,
       },
     }));
@@ -81,6 +86,26 @@ const NewCoalitionPage = () => {
     });
   };
 
+  // 재휴 등록
+  const handlePost = () => {
+    postCoalition(
+      {
+        images: businessPost.images,
+        files: businessPost.files,
+        createAllianceReq: businessPost.createAllianceReq,
+      },
+      {
+        onSuccess: () => {
+          navigator("/activityReport/coalitionList");
+          navigator(0);
+        },
+        onError: (error) => {
+          console.error("등록 실패:", error);
+        },
+      }
+    );
+  };
+
   return (
     <S.Container>
       {isShowModal && (
@@ -92,22 +117,36 @@ const NewCoalitionPage = () => {
       )}
       <WriteBtnContainer
         onCancel={() => setIsShowModal(true)}
-        onSubmit={function (): void {
-          throw new Error("Function not implemented.");
-        }}
+        onSubmit={handlePost}
         isDisabled={isSubmitDisabled}
       />
       <TitleInput
-        title={businessPost.createBusinessReq.title}
+        title={businessPost.createAllianceReq.title}
         handleInputChange={handleInputChange}
       />
+      <S.Label>기간</S.Label>
+      <S.DateConatiner>
+        <S.DateInput
+          value={businessPost.createAllianceReq.startDate}
+          placeholder={"0000.00.00"}
+          name="startDate"
+          onChange={handleInputChange}
+        />
+        ~
+        <S.DateInput
+          value={businessPost.createAllianceReq.endDate}
+          placeholder={"0000.00.00"}
+          name="endDate"
+          onChange={handleInputChange}
+        />
+      </S.DateConatiner>
       <AddImageContainer
         images={businessPost.images}
         handleFileRemove={handleFileRemove}
         handleFileChange={handleFileChange}
       />
       <ContentInput
-        content={businessPost.createBusinessReq.content}
+        content={businessPost.createAllianceReq.content}
         handleInputChange={handleInputChange}
       />
       <AddFileButton
