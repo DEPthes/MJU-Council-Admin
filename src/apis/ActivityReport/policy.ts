@@ -21,11 +21,11 @@ export async function postPromiseCategory(
   );
 }
 
-export async function patchPromiseCategory(
+export async function putPromiseCategory(
   promiseCategoryId: number,
   promiseTitle: string
 ): Promise<string[]> {
-  return await api.patch(
+  return await api.put(
     `/api/v1/promise-category/${promiseCategoryId}/${encodeURIComponent(
       promiseTitle
     )}`
