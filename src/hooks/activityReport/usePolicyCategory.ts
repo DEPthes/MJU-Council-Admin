@@ -1,8 +1,8 @@
 import {
   deletePromiseCategory,
   getPromiseCategory,
-  patchPromiseCategory,
   postPromiseCategory,
+  putPromiseCategory,
 } from "@/apis/ActivityReport/policy";
 import { PromiseCategoryResponse } from "@/types/ActivityReport/policy";
 import {
@@ -29,14 +29,14 @@ export function usePostPromiseCategory() {
   });
 }
 
-export function usePatchPromiseCategory() {
+export function usePutPromiseCategory() {
   return useMutation<
     string[],
     Error,
     { promiseCategoryId: number; promiseTitle: string }
   >({
     mutationFn: ({ promiseCategoryId, promiseTitle }) =>
-      patchPromiseCategory(promiseCategoryId, promiseTitle),
+      putPromiseCategory(promiseCategoryId, promiseTitle),
   });
 }
 

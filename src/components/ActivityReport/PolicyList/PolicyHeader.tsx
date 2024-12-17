@@ -3,7 +3,7 @@ import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
 import {
   useDeletePromiseCategory,
-  usePatchPromiseCategory,
+  usePutPromiseCategory,
 } from "@/hooks/activityReport/usePolicyCategory";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { PromiseCategory } from "@/types/ActivityReport/policy";
@@ -27,17 +27,18 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
     setInputValue(e.target.value);
   };
 
-  const { mutate: patchPromiseCategory } = usePatchPromiseCategory();
+  const { mutate: putPromiseCategory } = usePutPromiseCategory();
   const { mutate: deletePromiseCategory } = useDeletePromiseCategory();
 
   const foundCategory = categoryList.find((item) => item.title == title);
   const promiseCategoryId = foundCategory?.promiseCategoryId ?? 0;
 
   const handleSubmit = () => {
-    patchPromiseCategory(
-      { promiseCategoryId, promiseTitle: title },
+    putPromiseCategory(
+      { promiseCategoryId, promiseTitle: inputValue },
       {
         onSuccess: () => {
+          navigator(`/activityReport/policyList`);
           navigator(0);
         },
         onError: (error) => {
