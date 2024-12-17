@@ -62,3 +62,8 @@ export async function postPromise(
 export async function deletePromise(promiseId: number): Promise<{}> {
   return await api.delete(`/api/v1/promise/${promiseId}`);
 }
+
+// 공약 수정
+export async function putPromise(promiseId: number): Promise<{}> {
+  return await api.put(`/api/v1/promise/${promiseId}}`);
+}

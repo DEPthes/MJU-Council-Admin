@@ -8,6 +8,7 @@ import {
   deletePromise,
   getPromise,
   postPromise,
+  putPromise,
 } from "@/apis/ActivityReport/policy";
 import {
   PromiseInformation,
@@ -38,5 +39,11 @@ export function usePostPromise() {
 export function useDeletePromise() {
   return useMutation<{}, Error, { promiseId: number }>({
     mutationFn: ({ promiseId }) => deletePromise(promiseId),
+  });
+}
+
+export function usePutPromise() {
+  return useMutation<{}, Error, { promiseId: number }>({
+    mutationFn: ({ promiseId }) => putPromise(promiseId),
   });
 }
