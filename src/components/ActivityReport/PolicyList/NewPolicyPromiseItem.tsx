@@ -20,7 +20,7 @@ const NewPolicyPromiseItem: React.FC<NewPolicyPromiseItemProps> = ({
   const policy = policyParams.get("policy");
 
   const [promise, setPromise] = useState<PromiseResponseInformation>({
-    promiseId: 0,
+    promiseCategoryId: 0,
     title: "",
     content: "",
     progress: 0,
