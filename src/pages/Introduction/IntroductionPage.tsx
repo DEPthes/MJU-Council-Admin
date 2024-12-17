@@ -70,14 +70,7 @@ const IntroductionPage = () => {
     try {
       for (const input of inputs) {
         const initialInput = initialInputs.find((init) => init.councilImageId === input.councilImageId);
-        let fileToSend = input.imgUrl;
 
-        // input.imgUrl이 string(이미지 URL)인 경우 File 객체로 변환
-        if (typeof input.imgUrl === "string") {
-          const response = await fetch(input.imgUrl);
-          const blob = await response.blob();
-          fileToSend = new File([blob], "image.jpg", { type: blob.type }); // 파일 이름과 타입 설정
-        }
         if (
           (initialInput?.imgUrl !== input.imgUrl || initialInput?.description !== input.description) &&
           input.imgUrl &&
@@ -85,7 +78,6 @@ const IntroductionPage = () => {
         ) {
           if (input.councilImageId) {
             // 기존 업데이트 (이미지와 캡션)
-            console.log(typeof(input.imgUrl))
             await putIntroduction(input.councilImageId, input.description, input.imgUrl);
             console.log("intro 수정 성공");
           } else {

@@ -36,8 +36,8 @@ const NavBar = () => {
           <S.MenuWrapper>
             <S.Menu>소식</S.Menu>
             <S.SubMenu>
-              <S.SubMenuItem to="/">공지사항</S.SubMenuItem>
-              <S.SubMenuItem to="/">행사</S.SubMenuItem>
+              <S.SubMenuItem to="/news/notice">공지사항</S.SubMenuItem>
+              <S.SubMenuItem to="/news/event">행사</S.SubMenuItem>
             </S.SubMenu>
           </S.MenuWrapper>
           <img src={NavDivRect}/>
@@ -45,9 +45,9 @@ const NavBar = () => {
           <S.MenuWrapper>
             <S.Menu>활동보고</S.Menu>
             <S.SubMenu>
-              <S.SubMenuItem to="/">정책 목록</S.SubMenuItem>
-              <S.SubMenuItem to="/">사업 목록</S.SubMenuItem>
-              <S.SubMenuItem to="/">제휴 현황</S.SubMenuItem>
+              <S.SubMenuItem to="/activityReport/policyList">정책 목록</S.SubMenuItem>
+              <S.SubMenuItem to="/activityReport/businessList">사업 목록</S.SubMenuItem>
+              <S.SubMenuItem to="/activityReport/coalitionList">제휴 현황</S.SubMenuItem>
             </S.SubMenu>
           </S.MenuWrapper>
           <img src={NavDivRect}/>
@@ -55,8 +55,8 @@ const NavBar = () => {
           <S.MenuWrapper>
             <S.Menu>자료집</S.Menu>
             <S.SubMenu>
-              <S.SubMenuItem to="/">회의록</S.SubMenuItem>
-              <S.SubMenuItem to="/login">학생회칙</S.SubMenuItem>
+              <S.SubMenuItem to="/document/minutes">회의록</S.SubMenuItem>
+              <S.SubMenuItem to="/document/regulations">학생회칙</S.SubMenuItem>
             </S.SubMenu>
           </S.MenuWrapper>
 

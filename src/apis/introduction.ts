@@ -24,7 +24,6 @@ export async function getCommittee() {
 export async function getDepartment() {
     try {
       const response = await api.get(`http://52.79.142.78:8080/api/v1/departments`);
-      console.log(response.data.information);
       return response.data;
     } catch (error) {
       console.error("국소개 get 중 오류 발생:", error);
@@ -43,7 +42,7 @@ export async function getOrganization() {
 }
 
 // 소개 추가 API
-export const postIntroduction = async(description: string, image: File | null)=> {
+export const postIntroduction = async(description: string, image: File | undefined)=> {
   const formData = new FormData();
 
   formData.append("description", description);
@@ -62,7 +61,7 @@ export const postIntroduction = async(description: string, image: File | null)=>
 export const putIntroduction = async(councilImageId: string, description: string, image: File | undefined) => {
   const formData = new FormData();
   formData.append("description", description), {type: "application/json"};
-  if (image) formData.append("image", image); console.log(image);
+  if (image) formData.append("image", image); 
   try {
     const response = await api.put(`http://52.79.142.78:8080/api/v1/council/images/${councilImageId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
     return response.data;
@@ -71,7 +70,6 @@ export const putIntroduction = async(councilImageId: string, description: string
     throw error;
   }
 }
-
 export async function deleteIntroduction(councilImageId: string) {
   try {
     const response = await api.delete(

@@ -39,7 +39,6 @@ const IntroduceInput: React.FC<EachInput> = (props) => {
     if (file) {
       updateInput("imgUrl", file); // File 객체 업데이트
       const url = URL.createObjectURL(file);
-      console.log(url)
       setPreviewUrl(url);
     }
   };
@@ -50,7 +49,6 @@ const IntroduceInput: React.FC<EachInput> = (props) => {
     updateInput("imgUrl", undefined); // 상태에서 이미지 제거
     setPreviewUrl(null);
     setOpenModal(false);
-    console.log(props.input.imgUrl);
   };
 
   return (

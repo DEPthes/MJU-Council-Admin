@@ -7,7 +7,7 @@ interface Title {
     onSubmit: () => void; // 제출 버튼 클릭 시 호출되는 콜백 함수 추가
 }
 
-const FooterTitleBar: React.FC<Title> = ({ title, canEnter, setCanEnter, onSubmit }) => {
+const FooterTitleBar: React.FC<Title> = ({ title, canEnter, onSubmit }) => {
     const handleButtonClick = () => {
         onSubmit(); // 클릭 시 onSubmit 함수 호출
     };

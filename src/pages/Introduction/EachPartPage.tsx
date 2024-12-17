@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as S from "@/styles/Introduction/EachPart/EachPartComponentStyle";
 import CaptionAddBtn from "@/components/Introduction/CaptionAddBtn";
 import RemoveModal from "@/components/Home/Banner/RemoveModal";
-import { deleteIntroduction, getIntroduce, putIntroduction, postIntroduction, putDepartment, postDepartment, deleteDepartment, getDepartment } from "@/apis/introduction";
+import { putDepartment, postDepartment, deleteDepartment, getDepartment } from "@/apis/introduction";
 import EachPartTitleBar from "@/components/Introduction/EachPart/EachPartTitleBar";
 import EachPartInput from "@/components/Introduction/EachPart/EachPartInput";
 

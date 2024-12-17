@@ -1,7 +1,7 @@
 import * as S from "@styles/Home/Banner/AddBtnComponentStyle";
 import Add from "@assets/image/Add.svg";
 import Close from "@assets/image/Close.svg";
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent} from "react";
 import RemoveModal from "./RemoveModal";
 import { createBanner, updateBanner, deleteBanner } from "@/apis/home";
 

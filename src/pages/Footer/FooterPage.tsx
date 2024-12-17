@@ -10,7 +10,6 @@ const FooterPage = () => {
     const [email, setEmail] = useState<string>(""); // 이메일
     const [snsUrl, setSnsUrl] = useState<string>(""); // SNS URL
     const [imageFile, setImageFile] = useState<File | null>(null); // 이미지 파일
-    const [loading, setLoading] = useState<boolean>(true); // 로딩 상태
 
     // 초기 데이터 가져오기
     useEffect(() => {
@@ -27,9 +26,7 @@ const FooterPage = () => {
             } catch (error) {
                 console.error("Error fetching footer data:", error);
                 alert("데이터를 불러오는 중 오류가 발생했습니다.");
-            } finally {
-                setLoading(false); // 로딩 상태 해제
-            }
+            } 
         };
 
         fetchFooterData();
