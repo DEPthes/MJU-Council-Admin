@@ -29,6 +29,7 @@ const PolicyNewHeader: React.FC<PolicyNewHeaderProps> = ({ onExit }) => {
         onSuccess: () => {
           onExit();
           navigator(`/activityReport/policyList`);
+          navigator(0);
         },
         onError: (error) => {
           console.error("공지 등록 실패:", error);
