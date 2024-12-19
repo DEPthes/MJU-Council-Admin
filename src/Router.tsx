@@ -10,39 +10,39 @@ import CoalitionListPage from "./pages/ActivityReport/CoalitionListPage";
 import NewBusinessPage from "./pages/ActivityReport/NewBusinessPage";
 import NewCoalitionPage from "./pages/ActivityReport/NewCoalitionPage";
 import PolicyListPage from "./pages/ActivityReport/PolicyListPage";
+import MinutesDetailPage from "./pages/Document/MinutesDetailPage";
+import MinutesEditPage from "./pages/Document/MinutesEditPage";
+import MinutesListPage from "./pages/Document/MinutesListPage";
+import NewMinutesPage from "./pages/Document/NewMinutesPage";
+import NewRegulationsPage from "./pages/Document/NewRegulationsPage";
+import RegulationsDetailPage from "./pages/Document/RegulationsDetailPage";
+import RegulationsEditPage from "./pages/Document/RegulationsEditPage";
+import RegulationsListPage from "./pages/Document/RegulationsListPage";
 import FooterPage from "./pages/Footer/FooterPage";
 import Home from "./pages/Home/HomePage";
-import NoticeListPage from "./pages/News/NoticeListPage";
+import EventDetailPage from "./pages/News/EventDetailPage";
+import EventEditPage from "./pages/News/EventEditPage";
+import EventGuideDetailPage from "./pages/News/EventGuideDetailPage";
+import EventGuideEditPage from "./pages/News/EventGuideEditPage";
+import EventListPage from "./pages/News/EventListPage";
+import NewEventGuidePage from "./pages/News/NewEventGuidePage";
+import NewEventPage from "./pages/News/NewEventPage";
 import NewNoticePage from "./pages/News/NewNoticePage";
 import NoticeDetailPage from "./pages/News/NoticeDetailPage";
 import NoticeEditPage from "./pages/News/NoticeEditPage";
-import MinutesListPage from "./pages/Document/MinutesListPage";
-import MinutesDetailPage from "./pages/Document/MinutesDetailPage";
-import NewMinutesPage from "./pages/Document/NewMinutesPage";
-import MinutesEditPage from "./pages/Document/MinutesEditPage";
-import RegulationsDetailPage from "./pages/Document/RegulationsDetailPage";
-import RegulationsListPage from "./pages/Document/RegulationsListPage";
-import NewRegulationsPage from "./pages/Document/NewRegulationsPage";
-import RegulationsEditPage from "./pages/Document/RegulationsEditPage";
-import EventListPage from "./pages/News/EventListPage";
-import NewEventPage from "./pages/News/NewEventPage";
-import EventDetailPage from "./pages/News/EventDetailPage";
-import NewEventGuidePage from "./pages/News/NewEventGuidePage";
-import EventGuideDetailPage from "./pages/News/EventGuideDetailPage";
-import EventEditPage from "./pages/News/EventEditPage";
-import EventGuideEditPage from "./pages/News/EventGuideEditPage";
 import CentralCommiteePage from "./pages/Introduction/CentralCommiteePage";
 import EachPartPage from "./pages/Introduction/EachPartPage";
 import IntroductionPage from "./pages/Introduction/IntroductionPage";
 import OrganizationPage from "./pages/Introduction/OrganizationPage";
+import NoticeListPage from "./pages/News/NoticeListPage";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/footer" element={<FooterPage />} />
           <Route
             path="/introduction/introduce"

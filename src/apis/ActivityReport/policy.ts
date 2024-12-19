@@ -21,11 +21,11 @@ export async function postPromiseCategory(
   );
 }
 
-export async function patchPromiseCategory(
+export async function putPromiseCategory(
   promiseCategoryId: number,
   promiseTitle: string
 ): Promise<string[]> {
-  return await api.patch(
+  return await api.put(
     `/api/v1/promise-category/${promiseCategoryId}/${encodeURIComponent(
       promiseTitle
     )}`
@@ -61,4 +61,9 @@ export async function postPromise(
 // 공약 삭제
 export async function deletePromise(promiseId: number): Promise<{}> {
   return await api.delete(`/api/v1/promise/${promiseId}`);
+}
+
+// 공약 수정
+export async function putPromise(promiseId: number): Promise<{}> {
+  return await api.put(`/api/v1/promise/${promiseId}}`);
 }

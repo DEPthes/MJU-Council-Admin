@@ -2,7 +2,10 @@ import DeleteButton from "@/components/common/Button/DeleteButton";
 import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
 import { fulfillments } from "@/constants/ActivityReport";
-import { useDeletePromise } from "@/hooks/activityReport/usePromise";
+import {
+  useDeletePromise,
+  usePutPromise,
+} from "@/hooks/activityReport/usePromise";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyPromiseItemStyle";
 import { PromiseResponseInformation } from "@/types/ActivityReport/policy";
 import { getFulfillmentRate } from "@/utils/ActivityReport";
@@ -24,6 +27,7 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
   });
 
   const { mutate: deletePromise } = useDeletePromise();
+  const { mutate: putPromise } = usePutPromise();
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -53,13 +57,27 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
     );
   };
 
+  const handlePutPromise = () => {
+    putPromise(
+      { promiseId: promise.promiseCategoryId },
+      {
+        onSuccess: () => {
+          navigator(0);
+        },
+        onError: (error) => {
+          console.error("등록 실패:", error);
+        },
+      }
+    );
+  };
+
   return (
     <S.Container>
       <S.ButtonContainer>
         {isFix ? (
           <>
             <DeleteButton onClick={handleDeletePromise} />
-            <SubmitButton onClick={() => console.log()} />
+            <SubmitButton onClick={handlePutPromise} />
           </>
         ) : (
           <FixButton onClick={() => setIsFix(true)} />
