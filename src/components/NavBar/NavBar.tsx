@@ -12,7 +12,7 @@ const NavBar = () => {
   return (
     <>
       <S.Div></S.Div>
-      <S.Nav isloginpage={isLoginPage ? "true" : "false"}>
+      <S.Nav $isloginpage={isLoginPage ? "true" : "false"}>
         <S.Logo to={isLoginPage ? "/" : "/home"}>
           <img src={nav_logo} />
         </S.Logo>

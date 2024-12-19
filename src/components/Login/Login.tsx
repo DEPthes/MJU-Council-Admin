@@ -23,7 +23,6 @@ const Login = () => {
 
     mutate(body, {
       onSuccess: (data) => {
-        console.log(data);
         sessionStorage.setItem("token", data.accessToken);
         sessionStorage.setItem("refreshToken", data.refreshToken);
 
@@ -43,13 +42,13 @@ const Login = () => {
         <S.InputDiv>
           <S.LID
             onChange={(e) => setInputID(e.target.value)}
-            isid={inputID !== "" ? "true" : "false"}
+            $isid={inputID !== "" ? "true" : "false"}
             placeholder="아이디를 입력하세요"
           />
           <S.PWDiv>
             <S.LPW
               onChange={(e) => setInputPW(e.target.value)}
-              ispw={inputPW != "" ? "true" : "false"}
+              $ispw={inputPW != "" ? "true" : "false"}
               type={showPW ? "text" : "password"}
               placeholder="비밀번호를 입력하세요"
             />
@@ -71,7 +70,7 @@ const Login = () => {
           </S.ErrDiv>
         )}
         <S.LBtn
-          isclick={inputID != "" && inputPW != "" ? "true" : "false"}
+          $isclick={inputID != "" && inputPW != "" ? "true" : "false"}
           onClick={inputID != "" && inputPW != "" ? handleLogin : undefined}
         >
           로그인

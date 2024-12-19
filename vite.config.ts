@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
+
 export default defineConfig({
   plugins: [react(), svgr()],
   server: {
@@ -26,6 +27,7 @@ export default defineConfig({
       "@modules": path.resolve(__dirname, "./src/modules"), // 추가된 경로
       "@types": path.resolve(__dirname, "./src/types"),
       "@apis": path.resolve(__dirname, "./src/apis"),
+
     },
   },
   build: {

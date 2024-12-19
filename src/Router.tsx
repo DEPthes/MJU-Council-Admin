@@ -30,6 +30,10 @@ import NewEventPage from "./pages/News/NewEventPage";
 import NewNoticePage from "./pages/News/NewNoticePage";
 import NoticeDetailPage from "./pages/News/NoticeDetailPage";
 import NoticeEditPage from "./pages/News/NoticeEditPage";
+import CentralCommiteePage from "./pages/Introduction/CentralCommiteePage";
+import EachPartPage from "./pages/Introduction/EachPartPage";
+import IntroductionPage from "./pages/Introduction/IntroductionPage";
+import OrganizationPage from "./pages/Introduction/OrganizationPage";
 import NoticeListPage from "./pages/News/NoticeListPage";
 
 const Router = () => {
@@ -40,6 +44,22 @@ const Router = () => {
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/footer" element={<FooterPage />} />
+          <Route
+            path="/introduction/introduce"
+            element={<IntroductionPage />}
+          />
+          <Route
+            path="/introduction/organization"
+            element={<OrganizationPage />}
+          />
+          <Route
+            path="/introduction/eachpart"
+            element={<EachPartPage />}
+          />
+          <Route
+            path="/introduction/centralcommitee"
+            element={<CentralCommiteePage />}
+          />
           <Route
             path="/activityReport/policyList"
             element={<PolicyListPage />}
