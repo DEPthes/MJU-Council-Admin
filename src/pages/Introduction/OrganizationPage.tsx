@@ -61,8 +61,8 @@ const OrganizationPage = () => {
       const updatedInformation = await Promise.all(
         data.information.map(async (item: Input) => {
           if (item.imgUrl) {
-            // const file = await urlToFile(item.imgUrl as unknown as string); // URL을 File로 변환
-            // return { ...item, imgUrl: file }; // imgUrl을 File로 설정
+            const file = await urlToFile(item.imgUrl as unknown as string); // URL을 File로 변환
+            return { ...item, imgUrl: file }; // imgUrl을 File로 설정
           }
           return item;
         })
@@ -97,21 +97,15 @@ const OrganizationPage = () => {
                   if (input.organizationId) {
                     // 기존 업데이트 (이미지와 캡션)
                     if(typeof(input.imgUrl)=="string"){
-                      console.log("여기로 들어옴")
-                      //다시 여기서 오류 생김
                       const file = await urlToFile(input.imgUrl);
-                      console.log(input.imgUrl, file, input.title)
-                      console.log(input.imgUrl)
-                      console.log(file)
                       const reader = new FileReader();
                       reader.onload = () => {
                         reader.result;
                       };
-                      console.log(reader.readAsDataURL(file));
+                      reader.readAsDataURL(file);
                       await putOrganization(input.organizationId, input.title, file);
                       ;
                     }else {
-                      console.log("여기2로 들어옴")
                       await putOrganization(input.organizationId, input.title, input.imgUrl);
                     }
                     console.log("org 수정 성공");
@@ -127,7 +121,6 @@ const OrganizationPage = () => {
     }
     setIsFix(false);
     fetchOrgData();
-    // window.location.reload();
   };
 
   useEffect(() => {

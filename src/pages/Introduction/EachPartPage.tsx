@@ -59,6 +59,10 @@ const EachPartPage = () => {
       const data = await getDepartment();
       const updatedInformation = await Promise.all(
         data.information.map(async (item: Input) => {
+          if (item.imgUrl) {
+            const file = await urlToFile(item.imgUrl as unknown as string);
+            return { ...item, imgUrl: file }; // imgUrl을 File로 설정
+          }
           return item;
         })
       );
@@ -92,18 +96,13 @@ const EachPartPage = () => {
         ) {
           if (input.departmentId) {
              if(typeof(input.imgUrl)=="string"){
-                console.log(typeof(input.imgUrl))
                 const file = await urlToFile(input.imgUrl);
-                console.log(input.imgUrl, file, input.description)
                 await putDepartment(input.departmentId, input.description, file);
-                console.log("ddd");
-                console.log(input.imgUrl)
-                console.log(file)
                 const reader = new FileReader();
                 reader.onload = () => {
                   reader.result;
                 };
-                console.log(reader.readAsDataURL(file));
+                reader.readAsDataURL(file);
               }else await putDepartment(input.departmentId, input.description, input.imgUrl);
               console.log("intro 수정 성공");
           } else {
@@ -118,7 +117,6 @@ const EachPartPage = () => {
     }
     setIsFix(false);
     fetchDepData();
-    window.location.reload();
   };
 
   useEffect(() => {

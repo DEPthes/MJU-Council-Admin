@@ -87,10 +87,13 @@ const CentralCommiteePage = () => {
 
       const updatedInformation = await Promise.all(
         data.information.map(async (item: Input) => {
+          if (item.imgUrl) {
+            const file = await urlToFile(item.imgUrl as unknown as string); 
+            return { ...item, imgUrl: file }; // imgUrl을 File로 설정
+          }
           return item;
         })
       );
-
       const nullDescriptions = updatedInformation.filter(
         (item: { description: any }) => item.description !== null
       );
@@ -137,7 +140,10 @@ const CentralCommiteePage = () => {
       try {
         for (const input of inputs) {
           const initialInput = initialInputs.find((init) => init.committeeId === input.committeeId);
-  
+          if (
+            (initialInput?.imgUrl !== input.imgUrl || initialInput?.description !== input.description) &&
+            input.description && input.imgUrl// description만 바뀌어도 동작
+          ) {
             if (input.committeeId) {
               if(typeof(input.imgUrl)=="string"){ 
                 const file = await urlToFile(input.imgUrl);
@@ -149,13 +155,13 @@ const CentralCommiteePage = () => {
               await postCommittees(input.description, null, null, null, null, input.imgUrl);
               console.log("intro 생성 성공");
             }
+          }
         }
       } catch (error) {
         console.error("intro 처리 실패:", error);
       }
       setIsFix(false);
       fetchCommitteeData();
-      // window.location.reload();
     };
 
     const handleEachCommitteePost = async () => {
@@ -168,20 +174,17 @@ const CentralCommiteePage = () => {
               (initialEInput?.imgUrl !== input.imgUrl || initialEInput?.snsUrl !== input.snsUrl || initialEInput?.pageUrl !== input.pageUrl || initialEInput?.name !== input.name || initialEInput?.college !== input.college) &&
               input.imgUrl &&input.snsUrl &&input.college&&input.imgUrl
             ) {
-              if (input.committeeId) {
-                // 기존 업데이트 (이미지와 캡션)
                 if (input.committeeId) {
                   if(typeof(input.imgUrl)=="string"){ 
                     const file = await urlToFile(input.imgUrl);
                     await putCommittees(input.committeeId, null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null, input.snsUrl,  file);
                   }else await putCommittees(input.committeeId, null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null, input.snsUrl,  input.imgUrl);
-                console.log("intro 수정 성공");
+                console.log("committee 수정 성공");
               } else {
                 // 새로 생성 (이미지와 캡션)
                 await postCommittees(null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null, input.snsUrl,  input.imgUrl);
-                console.log("intro 생성 성공");
+                console.log("committee 생성 성공");
               }
-            }
           }
         }} catch (error) {
           console.error("intro 처리 실패:", error);

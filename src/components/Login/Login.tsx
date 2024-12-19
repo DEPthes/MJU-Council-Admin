@@ -23,7 +23,6 @@ const Login = () => {
 
     mutate(body, {
       onSuccess: (data) => {
-        console.log(data);
         sessionStorage.setItem("token", data.accessToken);
         sessionStorage.setItem("refreshToken", data.refreshToken);
 

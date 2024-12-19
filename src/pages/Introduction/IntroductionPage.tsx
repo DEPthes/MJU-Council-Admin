@@ -61,13 +61,16 @@ const IntroductionPage = () => {
       
       const updatedInformation = await Promise.all(
         data.information.map(async (item: Input) => {
+          if (item.imgUrl) {
+            const file = await urlToFile(item.imgUrl as unknown as string); // URL을 File로 변환
+            return { ...item, imgUrl: file }; // imgUrl을 File로 설정
+          }
           return item;
         })
       );
 
       setInputs(updatedInformation); // 입력 값으로 저장
       setInitialInputs(updatedInformation); // 초기 값 저장
-      console.log(data.information[0].imgUrl);
     } catch (error) {
       console.error("데이터 불러오기 실패:", error);
     }
@@ -94,21 +97,16 @@ const IntroductionPage = () => {
           if (input.councilImageId) {
             // 기존 업데이트 (이미지와 캡션)
             if(typeof(input.imgUrl)=="string"){
-              console.log("여기로 들어옴")
               //다시 여기서 오류 생김
               const file = await urlToFile(input.imgUrl);
-              console.log(input.imgUrl, file, input.description)
-              console.log(input.imgUrl)
-              console.log(file)
               const reader = new FileReader();
               reader.onload = () => {
                 reader.result;
               };
-              console.log(reader.readAsDataURL(file));
+              reader.readAsDataURL(file)
               await putIntroduction(input.councilImageId, input.description, file);
               ;
             }else {
-              console.log("여기2로 들어옴")
               await putIntroduction(input.councilImageId, input.description, input.imgUrl);
             }
             console.log("intro 수정 성공");
@@ -124,7 +122,6 @@ const IntroductionPage = () => {
     }
     setIsFix(false);
     fetchIntroData();
-    // window.location.reload();
   };
 
   useEffect(() => {
