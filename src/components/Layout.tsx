@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   // 정규 표현식을 사용하여 URL의 마지막에 숫자가 있는지 확인
   const isNumberAtEnd = /\/(\d+)\/?$/.test(location.pathname);
 
-  const isLoginPage = location.pathname === "/login";
+  const isLoginPage = location.pathname === "/";
 
   const urlList = parseUrlToArray(location.pathname);
   return (
