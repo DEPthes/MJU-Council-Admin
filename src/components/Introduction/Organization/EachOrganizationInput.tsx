@@ -1,12 +1,12 @@
-import * as S from "@/styles/Introduction/Organization/EachOrganizationInputComponentStyle";
-import Close from "@assets/image/Close.svg";
-import { ChangeEvent, useEffect, useState } from "react";
-import Add from "@assets/image/Add.svg";
 import RemoveModal from "@/components/Home/Banner/RemoveModal";
+import * as S from "@/styles/Introduction/Organization/EachOrganizationInputComponentStyle";
+import Add from "@assets/image/Add.svg";
+import Close from "@assets/image/Close.svg";
+import { ChangeEvent, useState } from "react";
 
 interface Input {
   organizationId: string;
-  imgUrl: File|undefined;
+  imgUrl: File | undefined;
   title: string;
 }
 
@@ -34,16 +34,15 @@ const EachOrganizationInput: React.FC<EachInput> = (props) => {
   };
 
   // 이미지 업로드 처리 함수
-  const handleUploadImage = async(e: ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImage = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       updateInput("imgUrl", file); // File 객체 업데이트
       const url = URL.createObjectURL(file);
-      console.log(url)
+      console.log(url);
       setPreviewUrl(url);
     }
   };
-
 
   // 이미지 삭제
   const handleRemoveImage = () => {
@@ -52,7 +51,6 @@ const EachOrganizationInput: React.FC<EachInput> = (props) => {
     setOpenModal(false);
     console.log(props.input.imgUrl);
   };
-
 
   return (
     <S.InputDiv>
@@ -63,7 +61,11 @@ const EachOrganizationInput: React.FC<EachInput> = (props) => {
             <S.AddWrapper>
               {props.isFix && (
                 <>
-                  <S.AddInput type="file" accept="image/*" onChange={handleUploadImage} />
+                  <S.AddInput
+                    type="file"
+                    accept="image/*"
+                    onChange={handleUploadImage}
+                  />
                   <S.AddImg src={Add} />
                 </>
               )}
@@ -105,14 +107,13 @@ const EachOrganizationInput: React.FC<EachInput> = (props) => {
         />
       )}
       {props.isFix && (
-          <S.BtnDiv>
-            <S.DeleteBtn onClick={props.clicked}>삭제</S.DeleteBtn>
-          </S.BtnDiv>
-        )}
-        {props.isLast ? null : <S.Line />}
+        <S.BtnDiv>
+          <S.DeleteBtn onClick={props.clicked}>삭제</S.DeleteBtn>
+        </S.BtnDiv>
+      )}
+      {props.isLast ? null : <S.Line />}
     </S.InputDiv>
   );
 };
-
 
 export default EachOrganizationInput;
