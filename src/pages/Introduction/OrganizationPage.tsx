@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as S from "@/styles/Introduction/EachPart/EachPartComponentStyle";
 import CaptionAddBtn from "@/components/Introduction/CaptionAddBtn";
 import RemoveModal from "@/components/Home/Banner/RemoveModal";
-import { deleteOrganization, putOrganization, postOrganization, getOrganization } from "@/apis/introduction";
+import { deleteOrganization, putOrganization, postOrganization, getOrganization, putIntroduction } from "@/apis/introduction";
 import EachOrganizationTitleBar from "@/components/Introduction/Organization/EachOrgainzationTitleBar";
 import EachOrganizationInput from "@/components/Introduction/Organization/EachOrganizationInput";
 
@@ -21,6 +21,14 @@ const OrganizationPage = () => {
   const [post, setPost] = useState<boolean>(false);
   const [initialInputs, setInitialInputs] = useState<Input[]>([]); // 초기 데이터 저장
 
+  const urlToFile = async(url:string)=>{
+    const response = await fetch(url);
+    const data = await response.blob();
+    const ext = url.split(".").pop();
+    const filename = url.split("/").pop();
+    const metadata = {type: `image/${ext === "svg"?"svg+xml" : ext}`};
+    return new File([data], filename!, metadata);
+  }
   // 새 입력 추가
   const addInput = async () => {
     setInputs((prev) => [
@@ -46,11 +54,22 @@ const OrganizationPage = () => {
   };
 
   // 데이터 가져오기
-  const fetchIntroData = async () => {
+  const fetchOrgData = async () => {
     try {
       const data = await getOrganization();
-      setInputs(data.information); // 입력 값으로 저장
-      setInitialInputs(data.information); // 초기 값 저장
+
+      const updatedInformation = await Promise.all(
+        data.information.map(async (item: Input) => {
+          if (item.imgUrl) {
+            // const file = await urlToFile(item.imgUrl as unknown as string); // URL을 File로 변환
+            // return { ...item, imgUrl: file }; // imgUrl을 File로 설정
+          }
+          return item;
+        })
+      );
+
+      setInputs(updatedInformation); // 입력 값으로 저장
+      setInitialInputs(updatedInformation); // 초기 값 저장
     } catch (error) {
       console.error("데이터 불러오기 실패:", error);
     }
@@ -68,46 +87,61 @@ const OrganizationPage = () => {
   // 기존 값과 비교하여 변경된 값만 처리
   const handlePost = async () => {
     try {
-      for (const input of inputs) {
-        const initialInput = initialInputs.find((init) => init.organizationId === input.organizationId);
-
         // 기존 값과 비교하여 변경된 경우에만 처리
-        if (
-          (initialInput?.imgUrl !== input.imgUrl || initialInput?.title !== input.title) &&
-          input.imgUrl &&
-          input.title
-        ) {
-          if (input.organizationId) {
-            // 기존 업데이트 (이미지와 캡션)
-            await putOrganization(input.organizationId, input.title, input.imgUrl);
-            console.log("intro 수정 성공");
-          } else {
-            // 새로 생성 (이미지와 캡션)
-            await postOrganization(input.title, input.imgUrl);
-            console.log("intro 생성 성공");
-          }
+        for (const input of inputs) {
+                const initialInput = initialInputs.find((init) => init.organizationId === input.organizationId);
+                if (
+                  (initialInput?.imgUrl !== input.imgUrl || initialInput?.title !== input.title) &&
+                  input.title && input.imgUrl// description만 바뀌어도 동작
+                ) {
+                  if (input.organizationId) {
+                    // 기존 업데이트 (이미지와 캡션)
+                    if(typeof(input.imgUrl)=="string"){
+                      console.log("여기로 들어옴")
+                      //다시 여기서 오류 생김
+                      const file = await urlToFile(input.imgUrl);
+                      console.log(input.imgUrl, file, input.title)
+                      console.log(input.imgUrl)
+                      console.log(file)
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        reader.result;
+                      };
+                      console.log(reader.readAsDataURL(file));
+                      await putOrganization(input.organizationId, input.title, file);
+                      ;
+                    }else {
+                      console.log("여기2로 들어옴")
+                      await putOrganization(input.organizationId, input.title, input.imgUrl);
+                    }
+                    console.log("org 수정 성공");
+                  } else {
+                    // 새로 생성 (이미지와 캡션)
+                    await postOrganization(input.title, input.imgUrl);
+                    console.log("org 생성 성공");
+                  }
+                }
         }
-      }
-    } catch (error) {
+      } catch (error) {
       console.error("intro 처리 실패:", error);
     }
     setIsFix(false);
+    fetchOrgData();
+    // window.location.reload();
   };
 
   useEffect(() => {
-    fetchIntroData();
+    fetchOrgData();
   }, []);
 
   useEffect(() => {
     setCanEnter(isFull(inputs));
-    // for(const input of inputs){
-    //   setInputDescriptions(input.description);
-    // }
   }, [inputs]);
 
   useEffect(() => {
     if (post) {
       handlePost();
+      setPost(false);
     }
   }, [post]); 
 

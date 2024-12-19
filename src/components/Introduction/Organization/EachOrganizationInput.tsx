@@ -53,15 +53,12 @@ const EachOrganizationInput: React.FC<EachInput> = (props) => {
     console.log(props.input.imgUrl);
   };
 
-  useEffect(()=>{
-    console.log(props.input.imgUrl);
-  },[props.input])
 
   return (
     <S.InputDiv>
       <S.TopDiv>
         <S.UploadBtnDiv>
-          <S.Caption>이미지</S.Caption>
+          <S.Caption>조직도 이미지</S.Caption>
           {!props.input.imgUrl ? (
             <S.AddWrapper>
               {props.isFix && (
@@ -90,9 +87,9 @@ const EachOrganizationInput: React.FC<EachInput> = (props) => {
           )}
         </S.UploadBtnDiv>
         <S.AddContentDiv>
-          <S.Caption2>캡션</S.Caption2>
+          <S.Caption2>국명</S.Caption2>
           <S.Input
-            placeholder="이미지에 대한 내용을 작성해주세요."
+            placeholder="국명을 입력하세요."
             value={props.input.title}
             onChange={(e) => updateInput("title", e.target.value)}
             readOnly={!props.isFix}

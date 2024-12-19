@@ -21,6 +21,14 @@ const EachPartPage = () => {
   const [post, setPost] = useState<boolean>(false);
   const [initialInputs, setInitialInputs] = useState<Input[]>([]); // 초기 데이터 저장
 
+  const urlToFile = async (url: string) => {
+    const response = await fetch(url);
+  const data = await response.blob();
+  const ext = url.split(".").pop(); // url 구조에 맞게 수정할 것
+  const filename = url.split("/").pop(); // url 구조에 맞게 수정할 것
+  const metadata = { type: `image/${ext === "svg" ? "svg+xml" : ext}` };
+  return new File([data], filename!, metadata);
+  };
   // 새 입력 추가
   const addInput = async () => {
     setInputs((prev) => [
@@ -46,11 +54,16 @@ const EachPartPage = () => {
   };
 
   // 데이터 가져오기
-  const fetchIntroData = async () => {
+  const fetchDepData = async () => {
     try {
       const data = await getDepartment();
-      setInputs(data.information); // 입력 값으로 저장
-      setInitialInputs(data.information); // 초기 값 저장
+      const updatedInformation = await Promise.all(
+        data.information.map(async (item: Input) => {
+          return item;
+        })
+      );
+      setInputs(updatedInformation); // 입력 값으로 저장
+      setInitialInputs(updatedInformation); // 초기 값 저장
     } catch (error) {
       console.error("데이터 불러오기 실패:", error);
     }
@@ -78,9 +91,21 @@ const EachPartPage = () => {
           input.description
         ) {
           if (input.departmentId) {
-            // 기존 업데이트 (이미지와 캡션)
-            await putDepartment(input.departmentId, input.description, input.imgUrl);
-            console.log("intro 수정 성공");
+             if(typeof(input.imgUrl)=="string"){
+                console.log(typeof(input.imgUrl))
+                const file = await urlToFile(input.imgUrl);
+                console.log(input.imgUrl, file, input.description)
+                await putDepartment(input.departmentId, input.description, file);
+                console.log("ddd");
+                console.log(input.imgUrl)
+                console.log(file)
+                const reader = new FileReader();
+                reader.onload = () => {
+                  reader.result;
+                };
+                console.log(reader.readAsDataURL(file));
+              }else await putDepartment(input.departmentId, input.description, input.imgUrl);
+              console.log("intro 수정 성공");
           } else {
             // 새로 생성 (이미지와 캡션)
             await postDepartment(input.description, input.imgUrl);
@@ -92,22 +117,22 @@ const EachPartPage = () => {
       console.error("intro 처리 실패:", error);
     }
     setIsFix(false);
+    fetchDepData();
+    window.location.reload();
   };
 
   useEffect(() => {
-    fetchIntroData();
+    fetchDepData();
   }, []);
 
   useEffect(() => {
     setCanEnter(isFull(inputs));
-    // for(const input of inputs){
-    //   setInputDescriptions(input.description);
-    // }
   }, [inputs]);
 
   useEffect(() => {
     if (post) {
       handlePost();
+      setPost(false);
     }
   }, [post]); 
 

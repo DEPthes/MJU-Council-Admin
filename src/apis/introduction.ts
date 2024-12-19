@@ -58,12 +58,18 @@ export const postIntroduction = async(description: string, image: File | undefin
 }
 
 // 소개 수정 API
-export const putIntroduction = async(councilImageId: string, description: string, image: File | undefined) => {
+export const putIntroduction = async(councilImageId: string, description: string, image: Blob) => {
   const formData = new FormData();
   formData.append("description", description), {type: "application/json"};
   if (image) formData.append("image", image); 
   try {
-    const response = await api.put(`http://52.79.142.78:8080/api/v1/council/images/${councilImageId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
+    const response = await api.put(`http://52.79.142.78:8080/api/v1/council/images/${councilImageId}`, formData, 
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "charset": "utf-8",
+          "Origin": "http://localhost:3000",  // Origin 헤더 추가
+        },});
     return response.data;
   } catch (error) {
     console.error("put 요청 중 오류 발생:", error);
@@ -91,7 +97,10 @@ export const postOrganization = async(titles: string, images: File | undefined) 
     if (images) formData.append("images", images);
 
   try {
-    const response = await api.post(`http://52.79.142.78:8080/api/v1/organizations`, formData, {headers:{"Content-Type":"multipart/form-data"}});
+    console.log(titles, images);
+    const response = await api.post(`http://52.79.142.78:8080/api/v1/organizations`, formData, 
+    {headers:{
+      "Content-Type":"multipart/form-data",}});
     return response.data;
   } catch (error) {
     console.error("요청 중 오류 발생:", error);
@@ -105,7 +114,11 @@ export const putOrganization = async(organizationId: string, title: string, imag
   formData.append("title", title);
   if (image) formData.append("image", image);
   try {
-    const response = await api.put(`http://52.79.142.78:8080/api/v1/organizations/${organizationId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
+    const response = await api.put(`http://52.79.142.78:8080/api/v1/organizations/${organizationId}`, formData, 
+    {headers:{
+      "Content-Type":"multipart/form-data",
+          "charset": "utf-8",
+      "Origin": "http://localhost:3000",}});
     return response.data;
   } catch (error) {
     console.error("요청 중 오류 발생:", error);
@@ -148,7 +161,10 @@ export const putDepartment = async(departmentId: string, description: string, im
   formData.append("description", description);
   if (image) formData.append("image", image); console.log(image);
   try {
-    const response = await api.put(`http://52.79.142.78:8080/api/v1/departments/${departmentId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
+    const response = await api.put(`http://52.79.142.78:8080/api/v1/departments/${departmentId}`, formData, 
+    {headers:{
+      "Content-Type":"multipart/form-data",
+      "Origin": "http://localhost:3000"}});
     return response.data;
   } catch (error) {
     console.error("put 요청 중 오류 발생:", error);
@@ -199,7 +215,10 @@ export const putCommittees = async(committeeId: string, description: string |nul
   );
   if (image) formData.append("image", image);
   try {
-    const response = await api.put(`http://52.79.142.78:8080/api/v1/committees/${committeeId}`, formData, {headers:{"Content-Type":"multipart/form-data"}});
+    const response = await api.put(`http://52.79.142.78:8080/api/v1/committees/${committeeId}`, formData, 
+    {headers:{
+      "Content-Type":"multipart/form-data",
+      "Origin": "http://localhost:3000",}});
     return response.data;
   } catch (error) {
     console.error("단과대 수정 요청 중 오류 발생:", error);

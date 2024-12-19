@@ -21,6 +21,15 @@ const IntroductionPage = () => {
   const [post, setPost] = useState<boolean>(false);
   const [initialInputs, setInitialInputs] = useState<Input[]>([]); // 초기 데이터 저장
 
+  const urlToFile = async (url: string) => {
+    const response = await fetch(url);
+  const data = await response.blob();
+  const ext = url.split(".").pop(); // url 구조에 맞게 수정할 것
+  const filename = url.split("/").pop(); // url 구조에 맞게 수정할 것
+  const metadata = { type: `image/${ext === "svg" ? "svg+xml" : ext}` };
+  return new File([data], filename!, metadata);
+  }
+
   // 새 입력 추가
   const addInput = async () => {
     setInputs((prev) => [
@@ -49,8 +58,16 @@ const IntroductionPage = () => {
   const fetchIntroData = async () => {
     try {
       const data = await getIntroduce();
-      setInputs(data.information); // 입력 값으로 저장
-      setInitialInputs(data.information); // 초기 값 저장
+      
+      const updatedInformation = await Promise.all(
+        data.information.map(async (item: Input) => {
+          return item;
+        })
+      );
+
+      setInputs(updatedInformation); // 입력 값으로 저장
+      setInitialInputs(updatedInformation); // 초기 값 저장
+      console.log(data.information[0].imgUrl);
     } catch (error) {
       console.error("데이터 불러오기 실패:", error);
     }
@@ -70,15 +87,30 @@ const IntroductionPage = () => {
     try {
       for (const input of inputs) {
         const initialInput = initialInputs.find((init) => init.councilImageId === input.councilImageId);
-
         if (
           (initialInput?.imgUrl !== input.imgUrl || initialInput?.description !== input.description) &&
-          input.imgUrl &&
-          input.description
+          input.description && input.imgUrl// description만 바뀌어도 동작
         ) {
           if (input.councilImageId) {
             // 기존 업데이트 (이미지와 캡션)
-            await putIntroduction(input.councilImageId, input.description, input.imgUrl);
+            if(typeof(input.imgUrl)=="string"){
+              console.log("여기로 들어옴")
+              //다시 여기서 오류 생김
+              const file = await urlToFile(input.imgUrl);
+              console.log(input.imgUrl, file, input.description)
+              console.log(input.imgUrl)
+              console.log(file)
+              const reader = new FileReader();
+              reader.onload = () => {
+                reader.result;
+              };
+              console.log(reader.readAsDataURL(file));
+              await putIntroduction(input.councilImageId, input.description, file);
+              ;
+            }else {
+              console.log("여기2로 들어옴")
+              await putIntroduction(input.councilImageId, input.description, input.imgUrl);
+            }
             console.log("intro 수정 성공");
           } else {
             // 새로 생성 (이미지와 캡션)
@@ -91,6 +123,8 @@ const IntroductionPage = () => {
       console.error("intro 처리 실패:", error);
     }
     setIsFix(false);
+    fetchIntroData();
+    // window.location.reload();
   };
 
   useEffect(() => {
@@ -99,14 +133,12 @@ const IntroductionPage = () => {
 
   useEffect(() => {
     setCanEnter(isFull(inputs));
-    // for(const input of inputs){
-    //   setInputDescriptions(input.description);
-    // }
   }, [inputs]);
 
   useEffect(() => {
     if (post) {
       handlePost();
+      setPost(false);
     }
   }, [post]); 
 
