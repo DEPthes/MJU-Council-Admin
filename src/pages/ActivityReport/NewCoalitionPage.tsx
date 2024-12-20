@@ -88,7 +88,6 @@ const NewCoalitionPage = () => {
 
   // 재휴 등록
   const handlePost = () => {
-    console.log(businessPost);
     postCoalition(
       {
         images: businessPost.images,

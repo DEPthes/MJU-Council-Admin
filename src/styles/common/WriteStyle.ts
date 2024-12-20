@@ -63,6 +63,7 @@ export const FileButton = styled.button`
   color: var(--White);
   border: none;
   margin-top: 20px;
+  align-items: center;
 `;
 
 export const FileContainer = styled.div`
