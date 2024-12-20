@@ -1,6 +1,6 @@
 import { Add, ImageDeleteButton } from "@/assets/common";
-import { ImageFileResponse } from "@/types/common";
 import * as S from "@/styles/common/WriteStyle";
+import { ImageFileResponse } from "@/types/common";
 
 interface Props {
   images: File[] | ImageFileResponse[];

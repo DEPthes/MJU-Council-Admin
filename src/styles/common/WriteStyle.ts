@@ -88,6 +88,7 @@ export const ImageContainer = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin-top: 20px;
+  cursor: pointer;
 `;
 
 export const Image = styled.div`

@@ -88,6 +88,7 @@ const NewCoalitionPage = () => {
 
   // 재휴 등록
   const handlePost = () => {
+    console.log(businessPost);
     postCoalition(
       {
         images: businessPost.images,
@@ -127,15 +128,15 @@ const NewCoalitionPage = () => {
       <S.Label>기간</S.Label>
       <S.DateConatiner>
         <S.DateInput
+          type="date"
           value={businessPost.createAllianceReq.startDate}
-          placeholder={"0000.00.00"}
           name="startDate"
           onChange={handleInputChange}
         />
         ~
         <S.DateInput
+          type="date"
           value={businessPost.createAllianceReq.endDate}
-          placeholder={"0000.00.00"}
           name="endDate"
           onChange={handleInputChange}
         />
