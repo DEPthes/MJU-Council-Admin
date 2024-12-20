@@ -42,21 +42,29 @@ const CoalitionListPage = () => {
         onDelete={() => setIsShowModal(true)}
         onPost={() => navigator("/activityReport/newCoalition")}
       />
-      <S.CoalitionContainer>
-        {data.information.contents.map((item, index) => (
-          <GridItemContainer
-            key={index}
-            cover={item.cover}
-            title={item.title}
-            subject="제휴"
-            date={`${item.startDate} ~ ${item.endDate}`}
-            onClick={() =>
-              navigator(`/activityReport/coalitionDetail/${item.allianceId}`)
-            }
-          />
-        ))}
-      </S.CoalitionContainer>
-      <PageComponent totalPage={data.information.totalPage} />
+      {data.information.contents.length > 0 ? (
+        <>
+          <S.CoalitionContainer>
+            {data.information.contents.map((item, index) => (
+              <GridItemContainer
+                key={index}
+                cover={item.cover}
+                title={item.title}
+                subject="제휴"
+                date={`${item.startDate} ~ ${item.endDate}`}
+                onClick={() =>
+                  navigator(
+                    `/activityReport/coalitionDetail/${item.allianceId}`
+                  )
+                }
+              />
+            ))}
+          </S.CoalitionContainer>
+          <PageComponent totalPage={data.information.totalPage} />
+        </>
+      ) : (
+        <S.EmptyText>제휴 게시글이 없습니다.</S.EmptyText>
+      )}
     </S.Container>
   );
 };

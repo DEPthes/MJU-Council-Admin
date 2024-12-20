@@ -13,3 +13,10 @@ export const CoalitionContainer = styled.div`
   column-gap: 40px;
   row-gap: 80px;
 `;
+
+export const EmptyText = styled.p`
+  font: var(--PC_LoginText);
+  color: var(--Black);
+  text-align: center;
+  padding: 20% 0 30%;
+`;

@@ -1,7 +1,7 @@
 import { Clip } from "@/assets/common";
 import NewFileComponent from "@/components/common/Write/NewFileComponent";
-import { ImageFileResponse } from "@/types/common";
 import * as S from "@/styles/common/WriteStyle";
+import { ImageFileResponse } from "@/types/common";
 import { MinutesFileResponse } from "@/types/Document/minutes";
 import { RegulationsFileResponse } from "@/types/Document/regulations";
 

@@ -29,6 +29,7 @@ export async function postCoalition({
   files,
   createAllianceReq,
 }: CoalitionPostRequest) {
+  console.log("TEST", images, files, createAllianceReq);
   const formData = new FormData();
 
   if (images && images.length > 0) {
@@ -53,7 +54,6 @@ export async function postCoalition({
     type: "application/json",
   });
   formData.append("createAllianceReq", blob);
-  console.log(formData);
 
   const response = await api.post(`/api/v1/alliances`, formData);
 

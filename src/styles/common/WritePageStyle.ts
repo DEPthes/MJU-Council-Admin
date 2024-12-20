@@ -41,7 +41,7 @@ export const DateConatiner = styled.div`
 `;
 
 export const DateInput = styled.input`
-  width: 140px;
+  width: 180px;
   box-sizing: border-box;
   text-align: justify;
   padding: 15px 20px;
@@ -50,6 +50,7 @@ export const DateInput = styled.input`
   background-color: var(--M5);
   border: none;
   outline: none;
+  cursor: pointer;
 
   &::placeholder {
     color: var(--M50);
