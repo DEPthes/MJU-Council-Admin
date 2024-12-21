@@ -55,7 +55,7 @@ const Layout: React.FC<LayoutProps> = ({children, isFixModal, setIsFixModal}) =>
   const urlList = parseUrlToArray(location.pathname);
   return (
     <S.Container>
-      <NavBar setOpenModal={setOpenModal} setLogoClick={setLogoClick} isFixModal={isFixModal}/>
+      <NavBar setOpenModal={setOpenModal} setLogoClick={setLogoClick} isFixModal={isFixModal} setIsFix={setIsFixModal}/>
       <TextBanner urlList={urlList} isShow={!isNumberAtEnd} />
       <S.Main>{children}</S.Main>
       {!isLoginPage ?<Footer />:undefined}

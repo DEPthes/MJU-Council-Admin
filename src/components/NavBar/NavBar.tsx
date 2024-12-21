@@ -6,7 +6,7 @@ import * as S from "@styles/NavBar/NavBarComponentStyle";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:boolean)=>void,isFixModal:boolean}> = ({setOpenModal, setLogoClick,isFixModal}) => {
+const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:boolean)=>void,isFixModal:boolean, setIsFix:(value:boolean)=>void}> = ({setOpenModal, setLogoClick,isFixModal, setIsFix}) => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
   const isHome = location.pathname === "/home";
@@ -21,6 +21,12 @@ const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:
   const isDepartment = location.pathname === "/introduction/eachpart";
   const isCommittee = location.pathname === "/introduction/centralCommitee";
   const isPolicyList = location.pathname === "/activityReport/policyList";
+  const isNewNotice = location.pathname === "/notice/new";
+  const isNewEvent = location.pathname === "/event/new";
+  const isNewBusiness = location.pathname === "/activityReport/newBusiness";
+  const isNewCoalition = location.pathname === "/activityReport/newCoalition";
+  const isNewMinutes = location.pathname === "/minutes/new";
+  const isNewRegulations = location.pathname === "/document/regulations/new";
 
 
   const navigate = useNavigate();
@@ -34,7 +40,10 @@ const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:
     <>
       <S.Div></S.Div>
       <S.Nav $isloginpage={isLoginPage ? "true" : "false"}>
-      <S.Logo onClick={!isHome && !isMinutes && !isRegulations&& !isBusinessList&& !isCoalitionList&& !isNotice&& !isEvent? (!isFixModal && (isIntroduce || isOrganization || isCommittee || isDepartment || isPolicyList) ? () => navigate('/home') :() => {setOpenModal(true); setLogoClick(true);}) : () => navigate('/home')}>
+      <S.Logo onClick={!isHome && !isMinutes && !isRegulations&& !isBusinessList&& !isCoalitionList&& !isNotice&& !isEvent &&!isNewNotice && !isNewEvent && !isNewBusiness &&!isNewCoalition && !isNewMinutes && !isNewRegulations? 
+      (!isFixModal && (isIntroduce || isOrganization || isCommittee || isDepartment || isPolicyList) ? 
+      () => navigate('/home') :() => {setOpenModal(true); setLogoClick(true);}) : 
+      (isNewBusiness || isNewCoalition || isNewEvent ||isNewMinutes ||isNewNotice || isNewRegulations) ? ()=>{setOpenModal(true); setLogoClick(true); setIsFix(true)} :() => navigate('/home')}>
           <img src={nav_logo} />
         </S.Logo>
         <S.Bar src={div_bar} />
