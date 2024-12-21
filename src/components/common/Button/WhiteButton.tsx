@@ -4,11 +4,17 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   color: string;
   onClick: () => void;
+  isDisabled?: boolean;
 }
 
-const WhiteButton = ({ text, color, onClick, ...props }: Props) => {
+const WhiteButton = ({ text, color, onClick, isDisabled, ...props }: Props) => {
   return (
-    <S.WhiteBtn $color={color} onClick={onClick} {...props}>
+    <S.WhiteBtn
+      $color={color}
+      onClick={onClick}
+      disabled={isDisabled}
+      {...props}
+    >
       <p>{text}</p>
     </S.WhiteBtn>
   );

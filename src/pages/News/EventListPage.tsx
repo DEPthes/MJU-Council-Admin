@@ -34,6 +34,7 @@ const EventListPage = () => {
       <ButtonContainer
         onDelete={() => setIsShowModal(true)}
         onPost={() => navigate("/news/event/new")}
+        isDisabled={data.information.length === 0}
       />
       {data.information.length > 0 ? (
         <S.GridContainer>

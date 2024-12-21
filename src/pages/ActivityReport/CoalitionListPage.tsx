@@ -41,6 +41,7 @@ const CoalitionListPage = () => {
       <ListBtnContainer
         onDelete={() => setIsShowModal(true)}
         onPost={() => navigator("/activityReport/newCoalition")}
+        isDisabled={data.information.contents.length === 0}
       />
       {data.information.contents.length > 0 ? (
         <>

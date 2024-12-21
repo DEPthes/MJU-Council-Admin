@@ -44,6 +44,7 @@ const MinutesListPage = () => {
       <ButtonContainer
         onDelete={() => setIsShowModal(true)}
         onPost={() => navigate("/document/minutes/new")}
+        isDisabled={data.information.contents.length === 0}
       />
       {data.information.contents.length > 0 ? (
         <>
