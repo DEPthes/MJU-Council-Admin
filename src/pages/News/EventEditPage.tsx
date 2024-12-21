@@ -105,6 +105,9 @@ const EventEditPage = () => {
 
   // 수정된 행사 저장
   const handleSubmit = async () => {
+    if (eventDetail.information.startDate > eventDetail.information.endDate) {
+      return alert("기간을 정확히 입력해주세요.");
+    }
     const newImages = eventDetail.information.images.filter(
       (item) => item instanceof File
     );

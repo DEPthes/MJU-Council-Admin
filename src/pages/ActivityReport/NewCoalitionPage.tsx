@@ -2,6 +2,7 @@ import CheckModal from "@/components/common/CheckModal";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import AddImageContainer from "@/components/common/Write/AddImageContainer";
 import ContentInput from "@/components/common/Write/ContentInput";
+import DateInput from "@/components/common/Write/DateInput";
 import TitleInput from "@/components/common/Write/TitleInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
 import { usePostCoalition } from "@/hooks/activityReport/useCoalition";
@@ -88,6 +89,12 @@ const NewCoalitionPage = () => {
 
   // 재휴 등록
   const handlePost = () => {
+    if (
+      businessPost.createAllianceReq.startDate >
+      businessPost.createAllianceReq.endDate
+    ) {
+      return alert("기간을 정확히 입력해주세요.");
+    }
     postCoalition(
       {
         images: businessPost.images,
@@ -124,22 +131,11 @@ const NewCoalitionPage = () => {
         title={businessPost.createAllianceReq.title}
         handleInputChange={handleInputChange}
       />
-      <S.Label>기간</S.Label>
-      <S.DateConatiner>
-        <S.DateInput
-          type="date"
-          value={businessPost.createAllianceReq.startDate}
-          name="startDate"
-          onChange={handleInputChange}
-        />
-        ~
-        <S.DateInput
-          type="date"
-          value={businessPost.createAllianceReq.endDate}
-          name="endDate"
-          onChange={handleInputChange}
-        />
-      </S.DateConatiner>
+      <DateInput
+        startDate={businessPost.createAllianceReq.startDate}
+        endDate={businessPost.createAllianceReq.endDate}
+        handleInputChange={handleInputChange}
+      />
       <AddImageContainer
         images={businessPost.images}
         handleFileRemove={handleFileRemove}

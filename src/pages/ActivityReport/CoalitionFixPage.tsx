@@ -3,6 +3,7 @@ import CheckModal from "@/components/common/CheckModal";
 import AddFileButton from "@/components/common/Write/AddFileButton";
 import AddImageContainer from "@/components/common/Write/AddImageContainer";
 import ContentInput from "@/components/common/Write/ContentInput";
+import DateInput from "@/components/common/Write/DateInput";
 import TitleInput from "@/components/common/Write/TitleInput";
 import WriteBtnContainer from "@/components/common/Write/WriteBtnContainer";
 import { useCoalitionDetail } from "@/hooks/activityReport/useCoalition";
@@ -89,6 +90,12 @@ const CoalitionFixPage = () => {
   };
 
   const handleSubmit = async () => {
+    if (
+      coalitionPost.information.startDate > coalitionPost.information.endDate
+    ) {
+      return alert("기간을 정확히 입력해주세요.");
+    }
+
     const newImages = coalitionData.images.filter(
       (item) => item instanceof File
     );
@@ -155,22 +162,11 @@ const CoalitionFixPage = () => {
         title={coalitionPost.information.title}
         handleInputChange={handleInputChange}
       />
-      <S.Label>기간</S.Label>
-      <S.DateConatiner>
-        <S.DateInput
-          value={coalitionPost.information.startDate}
-          placeholder={"0000.00.00"}
-          name="startDate"
-          onChange={handleInputChange}
-        />
-        ~
-        <S.DateInput
-          value={coalitionPost.information.endDate}
-          placeholder={"0000.00.00"}
-          name="endDate"
-          onChange={handleInputChange}
-        />
-      </S.DateConatiner>
+      <DateInput
+        startDate={coalitionPost.information.startDate}
+        endDate={coalitionPost.information.endDate}
+        handleInputChange={handleInputChange}
+      />
       <AddImageContainer
         images={coalitionPost.information.images}
         handleFileRemove={handleFileRemove}
