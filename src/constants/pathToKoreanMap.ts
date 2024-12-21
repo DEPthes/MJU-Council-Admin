@@ -15,7 +15,7 @@ export const pathToKoreanMap: Record<string, string> = {
   event: "행사",
   document: "자료집",
   minutes: "회의록",
-  regulations: "학생회칙",
+  regulations: "회칙 및 세칙",
   // guide: "가이드",
   // 필요한 다른 경로들도 추가 가능
 };

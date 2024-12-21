@@ -16,7 +16,7 @@ const RegulationsDetailPage = () => {
 
   const [isShowModal, setIsShowModal] = useState(false);
 
-  // 학생회칙 삭제
+  // 회칙 및 세칙 삭제
   const handleDelete = async () => {
     const response = await deleteRegulationsDetail(Number(id));
 
