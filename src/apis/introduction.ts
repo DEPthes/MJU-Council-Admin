@@ -4,7 +4,7 @@ import { api } from ".";
 export async function getIntroduce() {
   try {
     const response = await api.get(
-      `http://52.79.142.78:8080/api/v1/council/images`
+      `/api/v1/council/images`
     );
     return response.data;
   } catch (error) {
@@ -16,7 +16,7 @@ export async function getIntroduce() {
 export async function getCommittee() {
   try {
     const response = await api.get(
-      `http://52.79.142.78:8080/api/v1/committees`
+      `/api/v1/committees`
     );
     return response.data;
   } catch (error) {
@@ -28,7 +28,7 @@ export async function getCommittee() {
 export async function getDepartment() {
   try {
     const response = await api.get(
-      `http://52.79.142.78:8080/api/v1/departments`
+      `/api/v1/departments`
     );
     return response.data;
   } catch (error) {
@@ -40,7 +40,7 @@ export async function getDepartment() {
 export async function getOrganization() {
   try {
     const response = await api.get(
-      `http://52.79.142.78:8080/api/v1/organizations`
+      `/api/v1/organizations`
     );
     return response.data;
   } catch (error) {
@@ -61,7 +61,7 @@ export const postIntroduction = async (
 
   try {
     const response = await api.post(
-      `http://52.79.142.78:8080/api/v1/council/images`,
+      `/api/v1/council/images`,
       formData,
       { headers: { "Content-Type": "multipart/form-data" } }
     );
@@ -83,7 +83,7 @@ export const putIntroduction = async (
   if (image) formData.append("image", image);
   try {
     const response = await api.put(
-      `http://52.79.142.78:8080/api/v1/council/images/${councilImageId}`,
+      `/api/v1/council/images/${councilImageId}`,
       formData,
       {
         headers: {
@@ -102,7 +102,7 @@ export const putIntroduction = async (
 export async function deleteIntroduction(councilImageId: string) {
   try {
     const response = await api.delete(
-      `http://52.79.142.78:8080/api/v1/council/images/${councilImageId}`
+      `/api/v1/council/images/${councilImageId}`
     );
     return response.data;
   } catch (error) {
@@ -125,7 +125,7 @@ export const postOrganization = async (
   try {
     console.log(titles, images);
     const response = await api.post(
-      `http://52.79.142.78:8080/api/v1/organizations`,
+      `/api/v1/organizations`,
       formData,
       {
         headers: {
@@ -151,7 +151,7 @@ export const putOrganization = async (
   if (image) formData.append("image", image);
   try {
     const response = await api.put(
-      `http://52.79.142.78:8080/api/v1/organizations/${organizationId}`,
+      `/api/v1/organizations/${organizationId}`,
       formData,
       {
         headers: {
@@ -171,7 +171,7 @@ export const putOrganization = async (
 export async function deleteOrganization(organizationId: string) {
   try {
     const response = await api.delete(
-      `http://52.79.142.78:8080/api/v1/organizations/${organizationId}`
+      `/api/v1/organizations/${organizationId}`
     );
     return response.data;
   } catch (error) {
@@ -193,7 +193,7 @@ export const postDepartment = async (
 
   try {
     const response = await api.post(
-      `http://52.79.142.78:8080/api/v1/departments`,
+      `/api/v1/departments`,
       formData,
       { headers: { "Content-Type": "multipart/form-data" } }
     );
@@ -216,7 +216,7 @@ export const putDepartment = async (
   console.log(image);
   try {
     const response = await api.put(
-      `http://52.79.142.78:8080/api/v1/departments/${departmentId}`,
+      `/api/v1/departments/${departmentId}`,
       formData,
       {
         headers: {
@@ -235,7 +235,7 @@ export const putDepartment = async (
 export async function deleteDepartment(departmentId: string) {
   try {
     const response = await api.delete(
-      `http://52.79.142.78:8080/api/v1/departments/${departmentId}`
+      `/api/v1/departments/${departmentId}`
     );
     return response.data;
   } catch (error) {
@@ -264,7 +264,7 @@ export const postCommittees = async (
   if (image) formData.append("image", image);
   try {
     const response = await api.post(
-      `http://52.79.142.78:8080/api/v1/committees`,
+      `/api/v1/committees`,
       formData,
       { headers: { "Content-Type": "multipart/form-data" } }
     );
@@ -296,7 +296,7 @@ export const putCommittees = async (
   if (image) formData.append("image", image);
   try {
     const response = await api.put(
-      `http://52.79.142.78:8080/api/v1/committees/${committeeId}`,
+      `/api/v1/committees/${committeeId}`,
       formData,
       {
         headers: {
@@ -316,7 +316,7 @@ export const putCommittees = async (
 export async function deleteCommittees(committeeId: string) {
   try {
     const response = await api.delete(
-      `http://52.79.142.78:8080/api/v1/committees/${committeeId}`
+      `/api/v1/committees/${committeeId}`
     );
     return response.data;
   } catch (error) {
