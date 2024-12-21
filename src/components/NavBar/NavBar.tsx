@@ -27,6 +27,7 @@ const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:
   const isNewCoalition = location.pathname === "/activityReport/newCoalition";
   const isNewMinutes = location.pathname === "/minutes/new";
   const isNewRegulations = location.pathname === "/document/regulations/new";
+  const isFooter = location.pathname === "/footer";
 
 
   const navigate = useNavigate();
@@ -40,10 +41,10 @@ const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:
     <>
       <S.Div></S.Div>
       <S.Nav $isloginpage={isLoginPage ? "true" : "false"}>
-      <S.Logo onClick={!isHome && !isMinutes && !isRegulations&& !isBusinessList&& !isCoalitionList&& !isNotice&& !isEvent &&!isNewNotice && !isNewEvent && !isNewBusiness &&!isNewCoalition && !isNewMinutes && !isNewRegulations? 
+      <S.Logo onClick={!isHome && !isMinutes && !isRegulations&& !isBusinessList&& !isCoalitionList&& !isNotice&& !isEvent &&!isNewNotice && !isNewEvent && !isNewBusiness &&!isNewCoalition && !isNewMinutes && !isNewRegulations &&!isFooter? 
       (!isFixModal && (isIntroduce || isOrganization || isCommittee || isDepartment || isPolicyList) ? 
       () => navigate('/home') :() => {setOpenModal(true); setLogoClick(true);}) : 
-      (isNewBusiness || isNewCoalition || isNewEvent ||isNewMinutes ||isNewNotice || isNewRegulations) ? ()=>{setOpenModal(true); setLogoClick(true); setIsFix(true)} :() => navigate('/home')}>
+      (isNewBusiness || isNewCoalition || isNewEvent ||isNewMinutes ||isNewNotice || isNewRegulations ||isFooter) ? ()=>{setOpenModal(true); setLogoClick(true); setIsFix(true)} :() => navigate('/home')}>
           <img src={nav_logo} />
         </S.Logo>
         <S.Bar src={div_bar} />

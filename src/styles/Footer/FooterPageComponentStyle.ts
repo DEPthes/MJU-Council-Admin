@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const FDiv = styled.div`
     display: flex;
+    width: 100%;
     flex-direction: column;
-    width: 100vw;
-    margin: 80px auto 0 auto;
-    justify-content: center;
-    
+    justify-content:center;
+    margin:0 auto;
+    margin-top: 80px;
 `;

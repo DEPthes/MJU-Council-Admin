@@ -4,7 +4,7 @@ import InfoInput from "@/components/Footer/InfoInput";
 import * as S from "@styles/Footer/FooterPageComponentStyle";
 import { getFooter, putFooter } from "@/apis/home";
 
-const FooterPage = () => {
+const FooterPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
     const [generation, setGeneration] = useState<number | string>(""); // 기수
     const [name, setName] = useState<string>(""); // 총학생회명
     const [email, setEmail] = useState<string>(""); // 이메일
