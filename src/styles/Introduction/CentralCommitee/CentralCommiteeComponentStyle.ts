@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const CentralDiv = styled.div`
     display: flex;
+    width: 100%;
     flex-direction: column;
-    margin: 80px auto 0 auto;
-    width: 100vw;
+    justify-content:center;
+    margin:0 auto;
+    margin-top: 80px;
 `;

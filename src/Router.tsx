@@ -45,7 +45,7 @@ const Router = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/footer" element={<FooterPage />} />
+          <Route path="/footer" element={<FooterPage/>} />
           <Route
             path="/introduction/introduce"
             element={<IntroductionPage setIsFixModal={setIsFixModal}/>}
