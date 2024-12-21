@@ -35,34 +35,36 @@ import EachPartPage from "./pages/Introduction/EachPartPage";
 import IntroductionPage from "./pages/Introduction/IntroductionPage";
 import OrganizationPage from "./pages/Introduction/OrganizationPage";
 import NoticeListPage from "./pages/News/NoticeListPage";
+import { useState } from "react";
 
 const Router = () => {
+  const [isFixModal, setIsFixModal] = useState<boolean>(false);
   return (
     <BrowserRouter>
-      <Layout>
+      <Layout isFixModal = {isFixModal} setIsFixModal={setIsFixModal}>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/footer" element={<FooterPage />} />
           <Route
             path="/introduction/introduce"
-            element={<IntroductionPage />}
+            element={<IntroductionPage setIsFixModal={setIsFixModal}/>}
           />
           <Route
             path="/introduction/organization"
-            element={<OrganizationPage />}
+            element={<OrganizationPage setIsFixModal={setIsFixModal}/>}
           />
           <Route
             path="/introduction/eachpart"
-            element={<EachPartPage />}
+            element={<EachPartPage setIsFixModal={setIsFixModal}/>}
           />
           <Route
             path="/introduction/centralcommitee"
-            element={<CentralCommiteePage />}
+            element={<CentralCommiteePage setIsFixModal={setIsFixModal}/>}
           />
           <Route
             path="/activityReport/policyList"
-            element={<PolicyListPage />}
+            element={<PolicyListPage setIsFixModal={setIsFixModal}/>}
           />
           <Route
             path="/activityReport/businessList"

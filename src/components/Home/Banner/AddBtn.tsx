@@ -3,7 +3,7 @@ import Add from "@assets/image/Add.svg";
 import Close from "@assets/image/Close.svg";
 import { useState, ChangeEvent} from "react";
 import RemoveModal from "./RemoveModal";
-import { createBanner, updateBanner, deleteBanner } from "@/apis/home";
+import { createBanner, updateBanner, deleteBanner} from "@/apis/home";
 
 interface AddBtnProps {
   id: number | null; // 배너 ID (null은 새 배너를 의미)

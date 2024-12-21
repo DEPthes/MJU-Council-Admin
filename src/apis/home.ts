@@ -2,7 +2,7 @@ import {api} from ".";
 
 
 export const getFooter = async () => {
-  const response = await api.get("http://52.79.142.78:8080/api/v1/council");
+  const response = await api.get("/api/v1/council");
   return response.data;
 };
 
@@ -27,7 +27,7 @@ export const putFooter = async (
   formData.append("image", imageFile);
 
   // API 호출
-  const response = await api.put("http://52.79.142.78:8080/api/v1/council", formData, {
+  const response = await api.put("/api/v1/council", formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
@@ -39,7 +39,7 @@ export const putFooter = async (
 
 export async function getBanners() {
     try {
-      const response = await api.get(`http://52.79.142.78:8080/api/v1/banners`);
+      const response = await api.get(`/api/v1/banners`);
       return response.data;
     } catch (error) {
       console.error("banner get 중 오류 발생:", error);
@@ -54,7 +54,7 @@ export async function createBanner(image: File) {
     
     // POST 요청 보내기
     const response = await api.post(
-      `http://52.79.142.78:8080/api/v1/banners`, 
+      `/api/v1/banners`, 
       formData,
       { headers: { "Content-Type": "multipart/form-data" } }
     );
@@ -70,7 +70,7 @@ export async function createBanner(image: File) {
 // 2. Banner 삭제 (DELETE)
 export async function deleteBanner(bannerId: number) {
   try {
-    const response = await api.delete(`http://52.79.142.78:8080/api/v1/banners/${bannerId}`);
+    const response = await api.delete(`/api/v1/banners/${bannerId}`);
     return response.data;
   } catch (error) {
     console.error("Banner 삭제 중 오류 발생:", error);
@@ -85,7 +85,7 @@ export async function updateBanner(bannerId: number, image: File) {
     formData.append("img", image);
 
     const response = await api.patch(
-      `http://52.79.142.78:8080/api/v1/banners/${bannerId}`, 
+      `/api/v1/banners/${bannerId}`, 
       formData,
       { headers: { "Content-Type": "multipart/form-data" } }
     );
