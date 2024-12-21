@@ -23,7 +23,7 @@ interface EInput {
   snsUrl: string;
 }
 
-const CentralCommiteePage = () => {
+const CentralCommiteePage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
   const [isFix, setIsFix] = useState<boolean>(false);
   const [isEFix, setIsEFix] = useState<boolean>(false);
   const [canEnter, setCanEnter] = useState<boolean>(false);
@@ -191,6 +191,14 @@ const CentralCommiteePage = () => {
         }
         setIsFix(false);
       };
+
+      useEffect(() => {
+        if (isFix) {
+          setIsFixModal(true);
+        } else {
+          setIsFixModal(false);
+        }
+      }, [isFix]);
 
   useEffect(() => {
     setInputs([{committeeId:"", imgUrl: undefined, description: "" }]);

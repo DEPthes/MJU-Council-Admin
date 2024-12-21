@@ -19,7 +19,7 @@ export const Nav = styled.div<{$isloginpage:string}>`
   border-bottom: ${({$isloginpage})=>($isloginpage=="true")?`nond`: `1px solid var(--M30)`};
 `;
 
-export const Logo = styled(Link)`
+export const Logo = styled.div`
   height: 35px;
   display: flex;
   align-items: center;

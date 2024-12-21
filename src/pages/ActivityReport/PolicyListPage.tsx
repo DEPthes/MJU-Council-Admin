@@ -7,7 +7,7 @@ import * as S from "@/styles/ActivityReport/PolicyList/PolicyListPageStyle";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const PolicyListPage = () => {
+const PolicyListPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
   const [isShowNewHeader, setIsShowNewHeader] = useState<boolean>(false);
   const [policyParams, setPolicyParams] = useSearchParams();
   const policy = policyParams.get("policy");
@@ -39,7 +39,7 @@ const PolicyListPage = () => {
           <PolicyNewHeader onExit={handleExitNewHeader} />
         ) : (
           <>
-            <PolicyHeader title={policy!} categoryList={categoryList} />
+            <PolicyHeader title={policy!} categoryList={categoryList} setIsFixModal={setIsFixModal}/>
             <PolicyPromiseComponent />
           </>
         )}

@@ -3,17 +3,38 @@ import ManagerLogo from "@assets/image/Manager.svg";
 import nav_logo from "@assets/image/Nav_logo.svg";
 import NavDivRect from "@assets/image/NavDivRect.svg";
 import * as S from "@styles/NavBar/NavBarComponentStyle";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:boolean)=>void,isFixModal:boolean}> = ({setOpenModal, setLogoClick,isFixModal}) => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
+  const isHome = location.pathname === "/home";
+  const isMinutes = location.pathname === "/document/minutes";
+  const isRegulations = location.pathname === "/document/regulations";
+  const isBusinessList = location.pathname === "/activityReport/businessList";
+  const isCoalitionList = location.pathname === "/activityReport/coalitionList";
+  const isNotice = location.pathname === "/news/notice";
+  const isEvent = location.pathname === "/news/event";
+  const isIntroduce = location.pathname === "/introduction/introduce";
+  const isOrganization = location.pathname === "/introduction/organization";
+  const isDepartment = location.pathname === "/introduction/eachpart";
+  const isCommittee = location.pathname === "/introduction/centralCommitee";
+  const isPolicyList = location.pathname === "/activityReport/policyList";
 
+
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    setLogoClick(false);
+  },[])
+
+//introduce이고 isFixModal이 ~면 홈으로 아니면 setIsfixmodal을 true로...
   return (
     <>
       <S.Div></S.Div>
       <S.Nav $isloginpage={isLoginPage ? "true" : "false"}>
-        <S.Logo to={isLoginPage ? "/" : "/home"}>
+      <S.Logo onClick={!isHome && !isMinutes && !isRegulations&& !isBusinessList&& !isCoalitionList&& !isNotice&& !isEvent? (!isFixModal && (isIntroduce || isOrganization || isCommittee || isDepartment || isPolicyList) ? () => navigate('/home') :() => {setOpenModal(true); setLogoClick(true);}) : () => navigate('/home')}>
           <img src={nav_logo} />
         </S.Logo>
         <S.Bar src={div_bar} />

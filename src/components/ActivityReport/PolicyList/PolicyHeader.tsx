@@ -7,16 +7,17 @@ import {
 } from "@/hooks/activityReport/usePolicyCategory";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyHeaderStyle";
 import { PromiseCategory } from "@/types/ActivityReport/policy";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../../common/DeleteModal";
 
 interface PolicyHeaderProps {
   title: string;
   categoryList: PromiseCategory[];
+  setIsFixModal: (value:boolean)=>void;
 }
 
-const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
+const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList,setIsFixModal }) => {
   const navigator = useNavigate();
 
   const [isFix, setIsFix] = useState<boolean>(false);
@@ -65,6 +66,14 @@ const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, categoryList }) => {
       }
     );
   };
+
+  useEffect(() => {
+      if (isFix) {
+        setIsFixModal(true);
+      } else {
+        setIsFixModal(false);
+      }
+    }, [isFix]);
 
   return (
     <S.Container>

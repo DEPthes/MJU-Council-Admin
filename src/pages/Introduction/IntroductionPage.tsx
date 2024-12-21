@@ -12,7 +12,7 @@ interface Input {
   description: string;
 }
 
-const IntroductionPage = () => {
+const IntroductionPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
   const [isFix, setIsFix] = useState<boolean>(false);
   const [canEnter, setCanEnter] = useState<boolean>(false);
   const [inputs, setInputs] = useState<Input[]>([]);
@@ -123,6 +123,15 @@ const IntroductionPage = () => {
     setIsFix(false);
     fetchIntroData();
   };
+
+  //home modal 관리
+  useEffect(() => {
+    if (isFix) {
+      setIsFixModal(true);
+    } else {
+      setIsFixModal(false);
+    }
+  }, [isFix]);
 
   useEffect(() => {
     fetchIntroData();

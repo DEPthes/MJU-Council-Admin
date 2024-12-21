@@ -17,7 +17,7 @@ interface Input {
   title: string;
 }
 
-const OrganizationPage = () => {
+const OrganizationPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
   const [isFix, setIsFix] = useState<boolean>(false);
   const [canEnter, setCanEnter] = useState<boolean>(false);
   const [inputs, setInputs] = useState<Input[]>([]);
@@ -136,6 +136,14 @@ const OrganizationPage = () => {
     setIsFix(false);
     fetchOrgData();
   };
+
+  useEffect(() => {
+    if (isFix) {
+      setIsFixModal(true);
+    } else {
+      setIsFixModal(false);
+    }
+  }, [isFix]);
 
   useEffect(() => {
     fetchOrgData();

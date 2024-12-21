@@ -12,7 +12,7 @@ interface Input {
   description: string;
 }
 
-const EachPartPage = () => {
+const EachPartPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
   const [isFix, setIsFix] = useState<boolean>(false);
   const [canEnter, setCanEnter] = useState<boolean>(false);
   const [inputs, setInputs] = useState<Input[]>([]);
@@ -118,6 +118,14 @@ const EachPartPage = () => {
     setIsFix(false);
     fetchDepData();
   };
+
+  useEffect(() => {
+    if (isFix) {
+      setIsFixModal(true);
+    } else {
+      setIsFixModal(false);
+    }
+  }, [isFix]);
 
   useEffect(() => {
     fetchDepData();
