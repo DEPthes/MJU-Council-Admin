@@ -26,7 +26,7 @@ const EventListPage = () => {
     <S.Container>
       {isShowModal && (
         <DeleteModal
-          text="해당 행사의 안내사항을 포함한 모든 게시물이 사라집니다."
+          text="모든 행사 게시물이 사라집니다."
           onCancel={() => setIsShowModal(false)}
           onSubmit={onAllDelete}
         />
@@ -34,6 +34,7 @@ const EventListPage = () => {
       <ButtonContainer
         onDelete={() => setIsShowModal(true)}
         onPost={() => navigate("/news/event/new")}
+        isDisabled={data.information.length === 0}
       />
       {data.information.length > 0 ? (
         <S.GridContainer>

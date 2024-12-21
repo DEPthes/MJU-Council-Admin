@@ -6,14 +6,14 @@ import {
 } from "@/types/Document/regulations";
 import { api } from ".";
 
-// 학생회칙 전체 조회
+// 회칙 및 세칙 전체 조회
 export async function getRegulations(page: number): Promise<RegulationsList> {
   const response = await api.get(`/api/v1/regulations?page=${page}&size=10`);
 
   return response?.data;
 }
 
-// 학생회칙 상세 조회
+// 회칙 및 세칙 상세 조회
 export async function getRegulationsDetail(
   regulationsId: number
 ): Promise<RegulationsDetail> {
@@ -22,7 +22,7 @@ export async function getRegulationsDetail(
   return response?.data;
 }
 
-// 학생회칙 추가
+// 회칙 및 세칙 추가
 export async function postRegulations({
   file,
   createRegulationReq,
@@ -45,7 +45,7 @@ export async function postRegulations({
   return response?.data;
 }
 
-// 학생회칙 수정
+// 회칙 및 세칙 수정
 export async function putRegulations(
   regulationId: number,
   { file, modifyRegulationReq }: RegulationsPutRequest
@@ -63,7 +63,6 @@ export async function putRegulations(
   });
   formData.append("modifyRegulationReq", blob);
 
-
   const response = await api.put(
     `/api/v1/regulations/${regulationId}`,
     formData
@@ -72,14 +71,14 @@ export async function putRegulations(
   return response?.data;
 }
 
-// 학생회칙 삭제
+// 회칙 및 세칙 삭제
 export async function deleteRegulationsDetail(regulationId: number) {
   const response = await api.delete(`/api/v1/regulations/${regulationId}`);
 
   return response?.data;
 }
 
-// 학생회칙 전체 삭제
+// 회칙 및 세칙 전체 삭제
 export async function deleteRegulations() {
   const response = await api.delete(`/api/v1/regulations`);
 

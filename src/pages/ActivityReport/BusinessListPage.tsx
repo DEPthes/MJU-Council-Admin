@@ -43,6 +43,7 @@ const BusinessListPage = () => {
       <ListBtnContainer
         onDelete={() => setIsShowModal(true)}
         onPost={() => navigator("/activityReport/newBusiness")}
+        isDisabled={businessData.length === 0}
       />
       <BusinessListComponent businessData={businessData} />
       <PageComponent totalPage={data.information.totalPage} />

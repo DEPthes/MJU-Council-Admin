@@ -100,6 +100,10 @@ const NewEventPage = () => {
 
   // 행사 글 등록
   const handleSubmit = async () => {
+    if (eventPost.createEventReq.startDate > eventPost.createEventReq.endDate) {
+      return alert("기간을 정확히 입력해주세요.");
+    }
+
     const response = await postEvent(eventPost);
 
     if (response.check) {

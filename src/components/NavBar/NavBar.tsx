@@ -6,7 +6,12 @@ import * as S from "@styles/NavBar/NavBarComponentStyle";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:boolean)=>void,isFixModal:boolean, setIsFix:(value:boolean)=>void}> = ({setOpenModal, setLogoClick,isFixModal, setIsFix}) => {
+const NavBar: React.FC<{
+  setOpenModal: (value: boolean) => void;
+  setLogoClick: (value: boolean) => void;
+  isFixModal: boolean;
+  setIsFix: (value: boolean) => void;
+}> = ({ setOpenModal, setLogoClick, isFixModal, setIsFix }) => {
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
   const isHome = location.pathname === "/home";
@@ -29,22 +34,59 @@ const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:
   const isNewRegulations = location.pathname === "/document/regulations/new";
   const isFooter = location.pathname === "/footer";
 
-
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     setLogoClick(false);
-  },[])
+  }, []);
 
-//introduce이고 isFixModal이 ~면 홈으로 아니면 setIsfixmodal을 true로...
+  //introduce이고 isFixModal이 ~면 홈으로 아니면 setIsfixmodal을 true로...
   return (
     <>
       <S.Div></S.Div>
       <S.Nav $isloginpage={isLoginPage ? "true" : "false"}>
-      <S.Logo onClick={!isHome && !isMinutes && !isRegulations&& !isBusinessList&& !isCoalitionList&& !isNotice&& !isEvent &&!isNewNotice && !isNewEvent && !isNewBusiness &&!isNewCoalition && !isNewMinutes && !isNewRegulations &&!isFooter? 
-      (!isFixModal && (isIntroduce || isOrganization || isCommittee || isDepartment || isPolicyList) ? 
-      () => navigate('/home') :() => {setOpenModal(true); setLogoClick(true);}) : 
-      (isNewBusiness || isNewCoalition || isNewEvent ||isNewMinutes ||isNewNotice || isNewRegulations ||isFooter) ? ()=>{setOpenModal(true); setLogoClick(true); setIsFix(true)} :() => navigate('/home')}>
+        <S.Logo
+          onClick={
+            !isHome &&
+            !isMinutes &&
+            !isRegulations &&
+            !isBusinessList &&
+            !isCoalitionList &&
+            !isNotice &&
+            !isEvent &&
+            !isNewNotice &&
+            !isNewEvent &&
+            !isNewBusiness &&
+            !isNewCoalition &&
+            !isNewMinutes &&
+            !isNewRegulations &&
+            !isFooter
+              ? !isFixModal &&
+                (isIntroduce ||
+                  isOrganization ||
+                  isCommittee ||
+                  isDepartment ||
+                  isPolicyList)
+                ? () => navigate("/home")
+                : () => {
+                    setOpenModal(true);
+                    setLogoClick(true);
+                  }
+              : isNewBusiness ||
+                isNewCoalition ||
+                isNewEvent ||
+                isNewMinutes ||
+                isNewNotice ||
+                isNewRegulations ||
+                isFooter
+              ? () => {
+                  setOpenModal(true);
+                  setLogoClick(true);
+                  setIsFix(true);
+                }
+              : () => navigate("/home")
+          }
+        >
           <img src={nav_logo} />
         </S.Logo>
         <S.Bar src={div_bar} />
@@ -100,7 +142,7 @@ const NavBar:React.FC<{setOpenModal:(value: boolean)=>void, setLogoClick:(value:
               <S.SubMenu>
                 <S.SubMenuItem to="/document/minutes">회의록</S.SubMenuItem>
                 <S.SubMenuItem to="/document/regulations">
-                  학생회칙
+                  회칙 및 세칙
                 </S.SubMenuItem>
               </S.SubMenu>
             </S.MenuWrapper>

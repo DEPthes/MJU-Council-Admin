@@ -12,6 +12,7 @@ export const BlueBtn = styled.button<{ $color: string }>`
   border: none;
 
   &:disabled {
+    cursor: default;
     background-color: var(--M50);
   }
 
@@ -35,16 +36,17 @@ export const WhiteBtn = styled.button<{ $color: string }>`
 
   &:disabled {
     border: 1px solid var(--M50);
+    cursor: default;
+
+    > p {
+      color: var(--M50);
+    }
   }
 
   > p {
     font: var(--PC_ButtonText2);
     color: ${(props) => props.$color};
     text-align: center;
-
-    &:disabled {
-      color: var(--M50);
-    }
   }
 `;
 

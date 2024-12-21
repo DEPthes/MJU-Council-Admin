@@ -45,6 +45,7 @@ const RegulationsListPage = () => {
       <ButtonContainer
         onDelete={() => setIsShowModal(true)}
         onPost={() => navigate("/document/regulations/new")}
+        isDisabled={data.information.contents.length === 0}
       />
       {data.information.contents.length > 0 ? (
         <>
