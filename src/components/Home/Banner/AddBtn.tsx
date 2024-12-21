@@ -3,7 +3,7 @@ import Add from "@assets/image/Add.svg";
 import Close from "@assets/image/Close.svg";
 import { useState, ChangeEvent} from "react";
 import RemoveModal from "./RemoveModal";
-import { createBanner, updateBanner, deleteBanner, getBanners } from "@/apis/home";
+import { createBanner, updateBanner, deleteBanner} from "@/apis/home";
 
 interface AddBtnProps {
   id: number | null; // 배너 ID (null은 새 배너를 의미)
@@ -14,18 +14,6 @@ const AddBtn: React.FC<AddBtnProps> = ({ id, image: initialImage }) => {
   const [image, setImage] = useState<string>(initialImage);
   const [bannerId, setBannerId] = useState<number | null>(id);
   const [isModal, setIsModal] = useState<boolean>(false);
-
-  const fetchBanners = async () => {
-      try {
-        const data = await getBanners();
-        const fetchedBanners = data.information.map((banner: { bannerId: number; imgUrl: string }) => ({
-          id: banner.bannerId,
-          imgUrl: banner.imgUrl,
-        }));
-      } catch (error) {
-        console.error("배너 데이터를 불러오는데 실패했습니다:", error);
-      }
-    };
 
   // 이미지 업로드
   const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +33,6 @@ const AddBtn: React.FC<AddBtnProps> = ({ id, image: initialImage }) => {
       const response = await createBanner(file); // 파일 객체를 전달
       setBannerId(response.bannerId); // 새 배너 ID 저장
       console.log("배너 생성 성공");
-      fetchBanners();
       window.location.reload();
     }
   } catch (error) {
