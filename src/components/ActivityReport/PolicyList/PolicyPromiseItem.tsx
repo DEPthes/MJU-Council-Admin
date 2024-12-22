@@ -59,7 +59,7 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
 
   const handlePutPromise = () => {
     putPromise(
-      { promiseId: promise.promiseCategoryId },
+      { promise: promise },
       {
         onSuccess: () => {
           navigator(0);
@@ -77,7 +77,11 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
         {isFix ? (
           <>
             <DeleteButton onClick={handleDeletePromise} />
-            <SubmitButton onClick={handlePutPromise} />
+            <SubmitButton
+              onClick={handlePutPromise}
+              isM70={promise.title === "" || promise.content === ""}
+              disabled={promise.title === "" || promise.content === ""}
+            />
           </>
         ) : (
           <FixButton onClick={() => setIsFix(true)} />
