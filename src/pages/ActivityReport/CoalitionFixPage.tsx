@@ -96,16 +96,18 @@ const CoalitionFixPage = () => {
       return alert("기간을 정확히 입력해주세요.");
     }
 
-    const newImages = coalitionData.images.filter(
+    const newImages = coalitionPost.information.images.filter(
       (item) => item instanceof File
     );
 
-    const newFiles = coalitionData.files.filter((item) => item instanceof File);
+    const newFiles = coalitionPost.information.files.filter(
+      (item) => item instanceof File
+    );
 
     const deletedImageIds = coalitionData.images
       .filter(
         (originalItem) =>
-          !coalitionData.images.some(
+          !coalitionPost.information.images.some(
             (currentItem) =>
               !(currentItem instanceof File) &&
               (currentItem as any).id === originalItem.id
@@ -116,7 +118,7 @@ const CoalitionFixPage = () => {
     const deletedFileIds = coalitionData.files
       .filter(
         (originalItem) =>
-          !coalitionData.files.some(
+          !coalitionPost.information.files.some(
             (currentItem) =>
               !(currentItem instanceof File) &&
               (currentItem as any).id === originalItem.id
