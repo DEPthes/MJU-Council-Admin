@@ -15,7 +15,7 @@ const BusinessListComponent: React.FC<BusinessListComponentProps> = ({
   return (
     <>
       {businessData.length === 0 ? (
-        <S.Text>공지사항이 없습니다.</S.Text>
+        <S.Text>사업 게시글이 없습니다.</S.Text>
       ) : (
         <S.Container>
           {businessData.map((item, index) => (
