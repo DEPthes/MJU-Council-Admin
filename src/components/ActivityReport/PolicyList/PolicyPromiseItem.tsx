@@ -58,8 +58,9 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
   };
 
   const handlePutPromise = () => {
+    const body = {};
     putPromise(
-      { promiseId: promise.promiseCategoryId },
+      { promise: promise },
       {
         onSuccess: () => {
           navigator(0);

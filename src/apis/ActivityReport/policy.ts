@@ -1,6 +1,7 @@
 import {
   PromiseInformation,
   PromiseListResponse,
+  PromiseResponseInformation,
 } from "@/types/ActivityReport/policy";
 import { api } from "..";
 // ------------- {{ 정책 카테고리 }} ------------------------
@@ -64,6 +65,14 @@ export async function deletePromise(promiseId: number): Promise<{}> {
 }
 
 // 공약 수정
-export async function putPromise(promiseId: number): Promise<{}> {
-  return await api.put(`/api/v1/promise/${promiseId}}`);
+export async function putPromise(
+  promise: PromiseResponseInformation
+): Promise<{}> {
+  const body = {
+    title: promise.title,
+    content: promise.content,
+    progress: promise.progress,
+  };
+  console.log(promise, body);
+  return await api.put(`/api/v1/promise/${promise.promiseCategoryId}`, body);
 }
