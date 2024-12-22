@@ -39,6 +39,7 @@ export const Promise = styled.p`
   font: var(--PC_InputText);
   color: var(--Primary);
   background-color: var(--M5);
+  word-wrap: break-word;
 `;
 
 export const PromiseInput = styled.input`
