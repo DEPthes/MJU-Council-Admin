@@ -5,12 +5,15 @@ import PolicyPromiseComponent from "@/components/ActivityReport/PolicyList/Polic
 import { usePromiseCategory } from "@/hooks/activityReport/usePolicyCategory";
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyListPageStyle";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-const PolicyListPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
+const PolicyListPage: React.FC<{ setIsFixModal: (value: boolean) => void }> = ({
+  setIsFixModal,
+}) => {
   const [isShowNewHeader, setIsShowNewHeader] = useState<boolean>(false);
   const [policyParams, setPolicyParams] = useSearchParams();
   const policy = policyParams.get("policy");
+  const navigator = useNavigate();
 
   const { data } = usePromiseCategory();
   const categoryList = data.information;
@@ -25,6 +28,7 @@ const PolicyListPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFi
     policyParams.set("policy", decodeURIComponent(policy));
     setPolicyParams(policyParams);
     setIsShowNewHeader(policy === "new");
+    navigator(0);
   };
 
   const handleExitNewHeader = () => {
@@ -39,7 +43,11 @@ const PolicyListPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFi
           <PolicyNewHeader onExit={handleExitNewHeader} />
         ) : (
           <>
-            <PolicyHeader title={policy!} categoryList={categoryList} setIsFixModal={setIsFixModal}/>
+            <PolicyHeader
+              title={policy!}
+              categoryList={categoryList}
+              setIsFixModal={setIsFixModal}
+            />
             <PolicyPromiseComponent />
           </>
         )}
