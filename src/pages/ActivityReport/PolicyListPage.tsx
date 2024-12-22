@@ -28,7 +28,7 @@ const PolicyListPage: React.FC<{ setIsFixModal: (value: boolean) => void }> = ({
     policyParams.set("policy", decodeURIComponent(policy));
     setPolicyParams(policyParams);
     setIsShowNewHeader(policy === "new");
-    navigator(0);
+    if (policy !== "new") navigator(0);
   };
 
   const handleExitNewHeader = () => {
