@@ -40,6 +40,7 @@ export const Promise = styled.p`
   color: var(--Primary);
   background-color: var(--M5);
   word-wrap: break-word;
+  white-space: pre-line;
 `;
 
 export const PromiseInput = styled.input`

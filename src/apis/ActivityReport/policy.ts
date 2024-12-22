@@ -73,6 +73,5 @@ export async function putPromise(
     content: promise.content,
     progress: promise.progress,
   };
-  console.log(promise, body);
   return await api.put(`/api/v1/promise/${promise.promiseCategoryId}`, body);
 }
