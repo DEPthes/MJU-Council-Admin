@@ -13,6 +13,7 @@ import {
 import {
   PromiseInformation,
   PromiseListResponse,
+  PromiseResponseInformation,
 } from "@/types/ActivityReport/policy";
 
 // ------------- {{ 정책 공약 }} ------------------------
@@ -43,7 +44,7 @@ export function useDeletePromise() {
 }
 
 export function usePutPromise() {
-  return useMutation<{}, Error, { promiseId: number }>({
-    mutationFn: ({ promiseId }) => putPromise(promiseId),
+  return useMutation<{}, Error, { promise: PromiseResponseInformation }>({
+    mutationFn: ({ promise }) => putPromise(promise),
   });
 }

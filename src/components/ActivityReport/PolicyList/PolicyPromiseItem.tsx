@@ -1,6 +1,7 @@
 import DeleteButton from "@/components/common/Button/DeleteButton";
 import FixButton from "@/components/common/Button/FixButton";
 import SubmitButton from "@/components/common/Button/SubmitButton";
+import CheckModal from "@/components/common/CheckModal";
 import { fulfillments } from "@/constants/ActivityReport";
 import {
   useDeletePromise,
@@ -26,6 +27,7 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item,setIsFixModa
     content: item.content,
     progress: item.progress,
   });
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   const { mutate: deletePromise } = useDeletePromise();
   const { mutate: putPromise } = usePutPromise();
@@ -68,9 +70,10 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item,setIsFixModa
 
   const handlePutPromise = () => {
     putPromise(
-      { promiseId: promise.promiseCategoryId },
+      { promise: promise },
       {
         onSuccess: () => {
+          () => setIsShowModal(false);
           navigator(0);
         },
         onError: (error) => {
@@ -82,11 +85,22 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item,setIsFixModa
 
   return (
     <S.Container>
+      {isShowModal && (
+        <CheckModal
+          text={"삭제하시겠습니까?"}
+          onSubmit={handleDeletePromise}
+          onCancel={() => setIsShowModal(false)}
+        />
+      )}
       <S.ButtonContainer>
         {isFix ? (
           <>
-            <DeleteButton onClick={handleDeletePromise} />
-            <SubmitButton onClick={handlePutPromise} />
+            <DeleteButton onClick={() => setIsShowModal(true)} />
+            <SubmitButton
+              onClick={handlePutPromise}
+              isM70={promise.title === "" || promise.content === ""}
+              disabled={promise.title === "" || promise.content === ""}
+            />
           </>
         ) : (
           <FixButton onClick={() => setIsFix(true)} />

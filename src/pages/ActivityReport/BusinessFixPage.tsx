@@ -86,16 +86,18 @@ const BusinessFixPage = () => {
   };
 
   const handleSubmit = async () => {
-    const newImages = businessData.images.filter(
+    const newImages = businessPost.information.images.filter(
       (item) => item instanceof File
     );
 
-    const newFiles = businessData.files.filter((item) => item instanceof File);
+    const newFiles = businessPost.information.files.filter(
+      (item) => item instanceof File
+    );
 
     const deletedImageIds = businessData.images
       .filter(
         (originalItem) =>
-          !businessData.images.some(
+          !businessPost.information.images.some(
             (currentItem) =>
               !(currentItem instanceof File) &&
               (currentItem as any).id === originalItem.id
@@ -106,13 +108,15 @@ const BusinessFixPage = () => {
     const deletedFileIds = businessData.files
       .filter(
         (originalItem) =>
-          !businessData.files.some(
+          !businessPost.information.files.some(
             (currentItem) =>
               !(currentItem instanceof File) &&
               (currentItem as any).id === originalItem.id
           )
       )
       .map((deletedItem) => deletedItem.id);
+
+    console.log("ia", deletedImageIds);
 
     const businessModifyPost: BusinessPutRequest = {
       images: newImages,
@@ -124,6 +128,8 @@ const BusinessFixPage = () => {
         deleteFiles: deletedFileIds,
       },
     };
+
+    console.log(businessModifyPost);
 
     const response = await putBusiness(Number(id), businessModifyPost);
 

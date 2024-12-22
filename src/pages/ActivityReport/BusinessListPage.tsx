@@ -7,7 +7,7 @@ import {
   useDeleteAllBusiness,
 } from "@/hooks/activityReport/useBusiness";
 import * as S from "@styles/ActivityReport/BusinessList/BusinessListPageStyle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const BusinessListPage = () => {
@@ -16,8 +16,12 @@ const BusinessListPage = () => {
   const [pageParams] = useSearchParams();
   const page = pageParams.get("page") || "1";
 
-  const { data } = useBusinessList({ page: Number(page) });
+  const { data, refetch } = useBusinessList({ page: Number(page) });
   const businessData = data.information.contents;
+
+  useEffect(() => {
+    refetch();
+  }, [page]);
 
   const { mutate: deleteAllBusiness } = useDeleteAllBusiness();
 
