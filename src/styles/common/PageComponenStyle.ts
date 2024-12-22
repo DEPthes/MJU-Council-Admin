@@ -20,6 +20,7 @@ export const PageButtonContainer = styled.button<{ $isactive: boolean }>`
   align-items: center;
   justify-content: center;
   border: none;
+  cursor: pointer;
 `;
 
 export const PageText = styled.p`
