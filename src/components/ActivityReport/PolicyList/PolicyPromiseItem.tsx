@@ -9,14 +9,15 @@ import {
 import * as S from "@/styles/ActivityReport/PolicyList/PolicyPromiseItemStyle";
 import { PromiseResponseInformation } from "@/types/ActivityReport/policy";
 import { getFulfillmentRate } from "@/utils/ActivityReport";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface PolicyPromiseItemProps {
   item: PromiseResponseInformation;
+  setIsFixModal: (value:boolean)=>void;
 }
 
-const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
+const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item,setIsFixModal }) => {
   const navigator = useNavigate();
   const [isFix, setIsFix] = useState<boolean>(false);
   const [promise, setPromise] = useState<PromiseResponseInformation>({
@@ -41,6 +42,14 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
 
     setPromise((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+        if (isFix) {
+          setIsFixModal(true);
+        } else {
+          setIsFixModal(false);
+        }
+      }, [isFix]);
 
   const handleDeletePromise = () => {
     deletePromise(

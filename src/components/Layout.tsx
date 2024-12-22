@@ -19,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({children, isFixModal, setIsFixModal}) =>
 
   const [openModal, setOpenModal] = useState<boolean>(false); //모달 열리게 하는 것
   const [logoClick, setLogoClick] = useState<boolean>(false); //로고를 클릭했는지 체크해주는거
-  const [goHome, setGoHome] = useState<boolean>(false); //홈으로 가게 해주는거
+  const [goHome, setGoHome] = useState<boolean>(false); //취소 버튼 클릭 시 홈으로 가게 해주는거
   
   useEffect(()=>{
     if(goHome) window.location.href = "/home";
@@ -32,8 +32,8 @@ const Layout: React.FC<LayoutProps> = ({children, isFixModal, setIsFixModal}) =>
 
   useEffect(()=>{
     
-    console.log(openModal, logoClick, goHome, isFixModal)
-  },[isFixModal])
+    console.log(openModal, logoClick,isFixModal)
+  },[logoClick])
 
   const handleConfirm = () => {
     setGoHome(false);

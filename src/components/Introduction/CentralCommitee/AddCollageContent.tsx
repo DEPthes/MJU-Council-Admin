@@ -4,7 +4,7 @@ interface Info {
   valuePart: string;
   valueTitle: string | undefined;
   valueHomePage: string | undefined;
-  valueInstagram: string;
+  valueInstagram: string | undefined;
   onChangePart: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeHomePage: (e: React.ChangeEvent<HTMLInputElement>) => void;

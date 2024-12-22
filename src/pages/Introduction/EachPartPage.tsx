@@ -5,6 +5,7 @@ import RemoveModal from "@/components/Home/Banner/RemoveModal";
 import { putDepartment, postDepartment, deleteDepartment, getDepartment } from "@/apis/introduction";
 import EachPartTitleBar from "@/components/Introduction/EachPart/EachPartTitleBar";
 import EachPartInput from "@/components/Introduction/EachPart/EachPartInput";
+import { useNavigate } from "react-router-dom";
 
 interface Input {
   departmentId: string;
@@ -20,6 +21,7 @@ const EachPartPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixM
   const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
   const [post, setPost] = useState<boolean>(false);
   const [initialInputs, setInitialInputs] = useState<Input[]>([]); // 초기 데이터 저장
+    const navigate = useNavigate();
 
   const urlToFile = async (url: string) => {
     const response = await fetch(url);
@@ -117,6 +119,7 @@ const EachPartPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixM
     }
     setIsFix(false);
     fetchDepData();
+    navigate(0);
   };
 
   useEffect(() => {

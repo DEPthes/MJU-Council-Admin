@@ -31,6 +31,10 @@ const PolicyListPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFi
     setIsShowNewHeader(false);
   };
 
+  useEffect(()=>{
+    setIsFixModal(false);
+  },[])
+
   return (
     <>
       <PolicyMenuBar onClick={handleChangePolicy} categoryList={categoryList} />
@@ -40,7 +44,7 @@ const PolicyListPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFi
         ) : (
           <>
             <PolicyHeader title={policy!} categoryList={categoryList} setIsFixModal={setIsFixModal}/>
-            <PolicyPromiseComponent />
+            <PolicyPromiseComponent setIsFixModal={setIsFixModal}/>
           </>
         )}
       </S.Container>

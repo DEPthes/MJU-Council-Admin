@@ -37,8 +37,7 @@ const FooterPage = () => {
         if (generation && name && email && snsUrl && imageFile) {
             try {
                 await putFooter(generation as string, name, email, snsUrl, imageFile);
-                alert("총학생회 정보가 성공적으로 업데이트되었습니다!");
-                window.location.href = "/";
+                window.location.href = "/home";
             } catch (error) {
                 console.error("Error updating footer:", error);
                 alert("업데이트 중 오류가 발생했습니다.");

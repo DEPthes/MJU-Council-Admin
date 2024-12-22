@@ -5,6 +5,7 @@ import RemoveModal from "@/components/Home/Banner/RemoveModal";
 import { deleteIntroduction, getIntroduce, putIntroduction, postIntroduction } from "@/apis/introduction";
 import IntroduceTitleBar from "@/components/Introduction/Introduce/IntroduceTitleBar";
 import IntroduceInput from "@/components/Introduction/Introduce/IntroductionInput";
+import { useNavigate } from "react-router-dom";
 
 interface Input {
   councilImageId: string;
@@ -20,6 +21,7 @@ const IntroductionPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIs
   const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
   const [post, setPost] = useState<boolean>(false);
   const [initialInputs, setInitialInputs] = useState<Input[]>([]); // 초기 데이터 저장
+  const navigate = useNavigate();
 
   const urlToFile = async (url: string) => {
     const response = await fetch(url);
@@ -122,6 +124,7 @@ const IntroductionPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIs
     }
     setIsFix(false);
     fetchIntroData();
+    navigate(0);
   };
 
   //home modal 관리
