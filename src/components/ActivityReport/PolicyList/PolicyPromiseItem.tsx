@@ -71,8 +71,6 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
     );
   };
 
-  console.log(promise.content);
-
   return (
     <S.Container>
       <S.ButtonContainer>

@@ -63,7 +63,11 @@ const NewPolicyPromiseItem: React.FC<NewPolicyPromiseItemProps> = ({
     <S.Container>
       <S.ButtonContainer>
         <DeleteButton onClick={onCancel} />
-        <SubmitButton onClick={handleSubmit} />
+        <SubmitButton
+          onClick={handleSubmit}
+          isM70={promise.title === "" || promise.content === ""}
+          disabled={promise.title === "" || promise.content === ""}
+        />
       </S.ButtonContainer>
 
       <S.PromiseContainer>
