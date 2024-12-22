@@ -58,7 +58,6 @@ const PolicyPromiseItem: React.FC<PolicyPromiseItemProps> = ({ item }) => {
   };
 
   const handlePutPromise = () => {
-    const body = {};
     putPromise(
       { promise: promise },
       {
