@@ -98,6 +98,8 @@ export async function putBusiness(
   });
   formData.append("modifyBusinessReq", blob);
 
+  console.log(images, files, modifyBusinessReq);
+
   const response = await api.put(`/api/v1/businesses/${businessId}`, formData);
 
   return response?.data;
