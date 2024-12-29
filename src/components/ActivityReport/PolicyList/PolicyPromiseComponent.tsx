@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import NewPolicyPromiseItem from "./NewPolicyPromiseItem";
 import PolicyPromiseItem from "./PolicyPromiseItem";
 
-const PolicyPromiseComponent = () => {
+const PolicyPromiseComponent:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
   const [isShowNewPromise, setIsShowNewPromise] = useState<boolean>(false);
 
   const [policyParams] = useSearchParams();
@@ -17,10 +17,14 @@ const PolicyPromiseComponent = () => {
   }, [policy, policyParams]);
   const promiseData = data.information;
 
+  useEffect(()=>{
+    setIsFixModal(true);
+  },[isShowNewPromise]);
+
   return (
     <S.Container>
       {promiseData.map((item, index) => (
-        <PolicyPromiseItem item={item} key={index} />
+        <PolicyPromiseItem item={item} key={index} setIsFixModal={setIsFixModal}/>
       ))}
       {isShowNewPromise && (
         <NewPolicyPromiseItem onCancel={() => setIsShowNewPromise(false)} />
