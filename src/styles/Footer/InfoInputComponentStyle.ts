@@ -25,22 +25,22 @@ export const IText = styled.p`
 `;
 
 export const Input = styled.input`
-    display: flex;
-    height: 60px;
-    padding: 0px 20px;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    background: var(--M5);
-    border-style:none;
-    outline: none;
-    margin: auto 0 auto 0;
-    color: var(--Primary);
+  display: flex;
+  height: 60px;
+  padding: 0px 20px;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  background: var(--M5);
+  border-style: none;
+  outline: none;
+  margin: auto 0 auto 0;
+  color: var(--Primary);
+  font: var(--PC_InputText);
+  &::placeholder {
+    color: var(--M50);
     font: var(--PC_InputText);
-    &::placeholder {
-        color: var(--M50);
-        font: var(--PC_InputText);
-    }
+  }
 `;
 
 export const FileUploadWrapper = styled.div`
@@ -65,6 +65,7 @@ export const UploadImg = styled.img`
   height: 40px;
   object-fit: contain;
   z-inxex: 1;
+  cursor: pointer;
 `;
 
 export const UploadPreviewWrapper = styled.div`
@@ -86,7 +87,7 @@ export const DeleteButton = styled.button`
   right: 5%;
   width: 32px;
   height: 32px;
-  background-color: rgba(0, 0, 0, 0.55);;
+  background-color: rgba(0, 0, 0, 0.55);
   color: white;
   border: none;
   border-radius: 50%;

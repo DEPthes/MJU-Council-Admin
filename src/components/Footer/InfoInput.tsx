@@ -17,7 +17,13 @@ interface InfoInputProps {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
   setSnsUrl: React.Dispatch<React.SetStateAction<string>>;
   setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
-  initialValues: { generation: number | string; name: string; email: string; snsUrl: string }; // 초기값
+  initialValues: {
+    generation: number | string;
+    name: string;
+    email: string;
+    snsUrl: string;
+    logoUrl: string | null;
+  }; // 초기값
 }
 
 const InfoInput: React.FC<InfoInputProps> = ({
@@ -25,10 +31,12 @@ const InfoInput: React.FC<InfoInputProps> = ({
   setName,
   setEmail,
   setSnsUrl,
-  setImageFile,
+  setImageFile, //보낼 img 파일을 세팅함
   initialValues,
 }) => {
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [uploadedImage, setUploadedImage] = useState<string | null>( //보여지는 이미지, string, 받아올 때도 url이니까 string임
+    initialValues.logoUrl || null
+  );
 
   useEffect(() => {
     // 초기값 설정
@@ -36,14 +44,27 @@ const InfoInput: React.FC<InfoInputProps> = ({
     setName(initialValues.name);
     setEmail(initialValues.email);
     setSnsUrl(initialValues.snsUrl);
-  }, [initialValues, setGeneration, setName, setEmail, setSnsUrl]);
+  }, [
+    initialValues.generation,
+    initialValues.name,
+    initialValues.email,
+    initialValues.snsUrl,
+    setGeneration,
+    setName,
+    setEmail,
+    setSnsUrl,
+  ]);
+
+  useEffect(() => {
+    setUploadedImage(initialValues.logoUrl);
+  }, [initialValues.logoUrl]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setUploadedImage(reader.result as string);
+        setUploadedImage(reader.result as string); //화면에 보여지는
         setImageFile(file); // 파일 상태 업데이트
       };
       reader.readAsDataURL(file);
@@ -77,7 +98,11 @@ const InfoInput: React.FC<InfoInputProps> = ({
         <S.IText>총학생회 로고</S.IText>
         {uploadedImage === null ? (
           <S.FileUploadWrapper>
-            <S.FileInput type="file" accept="image/*" onChange={handleFileChange} />
+            <S.FileInput
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
             <S.UploadImg src={UploadFileIcon} />
           </S.FileUploadWrapper>
         ) : (
@@ -85,7 +110,7 @@ const InfoInput: React.FC<InfoInputProps> = ({
             <S.UploadPreviewWrapper>
               <S.UploadPreview src={uploadedImage} />
               <S.DeleteButton onClick={handleRemoveFile}>
-                <img src={Close} alt="Close" />
+                <img src={Close} />
               </S.DeleteButton>
             </S.UploadPreviewWrapper>
           </S.FileUploadWrapper>
@@ -108,20 +133,19 @@ const InfoInput: React.FC<InfoInputProps> = ({
         />
       </S.InfoDiv>
       <S.InfoDiv>
-          <S.IText>전화번호</S.IText>
-          <S.Input placeholder="02-300-0901" value="02-300-0901" readOnly/>
-        </S.InfoDiv>
-        <S.InfoDiv>
-          <S.IText>총학생회실 주소</S.IText>
-          <S.Input
-            placeholder="서울특별시 서대문구 거북골로34 학생회관 5층 S2505 총학생회실"
-            value="서울특별시 서대문구 거북골로34 학생회관 5층 S2505 총학생회실"
-            readOnly
-          />
-        </S.InfoDiv>
+        <S.IText>전화번호</S.IText>
+        <S.Input placeholder="02-300-0901" value="02-300-0901" readOnly />
+      </S.InfoDiv>
+      <S.InfoDiv>
+        <S.IText>총학생회실 주소</S.IText>
+        <S.Input
+          placeholder="서울특별시 서대문구 거북골로34 학생회관 5층 S2505 총학생회실"
+          value="서울특별시 서대문구 거북골로34 학생회관 5층 S2505 총학생회실"
+          readOnly
+        />
+      </S.InfoDiv>
     </S.WholeDiv>
   );
 };
-
 
 export default InfoInput;

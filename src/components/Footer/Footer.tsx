@@ -20,7 +20,7 @@ const Footer = () => {
     const fetchFooterData = async () => {
       try {
         const data = await getFooter(); // API 호출
-        setFooterData(data.information); 
+        setFooterData(data.information);
       } catch (error) {
         console.error("Footer 데이터를 불러오는 중 오류 발생:", error);
       }
@@ -28,7 +28,7 @@ const Footer = () => {
 
     fetchFooterData();
   }, []);
-  
+
   return (
     <>
       <S.Foot>
@@ -41,7 +41,8 @@ const Footer = () => {
           </S.Button>
         </S.Top>
         <S.Text style={{ font: "var(--Heading)", margin: "20px 0" }}>
-          명지대학교 인문캠퍼스 제{footerData?.generation}대 총학생회
+          명지대학교 인문캠퍼스 제{footerData?.generation}대 총학생회{" "}
+          {footerData?.name}
         </S.Text>
         <S.CLogo src={footerData?.logoUrl} />
         <S.Divider></S.Divider>
