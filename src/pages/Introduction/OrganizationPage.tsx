@@ -10,6 +10,7 @@ import EachOrganizationTitleBar from "@/components/Introduction/Organization/Eac
 import EachOrganizationInput from "@/components/Introduction/Organization/EachOrganizationInput";
 import * as S from "@/styles/Introduction/EachPart/EachPartComponentStyle";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Input {
   organizationId: string;
@@ -25,6 +26,7 @@ const OrganizationPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIs
   const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
   const [post, setPost] = useState<boolean>(false);
   const [initialInputs, setInitialInputs] = useState<Input[]>([]); // 초기 데이터 저장
+    const navigate = useNavigate();
 
   const urlToFile = async (url: string) => {
     const response = await fetch(url);
@@ -135,6 +137,7 @@ const OrganizationPage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIs
     }
     setIsFix(false);
     fetchOrgData();
+    navigate(0);
   };
 
   useEffect(() => {

@@ -38,7 +38,7 @@ import NoticeListPage from "./pages/News/NoticeListPage";
 import { useState } from "react";
 
 const Router = () => {
-  const [isFixModal, setIsFixModal] = useState<boolean>(false);
+  const [isFixModal, setIsFixModal] = useState<boolean>(true);
   return (
     <BrowserRouter>
       <Layout isFixModal = {isFixModal} setIsFixModal={setIsFixModal}>

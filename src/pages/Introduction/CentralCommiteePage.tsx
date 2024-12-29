@@ -7,6 +7,7 @@ import RemoveModal from "@/components/Home/Banner/RemoveModal";
 import { getCommittee, deleteCommittees, putCommittees, postCommittees } from "@/apis/introduction";
 import CentralCommiteeTitleBar from "@/components/Introduction/CentralCommitee/CentralCommiteeTitleBar";
 import EachCommiteeTitleBar from "@/components/Introduction/CentralCommitee/EachCommiteeTitleBar";
+import { useNavigate } from "react-router-dom";
 
 interface Input {
   committeeId: string;
@@ -20,7 +21,7 @@ interface EInput {
   college: string;
   name?: string;
   pageUrl?: string;
-  snsUrl: string;
+  snsUrl?: string;
 }
 
 const CentralCommiteePage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({setIsFixModal}) => {
@@ -36,6 +37,7 @@ const CentralCommiteePage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({se
   const [ePost, setEPost] = useState<boolean>(false);
   const [initialInputs, setInitialInputs] = useState<Input[]>([]);
   const [initialEInputs, setInitialEInputs] = useState<EInput[]>([]);
+    const navigate = useNavigate();
 
   const urlToFile = async (url: string) => {
     const response = await fetch(url);
@@ -129,8 +131,7 @@ const CentralCommiteePage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({se
     return inputs.every(
       (input) =>
         input.imgUrl !== undefined &&
-        input.college !== "" &&
-        input.snsUrl !== ""
+        input.college !== ""
     );
   };
 
@@ -162,6 +163,7 @@ const CentralCommiteePage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({se
       }
       setIsFix(false);
       fetchCommitteeData();
+      navigate(0);
     };
 
     const handleEachCommitteePost = async () => {
@@ -172,17 +174,18 @@ const CentralCommiteePage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({se
             // 기존 값과 비교하여 변경된 경우에만 처리
             if (
               (initialEInput?.imgUrl !== input.imgUrl || initialEInput?.snsUrl !== input.snsUrl || initialEInput?.pageUrl !== input.pageUrl || initialEInput?.name !== input.name || initialEInput?.college !== input.college) &&
-              input.imgUrl &&input.snsUrl &&input.college&&input.imgUrl
+              input.imgUrl &&input.college&&input.imgUrl
             ) {
                 if (input.committeeId) {
+                  console.log(input.college, input.imgUrl, input.name, input.pageUrl, input.snsUrl)
                   if(typeof(input.imgUrl)=="string"){ 
                     const file = await urlToFile(input.imgUrl);
-                    await putCommittees(input.committeeId, null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null, input.snsUrl,  file);
-                  }else await putCommittees(input.committeeId, null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null, input.snsUrl,  input.imgUrl);
+                    await putCommittees(input.committeeId, null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null, input.snsUrl?input.snsUrl:null,  file);
+                  }else await putCommittees(input.committeeId, null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null,  input.snsUrl?input.snsUrl:null,  input.imgUrl);
                 console.log("committee 수정 성공");
               } else {
                 // 새로 생성 (이미지와 캡션)
-                await postCommittees(null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null, input.snsUrl,  input.imgUrl);
+                await postCommittees(null,input.college, input.name?input.name:null, input.pageUrl?input.pageUrl:null, input.snsUrl?input.snsUrl:null,  input.imgUrl);
                 console.log("committee 생성 성공");
               }
           }
@@ -190,6 +193,8 @@ const CentralCommiteePage:React.FC<{setIsFixModal:(value:boolean)=>void}> = ({se
           console.error("intro 처리 실패:", error);
         }
         setIsFix(false);
+        fetchCommitteeData();
+        navigate(0);
       };
 
       useEffect(() => {

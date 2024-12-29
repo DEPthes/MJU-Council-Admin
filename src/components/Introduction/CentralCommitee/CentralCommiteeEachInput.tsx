@@ -8,7 +8,7 @@ interface EInput {
   college: string;
   name?: string;
   pageUrl?: string;
-  snsUrl: string;
+  snsUrl?: string;
 }
 
 interface CentralInput {
