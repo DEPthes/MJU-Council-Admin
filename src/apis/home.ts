@@ -1,5 +1,4 @@
-import {api} from ".";
-
+import { api } from ".";
 
 export const getFooter = async () => {
   const response = await api.get("/api/v1/council");
@@ -28,44 +27,38 @@ export const putFooter = async (
 
   // API 호출
   const response = await api.put("/api/v1/council", formData, {
-    headers: { "Content-Type": "multipart/form-data" },
+    headers: { "Content-Type": "multipart/form-data", charset: "utf-8" },
   });
 
   return response.data;
 };
 
-
-
-
 export async function getBanners() {
-    try {
-      const response = await api.get(`/api/v1/banners`);
-      return response.data;
-    } catch (error) {
-      console.error("banner get 중 오류 발생:", error);
-      throw error;
-    }
+  try {
+    const response = await api.get(`/api/v1/banners`);
+    return response.data;
+  } catch (error) {
+    console.error("banner get 중 오류 발생:", error);
+    throw error;
+  }
 }
 
 export async function createBanner(image: File) {
   try {
     const formData = new FormData();
     formData.append("img", image);
-    
+
     // POST 요청 보내기
-    const response = await api.post(
-      `/api/v1/banners`, 
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-    
+    const response = await api.post(`/api/v1/banners`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
     return response.data;
   } catch (error) {
     console.error("Banner 생성 중 오류 발생:", error);
     throw error;
   }
 }
-
 
 // 2. Banner 삭제 (DELETE)
 export async function deleteBanner(bannerId: number) {
@@ -84,12 +77,10 @@ export async function updateBanner(bannerId: number, image: File) {
     const formData = new FormData();
     formData.append("img", image);
 
-    const response = await api.patch(
-      `/api/v1/banners/${bannerId}`, 
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    );
-    
+    const response = await api.patch(`/api/v1/banners/${bannerId}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
     return response.data;
   } catch (error) {
     console.error("Banner 업데이트 중 오류 발생:", error);
